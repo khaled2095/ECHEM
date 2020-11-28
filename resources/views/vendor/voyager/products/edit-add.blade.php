@@ -111,6 +111,20 @@
                                 </div>
                             @endforeach
 
+
+                            {{-- Product Attribute Fields --}}
+                            <div class="field_wrapper">
+                                <div>
+                                    <input id="size" type="text" name="size[]" value="" placeholder="Size"/>
+                                    <input id="color" type="text" name="color[]" value="" placeholder="Color"/>
+                                    <input id="price" type="number" name="pricexx[]" value="" placeholder="Price"/>
+                                    <input id="sku" type="text" name="sku[]" value="" placeholder="SKU"/>
+                                    <a href="javascript:void(0);" class="add_button btn btn-primary" title="Add field">Add</a>
+                                </div>
+
+                            </div>
+
+
                         </div><!-- panel-body -->
 
                         <div class="panel-footer">
@@ -165,7 +179,7 @@
     <script>
         var params = {};
         var $file;
-
+        
         function deleteHandler(tag, isMulti) {
           return function() {
             $file = $(this).siblings(tag);
@@ -233,5 +247,44 @@
             });
             $('[data-toggle="tooltip"]').tooltip();
         });
+
+
+        //add or remove product attribute
+        $(document).ready(function(){
+        var maxField = 5; //Input fields increment limitation
+        var addButton = $('.add_button'); //Add button selector
+        var wrapper = $('.field_wrapper'); //Input field wrapper
+        var fieldHTML = `
+        <div>
+            <input type="text" name="size[]" style="width:165px" placeholder="Size"/>
+            <input type="text" name="color[]" style="width:165px" placeholder="Color"/>
+            <input type="number" name="pricexx[]" style="width:165px" placeholder="Price"/>
+            <input type="text" name="sku[]" style="width:165px" placeholder="SKU"/>
+            <a href="javascript:void(0);" class="remove_button btn btn-danger">Remove</a>
+        </div>
+        `; //New input field html
+        var x = 1; //Initial field counter is 1
+
+        // <input type="text" name="price[]" style="width:165px" placeholder="Price"/><input type="text" name="sku[]" style="width:165px" placeholder="SKU"/>
+
+        //Once add button is clicked
+        $(addButton).click(function(){
+            //Check maximum number of input fields
+            if(x < maxField){
+                x++; //Increment field counter
+
+                $(wrapper).append(fieldHTML); //Add field html
+            }
+        });
+
+        //Once remove button is clicked
+        $(wrapper).on('click', '.remove_button', function(e){
+            e.preventDefault();
+            $(this).parent('div').remove(); //Remove field html
+            x--; //Decrement field counter
+        });
+    });
+
+
     </script>
 @stop

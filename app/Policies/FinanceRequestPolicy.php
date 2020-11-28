@@ -2,14 +2,13 @@
 
 namespace App\Policies;
 
-use App\Shop;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use App\FinanceRequest;
 
-class ShopPolicy
+class FinanceRequestPolicy
 {
     use HandlesAuthorization;
-
 
     public function before($user, $ability)
     {
@@ -21,18 +20,24 @@ class ShopPolicy
         {
             return true;
         }
+        else
+        {
+            return false;
+        }
     }
 
 
     public function browse(User $user)
     {
-        return $user->hasRole('seller');
+        return $user->hasRole(['admin', 'super-admin']);
     }
 
 
-    public function read(User $user, Shop $shop)
+    public function read(User $user)
     {
-        return $user->id == $shop->user_id;
+        return $user->hasRole(['admin', 'super-admin']);
+
+        //return $user->id == $product->shop->user_id;
     }
 
 
@@ -46,30 +51,34 @@ class ShopPolicy
      */
     public function add(User $user)
     {
-        //
+        return $user->hasRole(['admin', 'super-admin']);
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Shop  $shop
+     * @param  \App\Product  $product
      * @return mixed
      */
-    public function edit(User $user, Shop $shop)
+    public function edit(User $user, Product $product)
     {
-       return $user->id == $shop->user_id;
+
+        return $user->hasRole(['admin', 'super-admin']);
+        //return $user->id == $product->shop->user_id;
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Shop  $shop
+     * @param  \App\Product  $product
      * @return mixed
      */
-    public function delete(User $user, Shop $shop)
+    public function delete(User $user, Fi $product)
     {
-        return $user->id == $shop->user_id;
+        return $user->hasRole(['admin', 'super-admin']);
+
+        //return $user->id == $product->shop->user_id;
     }
 }

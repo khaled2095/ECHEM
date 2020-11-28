@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
-use App\Notifications\NewMessage;
 
 class MessageController extends Controller
 {
@@ -24,7 +23,8 @@ class MessageController extends Controller
         // $users = User::latest()->where('id','!=',auth()->user()->id)->get();
         $users = array();
         $from_me = DB::table('messages')->where('from_user', auth()->user()->id)->orWhere('to_user', auth()->user()->id)->get();
-
+        $admin = DB::table('users')->where('role_id', 5)->orWhere('role_id', 1)->first();
+        array_push($users, $admin);
         foreach ($from_me as $item) {
             # code...
             if ($item->from_user == auth()->user()->id) {
@@ -57,12 +57,14 @@ class MessageController extends Controller
                 //         }
                 //     }
                 // }
+                
                 if(!in_array($users, (array) $user, true)){
                     array_push($users, $user);
+                    
                 }
             }
         }
-
+       
         if (\Request::ajax()) {
             return response()->json($users, 200);
         }
@@ -110,7 +112,7 @@ class MessageController extends Controller
             'from_user' => auth()->user()->id,
             'to_user' => $request->user_id,
         ]);
-        auth()->user()->notify(new NewMessage());
+
         broadcast(new MessageSend($messages));
         return response()->json($messages, 201);
         // return response()->json($messages,201);

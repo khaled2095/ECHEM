@@ -33,5 +33,6 @@ class AppServiceProvider extends ServiceProvider
         Shop::observe(ShopObserver::class);
         Wholesale::observe(WholesaleObserver::class);
         Product::observe(ProductObserver::class);
+        Voyager::addAction(\App\Actions\PrintAction::class);
     }
 }

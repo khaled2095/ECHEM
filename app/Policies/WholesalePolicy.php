@@ -17,6 +17,10 @@ class WholesalePolicy
         {
             return true;
         }
+        else if ($user->hasRole('super-admin'))
+        {
+            return true;
+        }
     }
 
 
