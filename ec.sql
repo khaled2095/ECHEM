@@ -1,10 +1,10 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.3
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Nov 12, 2020 at 12:58 PM
--- Server version: 10.4.14-MariaDB
+-- Host: db
+-- Generation Time: Nov 28, 2020 at 03:24 PM
+-- Server version: 8.0.22
 -- PHP Version: 7.4.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `ec`
+-- Database: `echem`
 --
 
 -- --------------------------------------------------------
@@ -28,14 +28,14 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `categories` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `parent_id` int(10) UNSIGNED DEFAULT NULL,
-  `order` int(11) NOT NULL DEFAULT 1,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` int UNSIGNED NOT NULL,
+  `parent_id` int UNSIGNED DEFAULT NULL,
+  `order` int NOT NULL DEFAULT '1',
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -102,10 +102,10 @@ INSERT INTO `categories` (`id`, `parent_id`, `order`, `name`, `slug`, `created_a
 --
 
 CREATE TABLE `contacts` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `msg` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `msg` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -125,12 +125,12 @@ INSERT INTO `contacts` (`id`, `name`, `email`, `msg`, `created_at`, `updated_at`
 --
 
 CREATE TABLE `coupons` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `value` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -149,10 +149,10 @@ INSERT INTO `coupons` (`id`, `name`, `code`, `type`, `value`, `description`, `cr
 --
 
 CREATE TABLE `custom_pages` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `label` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `content` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `label` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -171,19 +171,19 @@ INSERT INTO `custom_pages` (`id`, `title`, `label`, `content`, `created_at`, `up
 --
 
 CREATE TABLE `data_rows` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `data_type_id` int(10) UNSIGNED NOT NULL,
-  `field` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `display_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `required` tinyint(1) NOT NULL DEFAULT 0,
-  `browse` tinyint(1) NOT NULL DEFAULT 1,
-  `read` tinyint(1) NOT NULL DEFAULT 1,
-  `edit` tinyint(1) NOT NULL DEFAULT 1,
-  `add` tinyint(1) NOT NULL DEFAULT 1,
-  `delete` tinyint(1) NOT NULL DEFAULT 1,
-  `details` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `order` int(11) NOT NULL DEFAULT 1
+  `id` int UNSIGNED NOT NULL,
+  `data_type_id` int UNSIGNED NOT NULL,
+  `field` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `display_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `required` tinyint(1) NOT NULL DEFAULT '0',
+  `browse` tinyint(1) NOT NULL DEFAULT '1',
+  `read` tinyint(1) NOT NULL DEFAULT '1',
+  `edit` tinyint(1) NOT NULL DEFAULT '1',
+  `add` tinyint(1) NOT NULL DEFAULT '1',
+  `delete` tinyint(1) NOT NULL DEFAULT '1',
+  `details` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `order` int NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -375,8 +375,6 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 (186, 9, 'min_qty', 'number', 'Min Qty', 0, 1, 1, 1, 1, 1, '{}', 14),
 (187, 9, 'wholesale_id', 'text', 'Wholesale Id', 0, 1, 1, 1, 1, 1, '{}', 3),
 (188, 9, 'product_video', 'text', 'Product Video', 0, 1, 1, 1, 1, 1, '{}', 15),
-(189, 9, 'wholesale_qty', 'number', 'Wholesale Qty', 0, 1, 1, 1, 1, 1, '{}', 16),
-(190, 9, 'retail_qty', 'number', 'Retail Qty', 0, 1, 1, 1, 1, 1, '{}', 17),
 (191, 26, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
 (192, 26, 'name', 'text', 'Name', 1, 1, 1, 1, 1, 1, '{}', 2),
 (193, 26, 'email', 'text', 'Email', 1, 1, 1, 1, 1, 1, '{}', 3),
@@ -428,7 +426,25 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 (239, 32, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 4),
 (240, 5, 'post_belongsto_post_category_relationship', 'relationship', 'post_categories', 0, 1, 1, 1, 1, 1, '{\"model\":\"App\\\\PostCategory\",\"table\":\"post_categories\",\"type\":\"belongsTo\",\"column\":\"post_cat_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}', 17),
 (241, 5, 'post_cat_id', 'text', 'Post Cat Id', 0, 1, 1, 1, 1, 1, '{}', 2),
-(242, 9, 'product_pdf', 'file', 'Product Pdf', 1, 1, 1, 1, 1, 1, '{}', 19);
+(242, 9, 'product_pdf', 'file', 'Product Pdf', 1, 1, 1, 1, 1, 1, '{}', 19),
+(243, 33, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
+(244, 33, 'expense_title', 'text', 'Expense Title', 1, 1, 1, 1, 1, 1, '{}', 2),
+(245, 33, 'amount', 'number', 'Amount', 1, 1, 1, 1, 1, 1, '{}', 3),
+(246, 33, 'created_at', 'timestamp', 'Created At', 0, 1, 1, 1, 0, 1, '{}', 4),
+(247, 33, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 5),
+(248, 9, 'stock', 'number', 'Stock', 1, 1, 1, 1, 1, 1, '{}', 18),
+(249, 9, 'buying_price', 'number', 'Buying Price', 1, 1, 1, 1, 1, 1, '{}', 19),
+(250, 9, 'product_attributes', 'text', 'Product Attributes', 0, 1, 1, 1, 1, 1, '{}', 20),
+(251, 34, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
+(252, 34, 'amount', 'text', 'Amount', 1, 1, 1, 1, 1, 1, '{}', 2),
+(253, 34, 'first_name', 'text', 'First Name', 1, 1, 1, 1, 1, 1, '{}', 3),
+(254, 34, 'last_name', 'text', 'Last Name', 1, 1, 1, 1, 1, 1, '{}', 4),
+(255, 34, 'email', 'text', 'Email', 1, 1, 1, 1, 1, 1, '{}', 5),
+(256, 34, 'business_name', 'text', 'Business Name', 1, 1, 1, 1, 1, 1, '{}', 6),
+(257, 34, 'detail', 'text', 'Detail', 1, 1, 1, 1, 1, 1, '{}', 7),
+(258, 34, 'address', 'text', 'Address', 1, 1, 1, 1, 1, 1, '{}', 8),
+(259, 34, 'created_at', 'timestamp', 'Created At', 0, 1, 1, 1, 0, 1, '{}', 9),
+(260, 34, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 10);
 
 -- --------------------------------------------------------
 
@@ -437,19 +453,19 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 --
 
 CREATE TABLE `data_types` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `display_name_singular` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `display_name_plural` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `icon` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `model_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `policy_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `controller` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `generate_permissions` tinyint(1) NOT NULL DEFAULT 0,
-  `server_side` tinyint(4) NOT NULL DEFAULT 0,
-  `details` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` int UNSIGNED NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `display_name_singular` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `display_name_plural` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `model_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `policy_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `controller` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `generate_permissions` tinyint(1) NOT NULL DEFAULT '0',
+  `server_side` tinyint NOT NULL DEFAULT '0',
+  `details` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -467,7 +483,7 @@ INSERT INTO `data_types` (`id`, `name`, `slug`, `display_name_singular`, `displa
 (6, 'pages', 'pages', 'Page', 'Pages', 'voyager-file-text', 'TCG\\Voyager\\Models\\Page', NULL, '', '', 1, 0, NULL, '2020-10-11 02:06:39', '2020-10-11 02:06:39'),
 (7, 'orders', 'orders', 'Order', 'Orders', 'voyager-buy', 'App\\Order', NULL, NULL, NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2020-10-11 02:13:53', '2020-10-19 10:49:06'),
 (8, 'shops', 'shops', 'Shop', 'Shops', 'voyager-shop', 'App\\Shop', 'App\\Policies\\ShopPolicy', 'App\\Http\\Controllers\\Admin\\ShopController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2020-10-12 00:18:19', '2020-10-12 02:28:20'),
-(9, 'products', 'products', 'Product', 'Products', 'voyager-bag', 'App\\Product', 'App\\Policies\\ProductPolicy', 'App\\Http\\Controllers\\Admin\\ProductController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2020-10-12 03:02:30', '2020-11-12 03:57:52'),
+(9, 'products', 'products', 'Product', 'Products', 'voyager-bag', 'App\\Product', 'App\\Policies\\ProductPolicy', 'App\\Http\\Controllers\\Admin\\ProductController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2020-10-12 03:02:30', '2020-11-28 15:12:44'),
 (10, 'coupons', 'coupons', 'Coupon', 'Coupons', NULL, 'App\\Coupon', NULL, NULL, NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null}', '2020-10-14 08:44:03', '2020-10-14 08:44:03'),
 (11, 'transactions', 'transactions', 'Transaction', 'Transactions', NULL, 'App\\Transaction', NULL, NULL, NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null}', '2020-10-15 10:39:04', '2020-10-15 10:39:04'),
 (12, 'sub_orders', 'sub-orders', 'Sub Order', 'Sub Orders', NULL, 'App\\SubOrder', NULL, NULL, NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null}', '2020-10-15 10:40:36', '2020-10-15 10:40:36'),
@@ -485,7 +501,9 @@ INSERT INTO `data_types` (`id`, `name`, `slug`, `display_name_singular`, `displa
 (29, 'gift_card_purchases', 'gift-card-purchases', 'Gift Card Purchase', 'Gift Card Purchases', NULL, 'App\\GiftCardPurchase', NULL, NULL, NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2020-11-02 00:52:49', '2020-11-02 00:54:47'),
 (30, 'gift_cards', 'gift-cards', 'Gift Card', 'Gift Cards', NULL, 'App\\GiftCard', NULL, NULL, NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null}', '2020-11-02 00:57:44', '2020-11-02 00:57:44'),
 (31, 'site_reviews', 'site-reviews', 'Site Review', 'Site Reviews', NULL, 'App\\SiteReview', NULL, NULL, NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null}', '2020-11-02 00:58:31', '2020-11-02 00:58:31'),
-(32, 'post_categories', 'post-categories', 'Post Category', 'Post Categories', NULL, 'App\\PostCategory', NULL, NULL, NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null}', '2020-11-12 00:05:07', '2020-11-12 00:05:07');
+(32, 'post_categories', 'post-categories', 'Post Category', 'Post Categories', NULL, 'App\\PostCategory', NULL, NULL, NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null}', '2020-11-12 00:05:07', '2020-11-12 00:05:07'),
+(33, 'expenses', 'expenses', 'Expense', 'Expenses', NULL, 'App\\Expense', NULL, NULL, NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2020-11-28 14:48:00', '2020-11-28 14:48:17'),
+(34, 'finance_requests', 'finance-requests', 'Finance Request', 'Finance Requests', NULL, 'App\\FinanceRequest', NULL, NULL, NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null}', '2020-11-28 15:13:03', '2020-11-28 15:13:03');
 
 -- --------------------------------------------------------
 
@@ -494,10 +512,10 @@ INSERT INTO `data_types` (`id`, `name`, `slug`, `display_name_singular`, `displa
 --
 
 CREATE TABLE `ebook_requests` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ebook_title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ebook_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -512,16 +530,37 @@ INSERT INTO `ebook_requests` (`id`, `name`, `email`, `ebook_title`, `created_at`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `expenses`
+--
+
+CREATE TABLE `expenses` (
+  `id` bigint UNSIGNED NOT NULL,
+  `expense_title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `amount` double(8,2) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `expenses`
+--
+
+INSERT INTO `expenses` (`id`, `expense_title`, `amount`, `created_at`, `updated_at`) VALUES
+(1, 'abc', 12000.00, '2020-11-28 14:48:38', '2020-11-28 14:48:38');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `failed_jobs`
 --
 
 CREATE TABLE `failed_jobs` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `id` bigint UNSIGNED NOT NULL,
+  `connection` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -531,9 +570,9 @@ CREATE TABLE `failed_jobs` (
 --
 
 CREATE TABLE `faqs` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `question` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `answer` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `question` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `answer` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -548,16 +587,35 @@ INSERT INTO `faqs` (`id`, `question`, `answer`, `created_at`, `updated_at`) VALU
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `finance_requests`
+--
+
+CREATE TABLE `finance_requests` (
+  `id` bigint UNSIGNED NOT NULL,
+  `amount` double(8,2) NOT NULL DEFAULT '0.00',
+  `first_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `last_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `business_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `detail` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `gift_cards`
 --
 
 CREATE TABLE `gift_cards` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `amount` double(8,2) NOT NULL DEFAULT 0.00,
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `amount` double(8,2) NOT NULL DEFAULT '0.00',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `uid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `uid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -576,15 +634,15 @@ INSERT INTO `gift_cards` (`id`, `name`, `amount`, `created_at`, `updated_at`, `u
 --
 
 CREATE TABLE `gift_card_purchases` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
-  `card_id` bigint(20) UNSIGNED NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `card_id` bigint UNSIGNED NOT NULL,
   `amount` double(8,2) NOT NULL,
-  `is_spent` tinyint(1) NOT NULL DEFAULT 0,
+  `is_spent` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `purchas_done` tinyint(1) NOT NULL DEFAULT 0,
-  `uid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `purchas_done` tinyint(1) NOT NULL DEFAULT '0',
+  `uid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -605,8 +663,8 @@ INSERT INTO `gift_card_purchases` (`id`, `user_id`, `card_id`, `amount`, `is_spe
 --
 
 CREATE TABLE `home_videos` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -626,8 +684,8 @@ INSERT INTO `home_videos` (`id`, `url`, `created_at`, `updated_at`) VALUES
 --
 
 CREATE TABLE `menus` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` int UNSIGNED NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -646,19 +704,19 @@ INSERT INTO `menus` (`id`, `name`, `created_at`, `updated_at`) VALUES
 --
 
 CREATE TABLE `menu_items` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `menu_id` int(10) UNSIGNED DEFAULT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `target` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '_self',
-  `icon_class` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `color` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `parent_id` int(11) DEFAULT NULL,
-  `order` int(11) NOT NULL,
+  `id` int UNSIGNED NOT NULL,
+  `menu_id` int UNSIGNED DEFAULT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `target` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '_self',
+  `icon_class` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `color` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `parent_id` int DEFAULT NULL,
+  `order` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `route` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `parameters` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `route` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `parameters` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -701,7 +759,9 @@ INSERT INTO `menu_items` (`id`, `menu_id`, `title`, `url`, `target`, `icon_class
 (38, 1, 'Gift Card Purchases', '', '_self', NULL, NULL, NULL, 34, '2020-11-02 00:52:49', '2020-11-02 00:52:49', 'voyager.gift-card-purchases.index', NULL),
 (39, 1, 'Gift Cards', '', '_self', NULL, NULL, NULL, 35, '2020-11-02 00:57:46', '2020-11-02 00:57:46', 'voyager.gift-cards.index', NULL),
 (40, 1, 'Site Reviews', '', '_self', NULL, NULL, NULL, 36, '2020-11-02 00:58:31', '2020-11-02 00:58:31', 'voyager.site-reviews.index', NULL),
-(41, 1, 'Post Categories', '', '_self', NULL, NULL, NULL, 37, '2020-11-12 00:05:07', '2020-11-12 00:05:07', 'voyager.post-categories.index', NULL);
+(41, 1, 'Post Categories', '', '_self', NULL, NULL, NULL, 37, '2020-11-12 00:05:07', '2020-11-12 00:05:07', 'voyager.post-categories.index', NULL),
+(42, 1, 'Expenses', '', '_self', NULL, NULL, NULL, 38, '2020-11-28 14:48:01', '2020-11-28 14:48:01', 'voyager.expenses.index', NULL),
+(43, 1, 'Finance Requests', '', '_self', NULL, NULL, NULL, 39, '2020-11-28 15:13:05', '2020-11-28 15:13:05', 'voyager.finance-requests.index', NULL);
 
 -- --------------------------------------------------------
 
@@ -710,12 +770,12 @@ INSERT INTO `menu_items` (`id`, `menu_id`, `title`, `url`, `target`, `icon_class
 --
 
 CREATE TABLE `messages` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `message` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `from_user` bigint(20) UNSIGNED NOT NULL,
-  `to_user` bigint(20) UNSIGNED NOT NULL
+  `from_user` bigint UNSIGNED NOT NULL,
+  `to_user` bigint UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -737,9 +797,9 @@ INSERT INTO `messages` (`id`, `message`, `created_at`, `updated_at`, `from_user`
 --
 
 CREATE TABLE `migrations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL
+  `id` int UNSIGNED NOT NULL,
+  `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -819,7 +879,30 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (72, '2020_11_10_125252_create_post_categories_table', 35),
 (73, '2020_11_10_134509_post_category_s', 36),
 (74, '2020_11_12_075724_create_columns_in_messa', 36),
-(75, '2020_11_12_115533_create_pdf_in_product', 37);
+(75, '2020_11_12_115533_create_pdf_in_product', 37),
+(76, '2020_11_15_060943_update_prod_table_3', 38),
+(77, '2020_11_15_144823_create_expenses_table', 38),
+(78, '2020_11_15_145349_update_prod_table_4', 38),
+(79, '2020_11_22_142849_attr_to_prod', 38),
+(80, '2020_11_26_070022_create_finance_requests_table', 38),
+(81, '2020_11_28_102754_create_notifications_table', 38);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notifications`
+--
+
+CREATE TABLE `notifications` (
+  `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `notifiable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `notifiable_id` bigint UNSIGNED NOT NULL,
+  `data` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `read_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -828,27 +911,27 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `orders` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `order_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
-  `status` enum('pending','processing','completed','decline') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
+  `id` bigint UNSIGNED NOT NULL,
+  `order_number` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `status` enum('pending','processing','completed','decline') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
   `grand_total` double(8,2) NOT NULL,
-  `item_count` int(11) NOT NULL,
-  `is_paid` tinyint(1) NOT NULL DEFAULT 0,
-  `payment_method` enum('cash_on_delivery','bkash','wallet','reward_point','gift_card') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'cash_on_delivery',
-  `shipping_fullname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `shipping_address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `shipping_city` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `shipping_state` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `shipping_zipcode` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `shipping_phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `notes` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `billing_fullname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `billing_address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `billing_city` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `billing_state` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `billing_zipcode` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `billing_phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `item_count` int NOT NULL,
+  `is_paid` tinyint(1) NOT NULL DEFAULT '0',
+  `payment_method` enum('cash_on_delivery','bkash','wallet','reward_point','gift_card') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'cash_on_delivery',
+  `shipping_fullname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `shipping_address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `shipping_city` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `shipping_state` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `shipping_zipcode` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `shipping_phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `notes` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `billing_fullname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `billing_address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `billing_city` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `billing_state` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `billing_zipcode` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `billing_phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -860,15 +943,15 @@ CREATE TABLE `orders` (
 --
 
 CREATE TABLE `order_items` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `order_id` bigint(20) UNSIGNED NOT NULL,
-  `product_id` bigint(20) UNSIGNED NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `order_id` bigint UNSIGNED NOT NULL,
+  `product_id` bigint UNSIGNED NOT NULL,
   `price` double(8,2) NOT NULL,
-  `quantity` int(11) NOT NULL,
+  `quantity` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `delivered_at` datetime DEFAULT NULL,
-  `size` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `size` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -878,16 +961,16 @@ CREATE TABLE `order_items` (
 --
 
 CREATE TABLE `pages` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `author_id` int(11) NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `excerpt` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `body` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `meta_description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `meta_keywords` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` enum('ACTIVE','INACTIVE') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'INACTIVE',
+  `id` int UNSIGNED NOT NULL,
+  `author_id` int NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `excerpt` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `body` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `meta_description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `meta_keywords` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `status` enum('ACTIVE','INACTIVE') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'INACTIVE',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -906,8 +989,8 @@ INSERT INTO `pages` (`id`, `author_id`, `title`, `excerpt`, `body`, `image`, `sl
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -918,9 +1001,9 @@ CREATE TABLE `password_resets` (
 --
 
 CREATE TABLE `permissions` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `table_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `table_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1075,7 +1158,17 @@ INSERT INTO `permissions` (`id`, `key`, `table_name`, `created_at`, `updated_at`
 (168, 'read_post_categories', 'post_categories', '2020-11-12 00:05:07', '2020-11-12 00:05:07'),
 (169, 'edit_post_categories', 'post_categories', '2020-11-12 00:05:07', '2020-11-12 00:05:07'),
 (170, 'add_post_categories', 'post_categories', '2020-11-12 00:05:07', '2020-11-12 00:05:07'),
-(171, 'delete_post_categories', 'post_categories', '2020-11-12 00:05:07', '2020-11-12 00:05:07');
+(171, 'delete_post_categories', 'post_categories', '2020-11-12 00:05:07', '2020-11-12 00:05:07'),
+(172, 'browse_expenses', 'expenses', '2020-11-28 14:48:01', '2020-11-28 14:48:01'),
+(173, 'read_expenses', 'expenses', '2020-11-28 14:48:01', '2020-11-28 14:48:01'),
+(174, 'edit_expenses', 'expenses', '2020-11-28 14:48:01', '2020-11-28 14:48:01'),
+(175, 'add_expenses', 'expenses', '2020-11-28 14:48:01', '2020-11-28 14:48:01'),
+(176, 'delete_expenses', 'expenses', '2020-11-28 14:48:01', '2020-11-28 14:48:01'),
+(177, 'browse_finance_requests', 'finance_requests', '2020-11-28 15:13:04', '2020-11-28 15:13:04'),
+(178, 'read_finance_requests', 'finance_requests', '2020-11-28 15:13:04', '2020-11-28 15:13:04'),
+(179, 'edit_finance_requests', 'finance_requests', '2020-11-28 15:13:04', '2020-11-28 15:13:04'),
+(180, 'add_finance_requests', 'finance_requests', '2020-11-28 15:13:04', '2020-11-28 15:13:04'),
+(181, 'delete_finance_requests', 'finance_requests', '2020-11-28 15:13:04', '2020-11-28 15:13:04');
 
 -- --------------------------------------------------------
 
@@ -1084,8 +1177,8 @@ INSERT INTO `permissions` (`id`, `key`, `table_name`, `created_at`, `updated_at`
 --
 
 CREATE TABLE `permission_role` (
-  `permission_id` bigint(20) UNSIGNED NOT NULL,
-  `role_id` bigint(20) UNSIGNED NOT NULL
+  `permission_id` bigint UNSIGNED NOT NULL,
+  `role_id` bigint UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -1261,7 +1354,17 @@ INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 (168, 1),
 (169, 1),
 (170, 1),
-(171, 1);
+(171, 1),
+(172, 1),
+(173, 1),
+(174, 1),
+(175, 1),
+(176, 1),
+(177, 1),
+(178, 1),
+(179, 1),
+(180, 1),
+(181, 1);
 
 -- --------------------------------------------------------
 
@@ -1270,22 +1373,22 @@ INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 --
 
 CREATE TABLE `posts` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `author_id` int(11) NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `seo_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `excerpt` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `body` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `meta_description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `meta_keywords` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` enum('PUBLISHED','DRAFT','PENDING') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'DRAFT',
-  `featured` tinyint(1) NOT NULL DEFAULT 0,
+  `id` int UNSIGNED NOT NULL,
+  `author_id` int NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `seo_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `excerpt` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `body` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `meta_description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `meta_keywords` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `status` enum('PUBLISHED','DRAFT','PENDING') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'DRAFT',
+  `featured` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `pdf` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `post_cat_id` bigint(20) UNSIGNED DEFAULT NULL
+  `pdf` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `post_cat_id` bigint UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -1305,8 +1408,8 @@ INSERT INTO `posts` (`id`, `author_id`, `title`, `seo_title`, `excerpt`, `body`,
 --
 
 CREATE TABLE `post_categories` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1326,42 +1429,43 @@ INSERT INTO `post_categories` (`id`, `name`, `created_at`, `updated_at`) VALUES
 --
 
 CREATE TABLE `products` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(10000) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(10000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `price` double(8,2) NOT NULL,
-  `cover_img` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `shop_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `cover_img` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `shop_id` bigint UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `featured` tinyint(1) DEFAULT 0,
-  `top_product` tinyint(1) DEFAULT 0,
-  `cash_back_percent` float DEFAULT 0,
-  `reward_point` int(11) DEFAULT 0,
-  `min_qty` int(11) DEFAULT NULL,
-  `wholesale_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `product_video` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `wholesale_qty` int(11) DEFAULT 0,
-  `retail_qty` int(11) DEFAULT 0,
-  `refurbish_product` tinyint(1) NOT NULL DEFAULT 0,
-  `product_pdf` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `featured` tinyint(1) DEFAULT '0',
+  `top_product` tinyint(1) DEFAULT '0',
+  `cash_back_percent` float DEFAULT '0',
+  `reward_point` int DEFAULT '0',
+  `min_qty` int DEFAULT NULL,
+  `wholesale_id` bigint UNSIGNED DEFAULT NULL,
+  `product_video` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `refurbish_product` tinyint(1) NOT NULL DEFAULT '0',
+  `product_pdf` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `stock` int NOT NULL DEFAULT '20',
+  `buying_price` double(8,2) NOT NULL,
+  `product_attributes` json DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `name`, `description`, `price`, `cover_img`, `shop_id`, `created_at`, `updated_at`, `featured`, `top_product`, `cash_back_percent`, `reward_point`, `min_qty`, `wholesale_id`, `product_video`, `wholesale_qty`, `retail_qty`, `refurbish_product`, `product_pdf`) VALUES
-(36, 'product DESC', '<p>ChromaTech WR is Chromaline\'s latest water-resistant pure photopolymer emulsion. Dual cure technology built into a ready-to-use formula.&nbsp;&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<p>ChromaTech WR is designed for textile printing offering superior durability to water based and discharge inks as well as the press cleaning solvents used when printing plastisol inks.</p>\r\n<p>&nbsp;</p>\r\n<p>Due to the high solid content, ChromaTech WR is most often applied with a 1x1 coating. Just two simple coatings reduces your coating time and consumes less product per screen (more screens per gallon). ChromaTech WR offers extremely fast exposure which in large shops translates to substantial time savings.</p>\r\n<p>&nbsp;</p>\r\n<p>Color: Blue</p>\r\n<p>Solids: 46%</p>\r\n<p>Viscosity: High</p>\r\n<p>Fast Exposure</p>\r\n<p>Excellent mesh bridging</p>\r\n<p>Sharp image quality</p>\r\n<p>Resistance to plastisol, water and discharge inks</p>\r\n<p>Does NOT require stencil hardener chemistry</p>\r\n<p>View User Guide</p>\r\n<p>View SDS</p>\r\n<p>What our Customers Say:</p>\r\n<p>&nbsp;</p>\r\n<p>\"1+1 coating is all I need\"</p>\r\n<p>\"I consolidated from 2 different emulsions to just this one for both of my plastisol and discharge ink setups\"</p>\r\n<p>\"I\'m now in single digit exposure times on my LED system\"</p>\r\n<p>Bottom line - Perfect emulsion if your shop uses mostly plastisol, but also prints water/discharge inks.</p>\r\n<p>&nbsp;</p>\r\n<p>SHIPPING NOTE: This product is not freeze/thaw stable and will not ship during freezing temperatures.</p>\r\n<p>&nbsp;</p>\r\n<p>pro-tip-chromaline.png</p>\r\n<p>&nbsp;</p>\r\n<p>Doing a long run job with water/discharge ink?&nbsp; Simply add a 3gr bottle of diazo sensitizer to a gallon of ChromaTech WR and it will boost resistance for thousands of prints.</p>\r\n<p>&nbsp;</p>\r\n<p>p95-warning-28x22.pngWARNING: This product can expose you to chemicals including benzophenone, which is known in the State of California to cause cancer. For more information go to</p>', 4500.00, 'products/November2020/GtWKTzT4QG5l3fgIqbbR.jpg', NULL, '2020-11-09 11:24:00', '2020-11-09 13:02:51', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, ''),
-(37, 'product DESC', '<p>ChromaTech WR is Chromaline\'s latest water-resistant pure photopolymer emulsion. Dual cure technology built into a ready-to-use formula.&nbsp;&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<p>ChromaTech WR is designed for textile printing offering superior durability to water based and discharge inks as well as the press cleaning solvents used when printing plastisol inks.</p>\r\n<p>&nbsp;</p>\r\n<p>Due to the high solid content, ChromaTech WR is most often applied with a 1x1 coating. Just two simple coatings reduces your coating time and consumes less product per screen (more screens per gallon). ChromaTech WR offers extremely fast exposure which in large shops translates to substantial time savings.</p>\r\n<p>&nbsp;</p>\r\n<p>Color: Blue</p>\r\n<p>Solids: 46%</p>\r\n<p>Viscosity: High</p>\r\n<p>Fast Exposure</p>\r\n<p>Excellent mesh bridging</p>\r\n<p>Sharp image quality</p>\r\n<p>Resistance to plastisol, water and discharge inks</p>\r\n<p>Does NOT require stencil hardener chemistry</p>\r\n<p>View User Guide</p>\r\n<p>View SDS</p>\r\n<p>What our Customers Say:</p>\r\n<p>&nbsp;</p>\r\n<p>\"1+1 coating is all I need\"</p>\r\n<p>\"I consolidated from 2 different emulsions to just this one for both of my plastisol and discharge ink setups\"</p>\r\n<p>\"I\'m now in single digit exposure times on my LED system\"</p>\r\n<p>Bottom line - Perfect emulsion if your shop uses mostly plastisol, but also prints water/discharge inks.</p>\r\n<p>&nbsp;</p>\r\n<p>SHIPPING NOTE: This product is not freeze/thaw stable and will not ship during freezing temperatures.</p>\r\n<p>&nbsp;</p>\r\n<p>pro-tip-chromaline.png</p>\r\n<p>&nbsp;</p>\r\n<p>Doing a long run job with water/discharge ink?&nbsp; Simply add a 3gr bottle of diazo sensitizer to a gallon of ChromaTech WR and it will boost resistance for thousands of prints.</p>\r\n<p>&nbsp;</p>\r\n<p>p95-warning-28x22.pngWARNING: This product can expose you to chemicals including benzophenone, which is known in the State of California to cause cancer. For more information go to</p>', 4500.00, 'products/November2020/F3tn9pS6u4vnfkn9z9Yi.jpg', NULL, '2020-11-09 11:25:00', '2020-11-09 13:04:44', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, ''),
-(38, 'ChromaTech WR', '<p style=\"box-sizing: border-box; margin: 0px 0px 1.5rem; padding: 0px; color: #333333; font-family: Karla, Arial, Helvetica, sans-serif;\"><span style=\"box-sizing: border-box;\"><span style=\"box-sizing: border-box; color: #0000ff;\"><span style=\"box-sizing: border-box; font-weight: bold; line-height: inherit;\">ChromaTech WR</span></span>&nbsp;is Chromaline\'s latest water-resistant pure photopolymer emulsion. Dual cure technology built into a ready-to-use formula.&nbsp;&nbsp;</span></p>\r\n<p style=\"box-sizing: border-box; margin: 0px 0px 1.5rem; padding: 0px; color: #333333; font-family: Karla, Arial, Helvetica, sans-serif;\"><span style=\"box-sizing: border-box;\"><span style=\"box-sizing: border-box; color: #0000ff;\"><span style=\"box-sizing: border-box; font-weight: bold; line-height: inherit;\">ChromaTech WR</span></span>&nbsp;is designed for textile printing offering superior durability to water based and discharge inks as well as the press cleaning solvents used when printing plastisol inks.</span></p>\r\n<p style=\"box-sizing: border-box; margin: 0px 0px 1.5rem; padding: 0px; color: #333333; font-family: Karla, Arial, Helvetica, sans-serif;\"><span style=\"box-sizing: border-box;\">Due to the high solid content,&nbsp;<span style=\"box-sizing: border-box; color: #0000ff;\"><span style=\"box-sizing: border-box; font-weight: bold; line-height: inherit;\">ChromaTech WR</span></span>&nbsp;is most often applied with a 1x1 coating. Just two simple coatings reduces your coating time and consumes less product per screen (more screens per gallon). ChromaTech WR offers extremely fast exposure which in large shops translates to substantial time savings.</span></p>\r\n<ul style=\"box-sizing: border-box; margin: 0px 0px 1.5rem 1.15rem; padding: 0px; list-style-position: outside; color: #333333; font-family: Karla, Arial, Helvetica, sans-serif;\">\r\n<li style=\"box-sizing: border-box; margin: 0px; padding: 0px;\"><span style=\"box-sizing: border-box;\">Color:&nbsp;<span style=\"box-sizing: border-box; color: #0000ff;\"><span style=\"box-sizing: border-box; font-weight: bold; line-height: inherit;\">Blue</span></span></span></li>\r\n<li style=\"box-sizing: border-box; margin: 0px; padding: 0px;\"><span style=\"box-sizing: border-box;\">Solids: 46%</span></li>\r\n<li style=\"box-sizing: border-box; margin: 0px; padding: 0px;\"><span style=\"box-sizing: border-box;\">Viscosity: High</span></li>\r\n<li style=\"box-sizing: border-box; margin: 0px; padding: 0px;\"><span style=\"box-sizing: border-box;\">Fast Exposure</span></li>\r\n<li style=\"box-sizing: border-box; margin: 0px; padding: 0px;\"><span style=\"box-sizing: border-box;\">Excellent mesh bridging</span></li>\r\n<li style=\"box-sizing: border-box; margin: 0px; padding: 0px;\"><span style=\"box-sizing: border-box;\">Sharp image quality</span></li>\r\n<li style=\"box-sizing: border-box; margin: 0px; padding: 0px;\"><span style=\"box-sizing: border-box;\">Resistance to plastisol, water and&nbsp;</span><span style=\"box-sizing: border-box;\">discharge inks</span></li>\r\n<li style=\"box-sizing: border-box; margin: 0px; padding: 0px;\"><span style=\"box-sizing: border-box;\">Does NOT require stencil hardener chemistry</span></li>\r\n<li style=\"box-sizing: border-box; margin: 0px; padding: 0px;\">View&nbsp;<span style=\"box-sizing: border-box; font-weight: bold; line-height: inherit;\"><a style=\"box-sizing: border-box; background-color: transparent; color: #007ac2; line-height: inherit; text-decoration-line: none; transition: color 0.15s ease 0s;\" href=\"https://www.ikonics.com/userguides/\" target=\"_blank\" rel=\"noopener\">User Guide</a></span></li>\r\n<li style=\"box-sizing: border-box; margin: 0px; padding: 0px;\">View&nbsp;<span style=\"box-sizing: border-box; font-weight: bold; line-height: inherit;\"><a style=\"box-sizing: border-box; background-color: transparent; color: #007ac2; line-height: inherit; text-decoration-line: none; transition: color 0.15s ease 0s;\" href=\"https://www.ikonics.com/sds/\" target=\"_blank\" rel=\"noopener\">SDS</a></span></li>\r\n</ul>\r\n<p style=\"box-sizing: border-box; margin: 0px 0px 1.5rem; padding: 0px; color: #333333; font-family: Karla, Arial, Helvetica, sans-serif;\"><span style=\"box-sizing: border-box; font-weight: bold; line-height: inherit;\">What our Customers Say:</span></p>\r\n<ul style=\"box-sizing: border-box; margin: 0px 0px 1.5rem 1.15rem; padding: 0px; list-style-position: outside; color: #333333; font-family: Karla, Arial, Helvetica, sans-serif;\">\r\n<li style=\"box-sizing: border-box; margin: 0px; padding: 0px;\"><span style=\"box-sizing: border-box;\">\"1+1 coating is all I need\"</span></li>\r\n<li style=\"box-sizing: border-box; margin: 0px; padding: 0px;\"><span style=\"box-sizing: border-box;\">\"I consolidated from 2 different emulsions to just this one for both of my plastisol and discharge ink setups\"</span></li>\r\n<li style=\"box-sizing: border-box; margin: 0px; padding: 0px;\"><span style=\"box-sizing: border-box;\">\"I\'m now in single digit exposure times on my LED system\"</span></li>\r\n</ul>\r\n<p style=\"box-sizing: border-box; margin: 0px 0px 1.5rem; padding: 0px; color: #333333; font-family: Karla, Arial, Helvetica, sans-serif;\"><span style=\"box-sizing: border-box; background-color: #ffff00;\"><span style=\"box-sizing: border-box; font-weight: bold; line-height: inherit;\">Bottom line - Perfect emulsion if your shop uses mostly plastisol, but also prints water/discharge inks.</span></span></p>\r\n<p style=\"box-sizing: border-box; margin: 0px 0px 1.5rem; padding: 0px; color: #333333; font-family: Karla, Arial, Helvetica, sans-serif;\"><span style=\"box-sizing: border-box;\"><span style=\"box-sizing: border-box; font-weight: bold; line-height: inherit;\"><span style=\"box-sizing: border-box; line-height: inherit;\"><span style=\"box-sizing: border-box; color: #ff00ff;\">SHIPPING NOTE:&nbsp;</span>This product is not freeze/thaw stable and will not ship during freezing temperatures.</span></span></span></p>\r\n<hr style=\"box-sizing: content-box; height: 0px; border-style: solid; border-color: #e5e5e5; border-image: initial; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; clear: both; margin: 2rem 0px 1.92857rem; color: #333333; font-family: Karla, Arial, Helvetica, sans-serif;\" />\r\n<p style=\"box-sizing: border-box; margin: 0px 0px 1.5rem; padding: 0px; color: #333333; font-family: Karla, Arial, Helvetica, sans-serif;\"><img class=\"__mce_add_custom__\" style=\"box-sizing: border-box; border: 0px; display: inline-block; height: auto; max-width: 100%; vertical-align: middle; float: left; margin: 5px 20px 5px 0px;\" title=\"pro-tip-chromaline.png\" src=\"https://cdn8.bigcommerce.com/s-kk74s4rcmv/product_images/uploaded_images/pro-tip-chromaline.png\" alt=\"pro-tip-chromaline.png\" width=\"135\" height=\"36\" /></p>\r\n<p style=\"box-sizing: border-box; margin: 0px 0px 1.5rem; padding: 0px; color: #333333; font-family: Karla, Arial, Helvetica, sans-serif;\">Doing a long run job with water/discharge ink?&nbsp; Simply add a&nbsp;<a style=\"box-sizing: border-box; background-color: transparent; color: #007ac2; line-height: inherit; text-decoration-line: none; transition: color 0.15s ease 0s;\" href=\"https://shop.chromaline.com/magna-cure-diazo-sensitizer-bottle/?attributes=eyIxODAiOjI2N30\">3gr bottle of diazo sensitizer</a>&nbsp;to a gallon of ChromaTech WR and it will boost resistance for thousands of prints.</p>\r\n<hr style=\"box-sizing: content-box; height: 0px; border-style: solid; border-color: #e5e5e5; border-image: initial; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; clear: both; margin: 2rem 0px 1.92857rem; color: #333333; font-family: Karla, Arial, Helvetica, sans-serif;\" />\r\n<p style=\"box-sizing: border-box; margin: 0px 0px 1.5rem; padding: 0px; color: #333333; font-family: Karla, Arial, Helvetica, sans-serif;\"><img class=\"__mce_add_custom__\" style=\"box-sizing: border-box; border: 0px; display: inline-block; height: auto; max-width: 100%; vertical-align: middle;\" title=\"p95-warning-28x22.png\" src=\"https://cdn8.bigcommerce.com/s-kk74s4rcmv/product_images/uploaded_images/p95-warning-28x22.png\" alt=\"p95-warning-28x22.png\" width=\"28\" height=\"22\" /><span style=\"box-sizing: border-box; font-weight: bold; line-height: inherit;\">WARNING:</span>&nbsp;This product can expose you to chemicals including benzophenone, which is known in the State of California to cause cancer. For more information go to</p>', 5999.00, 'products/November2020/3IRUq3VY8WMxIgxMFpCw.png', NULL, '2020-11-09 11:44:43', '2020-11-09 11:44:43', 0, 0, NULL, NULL, NULL, NULL, '<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/66MnDKX11Gc\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>', NULL, NULL, 0, ''),
-(39, 'EP BLUE', '<p><strong>EP BLUE</strong></p>\r\n<p><a href=\"https://www.inknovators.com/images/galeri/test-009-EP-Blue.pdf\">SDS&nbsp;</a></p>\r\n<p><a href=\"https://www.inknovators.com/images/galeri/tds-009-EP-Blue.pdf\">TDS&nbsp;</a></p>\r\n<p><a href=\"https://www.inknovators.com/images/galeri/test-009-EP-Blue.pdf\">TEST REPORTS</a></p>', 1400.00, 'products/November2020/JDgB3G7Xy162i1Yb7SYq.png', NULL, '2020-11-09 12:33:00', '2020-11-09 13:03:33', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, ''),
-(40, 'Foil Adhesive', '<p class=\"MsoNormal\" style=\"line-height: normal; mso-outline-level: 2; background: white; margin: 15.0pt 0in 7.5pt 0in;\"><span style=\"font-size: 22.5pt; font-family: \'Comic Sans MS\'; mso-fareast-font-family: \'Times New Roman\'; mso-bidi-font-family: \'Times New Roman\'; color: #302b27;\">E9211 Union Foil Adhesive</span></p>\r\n<p class=\"MsoNormal\" style=\"line-height: normal; mso-outline-level: 4; background: white; margin: 7.5pt 0in 7.5pt 0in;\"><span style=\"font-size: 13.5pt; font-family: \'Comic Sans MS\'; mso-fareast-font-family: \'Times New Roman\'; mso-bidi-font-family: Arial; color: #72b9ff;\">Features:</span></p>\r\n<ul type=\"disc\">\r\n<li class=\"MsoNormal\" style=\"color: #302b27; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; line-height: normal; mso-list: l0 level1 lfo1; tab-stops: list .5in; background: white;\"><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\';\">Ideal for Woven Fabrics</span></li>\r\n<li class=\"MsoNormal\" style=\"color: #302b27; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; line-height: normal; mso-list: l0 level1 lfo1; tab-stops: list .5in; background: white;\"><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\';\">Non-Phthalate</span></li>\r\n</ul>\r\n<p class=\"MsoNormal\" style=\"line-height: normal; mso-outline-level: 4; background: white; margin: 7.5pt 0in 7.5pt 0in;\"><span style=\"font-size: 13.5pt; font-family: \'Comic Sans MS\'; mso-fareast-font-family: \'Times New Roman\'; mso-bidi-font-family: \'Times New Roman\'; color: #72b9ff;\">Description:</span></p>\r\n<p class=\"MsoNormal\" style=\"margin-bottom: .0001pt; line-height: normal; background: white;\"><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\'; color: #302b27;\">UFOIL-E9211 Foil Adhesive can be directy printed and cured,or, applied to the garment by the transfer method. UFOIL-E9211 is a NonPhthalate formulation which complies with regulations regarding printing onto children\'s wear. This product is also processed with a smoother consistency with less clogging in the mesh.</span></p>\r\n<p class=\"MsoNormal\">&nbsp;</p>\r\n<h2 style=\"background: white; margin: 15.0pt 0in 7.5pt 0in;\"><span style=\"font-size: 22.5pt; font-family: \'Comic Sans MS\'; color: #302b27; font-weight: normal;\">SPECIFICATIONS:</span></h2>\r\n<p style=\"background: white; margin: 0in 0in 7.5pt 0in;\"><strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; color: #302b27;\">TRANSFER METHOD:</span></strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; color: #302b27;\">&nbsp;Print the design on the noncolor side of the foil sheet and semicure or gel the transfer print at 240&deg; F.</span></p>\r\n<p style=\"background: white; margin: 0in 0in 7.5pt 0in;\"><strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; color: #302b27;\">DIRECT PRINT METHOD:</span></strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; color: #302b27;\">Print the design using E9211 Foil Adhesive directly on the garment and cure the entire ink film at 300&deg;F (149&deg;C).</span></p>\r\n<p style=\"background: white; margin: 0in 0in 7.5pt 0in;\"><strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; color: #302b27;\">MESH:</span></strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; color: #302b27;\">83/inch to 110/inch (33T cm to 44T cm) monofilament polyester.</span></p>\r\n<p style=\"background: white; margin: 0in 0in 7.5pt 0in;\"><strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; color: #302b27;\">FOIL APPLICATION:</span></strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; color: #302b27;\">Apply the plastisol heat transfer or direct print to the garment. If you have directly printed the E9211 Foil Adhesive directly on the garment, cut the foil sheet to the desired shape and place it color side up over the area where you want the foil effect. If foil is not placed over the entire design, cover the exposed plastisol ink areas with release paper to shield them from the hot platen surface. The transfer press temperature should be set at 375&deg; F (163&deg; to 177&deg; C) with medium to high pressure for 68 seconds over a direct print. If using the transfer method of applying the E9211 Foil Adhesive directly to the foil sheet, transfer the design to the garment for 12 seconds at a temperature of 325&deg; to 350&deg; F (163&deg; to 177&deg; C.)using medium to high pressure. Allow the fabric and foil to cool completely before peeling.</span></p>\r\n<p style=\"background: white; margin: 0in 0in 7.5pt 0in;\"><strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; color: #302b27;\">WASHING INSTRUCTIONS:</span></strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; color: #302b27;\">Prints decorated with foil are not as durable as unfoiled prints. Some dulling of the foil over time is to be expected with laundering and normal wear. To minimize this during laundering the garment should be hand washed inside out, using cool or lukewarm water and dried by either hanging or laying flat. Do not dryclean.</span></p>\r\n<p style=\"background: white; margin: 0in 0in 7.5pt 0in;\"><strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; color: #302b27;\">SCREEN COATING, FILM, BLOCKOUT:</span></strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; color: #302b27;\">&nbsp;Use water soluble hand-cut, photo screens and blockouts with this ink or use other suitable products.</span></p>\r\n<p style=\"background: white; margin: 0in 0in 7.5pt 0in;\"><strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; color: #302b27;\">WASHUP:</span></strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; color: #302b27;\">&nbsp;T-125 mineral spirits, or biodegradable washes SYS-2500, SYS-2550 or SYS-2510 screen wash gel.</span></p>\r\n<p class=\"MsoNormal\"><strong><span style=\"font-size: 10.5pt; line-height: 115%; font-family: \'Arial\',sans-serif; color: red; background: white;\">ALWAYS TEST PRINT BEFORE PRODUCTION!</span></strong></p>', 0.00, 'products/November2020/Z4aSzDvv7VBTC8eZApMP.jpg', NULL, '2020-11-09 12:44:18', '2020-11-09 12:44:18', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, ''),
-(41, 'Poil Puff Adhesive', '<p class=\"MsoNormal\" style=\"line-height: normal; mso-outline-level: 2; background: white; margin: 15.0pt 0in 7.5pt 0in;\"><span style=\"font-size: 22.5pt; font-family: \'Comic Sans MS\'; mso-fareast-font-family: \'Times New Roman\'; mso-bidi-font-family: \'Times New Roman\'; color: #302b27;\">841 Foil &amp; Puff Adhesive</span></p>\r\n<p class=\"MsoNormal\" style=\"line-height: normal; mso-outline-level: 4; background: white; margin: 7.5pt 0in 7.5pt 0in;\"><span style=\"font-size: 13.5pt; font-family: \'Comic Sans MS\'; mso-fareast-font-family: \'Times New Roman\'; mso-bidi-font-family: Arial; color: #72b9ff;\">Features:</span></p>\r\n<ul type=\"disc\">\r\n<li class=\"MsoNormal\" style=\"color: #302b27; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; line-height: normal; mso-list: l0 level1 lfo1; tab-stops: list .5in; background: white;\"><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\';\">For direct printing on Foil or Puff Transfers</span></li>\r\n<li class=\"MsoNormal\" style=\"color: #302b27; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; line-height: normal; mso-list: l0 level1 lfo1; tab-stops: list .5in; background: white;\"><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\';\">Phthalate Free</span></li>\r\n</ul>\r\n<p class=\"MsoNormal\" style=\"line-height: normal; mso-outline-level: 4; background: white; margin: 7.5pt 0in 7.5pt 0in;\"><span style=\"font-size: 13.5pt; font-family: \'Comic Sans MS\'; mso-fareast-font-family: \'Times New Roman\'; mso-bidi-font-family: \'Times New Roman\'; color: #72b9ff;\">Description:</span></p>\r\n<p class=\"MsoNormal\" style=\"margin-bottom: .0001pt; line-height: normal; background: white;\"><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\'; color: #302b27;\">841 Printable Adhesive is designed for producing puff heat transfers. 841 Printable Adhesive will eliminate the need for powders. 841 Adhesive has a very soft hand feel and good elongation. see the \"Read More\" for specific instructions.</span></p>\r\n<p class=\"MsoNormal\">&nbsp;</p>\r\n<p class=\"MsoNormal\" style=\"line-height: normal; mso-outline-level: 2; background: white; margin: 15.0pt 0in 7.5pt 0in;\"><span style=\"font-size: 22.5pt; font-family: \'Comic Sans MS\'; mso-fareast-font-family: \'Times New Roman\'; mso-bidi-font-family: \'Times New Roman\'; color: #302b27;\">SPECIFICATIONS:</span></p>\r\n<p class=\"MsoNormal\" style=\"margin-bottom: 7.5pt; line-height: normal; background: white;\"><strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\'; color: #302b27;\">FOIL TRANSFERS:</span></strong></p>\r\n<ol start=\"1\" type=\"1\">\r\n<li class=\"MsoNormal\" style=\"color: #302b27; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; line-height: normal; mso-list: l1 level1 lfo2; tab-stops: list .5in; background: white;\"><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\';\">841 Printable Adhesive can be printed on the back of the foil to create a foil transfer. It can be gelled on the back of the foil and transferred later.</span></li>\r\n<li class=\"MsoNormal\" style=\"color: #302b27; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; line-height: normal; mso-list: l1 level1 lfo2; tab-stops: list .5in; background: white;\"><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\';\">Screen print 841 Printable Adhesive onto a cold peel transfer paper such as T-75. Gel onto the paper the same as any other heat transfer. Then apply the transfer to the fabric at 350&deg;F (177&deg;C) for 10 seconds - peel cold. Apply the foil over the transfer and heat seal for 10 to 15 seconds. Allow to cool completely and peel foil.</span></li>\r\n<li class=\"MsoNormal\" style=\"color: #302b27; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; line-height: normal; mso-list: l1 level1 lfo2; tab-stops: list .5in; background: white;\"><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\';\">Direct print with light pressure on surface of fabric. Keep ink on surface, do not drive it too far into the fabric. Cure print through a dryer. Using transfer machine apply foil for 10 to 15 seconds at 350&deg;F (177&deg;C). Let cool completely and peel foil.</span></li>\r\n</ol>\r\n<p class=\"MsoNormal\" style=\"margin-bottom: 7.5pt; line-height: normal; background: white;\"><strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\'; color: #302b27;\">PUFF TRANSFERS:</span></strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\'; color: #302b27;\">Puff Transfers: Print 841 Adhesive over the whole puff transfer image slightly overlapping the puff ink.<br /><br />Curing: Gel the 841 Adhesive at the same condition as the puff ink so as not to puff the ink on the paper. Puff Transfers always perform better when they are not puffed or beginning to puff on paper.</span></p>\r\n<p class=\"MsoNormal\" style=\"margin-bottom: 7.5pt; line-height: normal; background: white;\"><strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\'; color: #302b27;\">MESH:</span></strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\'; color: #302b27;\">80/inch to 125/inch (36T cm to 57T cm).</span></p>\r\n<p class=\"MsoNormal\" style=\"margin-bottom: 7.5pt; line-height: normal; background: white;\"><strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\'; color: #302b27;\">SCREEN COATING, FILM, BLOCKOUT:</span></strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\'; color: #302b27;\">&nbsp;Use water soluble hand-cut, photo screens and blockouts with this ink or use other suitable products.</span></p>\r\n<p class=\"MsoNormal\" style=\"margin-bottom: 7.5pt; line-height: normal; background: white;\"><strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\'; color: #302b27;\">WASHUP:</span></strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\'; color: #302b27;\">&nbsp;T-125 mineral spirits, or biodegradable washes SYS-2500, SYS-2550 or SYS-2510 screen wash gel.</span></p>\r\n<p class=\"MsoNormal\"><strong><span style=\"font-size: 10.5pt; line-height: 115%; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\'; color: red; background: white;\">ALWAYS TEST PRINT BEFORE PRODUCTION!</span></strong></p>', 25000.00, 'products/November2020/YaHbYIJXNgU3Gz2X8Lfh.jpg', NULL, '2020-11-09 12:47:00', '2020-11-12 01:20:38', 0, 0, 40, NULL, NULL, NULL, NULL, NULL, NULL, 0, ''),
-(42, 'Plastisol', '<h2 style=\"margin: 0px; padding: 0px 0px 10px; border: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-weight: normal; font-stretch: inherit; font-size: 20px; line-height: 28px; font-family: Oswald, arial, serif; position: relative; color: #f01d1d;\">500PF Series Wet-On-Wet Plastisol Inks</h2>\r\n<div class=\"clear\" style=\"clear: both; overflow: hidden; visibility: hidden; width: 0px; height: 0px; color: #000000; font-family: \'Droid Sans\', arial, serif; font-size: 12px;\">&nbsp;</div>\r\n<div class=\"box three product first\" style=\"display: inline; float: left; border: 0px; width: 180px; color: #000000; font-family: \'Droid Sans\', arial, serif; font-size: 12px; margin: 0px 10px 10px 0px !important;\">&nbsp;</div>\r\n<div class=\"box two-three product last\" style=\"display: inline; float: left; border: 0px; width: 420px; color: #000000; font-family: \'Droid Sans\', arial, serif; font-size: 12px; margin: 0px 0px !important 10px 10px;\">\r\n<div class=\"clear\" style=\"clear: both; overflow: hidden; visibility: hidden; width: 0px; height: 0px;\">&nbsp;</div>\r\n<div class=\"space v_10\" style=\"clear: both; padding: 5px 0px;\">&nbsp;</div>\r\n</div>\r\n<div class=\"clear\" style=\"clear: both; overflow: hidden; visibility: hidden; width: 0px; height: 0px; color: #000000; font-family: \'Droid Sans\', arial, serif; font-size: 12px;\">&nbsp;</div>\r\n<div class=\"space v_10\" style=\"clear: both; padding: 5px 0px; color: #000000; font-family: \'Droid Sans\', arial, serif; font-size: 12px;\">&nbsp;</div>\r\n<div class=\"box product_detail full\" style=\"margin: 0px 0px 10px; border: 0px; width: 640px; color: #000000; font-family: \'Droid Sans\', arial, serif; font-size: 12px; float: none !important;\">Excalibur&rsquo;s 500PF Series is the printer&rsquo;s choice for high-production, wet-on-wet direct printing on 100% cotton light colors or on top of a flashed white underbase. 500PF is available in a wide range of colors all formulated to minimize build-up on the backs of screens. One of Excalibur&rsquo;s most versatile inks 500PF can be used for producing cold-peel transfers as well as being the ink series most widely used with Excalibur&rsquo;s additives suede or puff additive to transform 500PF Series colors into special effects inks. The 500PF Series is available in quantities from one quart to 50 gallon drums.\r\n<div class=\"clear\" style=\"clear: both; overflow: hidden; visibility: hidden; width: 0px; height: 0px;\">&nbsp;</div>\r\n<div class=\"space v_10\" style=\"clear: both; padding: 5px 0px;\">&nbsp;</div>\r\n<div class=\"box\" style=\"margin: 0px 10px 10px; display: inline; float: left; border: 0px;\">\r\n<p style=\"margin: 0px; padding: 0px 0px 20px; border: 0px; font: inherit;\"><strong><span style=\"margin: 0px; padding: 0px; border: 0px; font: inherit; color: #ff0000;\">FEATURES AND BENEFITS</span></strong></p>\r\n<ul style=\"margin: 0px 0px 20px 17px; padding: 0px; border: 0px; font: inherit; list-style-position: initial; list-style-image: initial;\">\r\n<li style=\"margin: 0px; padding: 0px; border: 0px; font: inherit;\">Creamy, easy-printing consistency produces sharp, opaque prints on both manual and automatic presses whether you are printing directly on top of a white or light colored 100% cotton garment or on top of a flashed white underbase.</li>\r\n<li style=\"margin: 0px; padding: 0px; border: 0px; font: inherit;\">Completely phthalate-free and lead-free formulation complies with all standards of Consumer Product Safety Improvement Act (CPSIA) banning phthalates and heavy metals in textile-printing inks.</li>\r\n</ul>\r\n<p style=\"margin: 0px; padding: 0px 0px 20px; border: 0px; font: inherit;\"><strong><span style=\"margin: 0px; padding: 0px; border: 0px; font: inherit; color: #ff0000;\">TECHNICAL INFORMATION</span></strong></p>\r\n<p style=\"margin: 0px; padding: 0px 0px 20px; border: 0px; font: inherit;\"><strong>Gel Temperature:&nbsp;</strong>Ink will surface gel at 240&deg; F (116&deg; C).</p>\r\n<p style=\"margin: 0px; padding: 0px 0px 20px; border: 0px; font: inherit;\"><strong>Curing</strong><strong>:</strong>&nbsp;Prints will fully cure when the entire ink film reaches 320&deg;F (160&deg;C) for at least 15 seconds.</p>\r\n<p style=\"margin: 0px; padding: 0px 0px 20px; border: 0px; font: inherit;\"><strong>Heat Transfers:</strong>&nbsp;500PF can be used in printing cold peel transfers.</p>\r\n<p style=\"margin: 0px; padding: 0px 0px 20px; border: 0px; font: inherit;\"><strong>Mesh:</strong>&nbsp;For direct printing a 110-305/inch (43T-122Tcm) may be used.</p>\r\n<p style=\"margin: 0px; padding: 0px 0px 20px; border: 0px; font: inherit;\"><strong>Stencil:</strong>&nbsp;Any stencil compatible with plastisol inks may be used.</p>\r\n<p style=\"margin: 0px; padding: 0px 0px 20px; border: 0px; font: inherit;\"><strong>Modification:</strong>&nbsp;Because plastisol inks are thixotropic and can body up during storage always stir ink thoroughly prior to print or adding reducers. If necessary 501PF Curable Reducer may be added increase printability of ink and to help clean from the screen. CAUTION: Adding too much 501PF Curable Reducer will reduce opacity and bleed-resistance.</p>\r\n<p style=\"margin: 0px; padding: 0px 0px 20px; border: 0px; font: inherit;\"><strong>Squeegee</strong>: 70 durometer or 90/70/90 triple durometer blades are recommended.</p>\r\n<p style=\"margin: 0px; padding: 0px 0px 20px; border: 0px; font: inherit;\"><strong>Clean-up:</strong>&nbsp;Use Enviro Series 2000 Green or Enviro Series TR Blend.</p>\r\n<p style=\"margin: 0px; padding: 0px 0px 20px; border: 0px; font: inherit;\"><strong><span style=\"margin: 0px; padding: 0px; border: 0px; font: inherit; color: #ff0000;\">COLOURS</span></strong></p>\r\n<p style=\"margin: 0px; padding: 0px 0px 20px; border: 0px; font: inherit;\">Lemon Yellow, True Yellow, Light Royal, Maroon, Navy Blue, Old Gold, Light Gold, Gold, Purple, Violet, Fuschia, Reflex Blue, Royal Blue, Rhodamine Red, Rubine Red, Scarlet Red, Silver Grey, True Blue, Super Royal, Bright Blue, Light Blue, Warm Fled, Fluorescent Blue, Fluorescent Green, Fluorescent Magenta, Fluorescent Orange, Fluorescent Pink, Fluorescent Red, Fluorescent Violet, Fluorescent Yellow.</p>\r\n<p style=\"margin: 0px; padding: 0px 0px 20px; border: 0px; font: inherit;\"><strong><span style=\"margin: 0px; padding: 0px; border: 0px; font: inherit; color: #ff0000;\">CAUTION</span></strong></p>\r\n<p style=\"margin: 0px; padding: 0px 0px 20px; border: 0px; font: inherit;\">Always test finished prints for curing, adhesion and desired look prior to beginning full production runs. Lancer Group International cannot guarantee the results or back claims that this mixed ink will test phthalate-free if any additive other than an additive manufactured by Lancer Group International is used to modify this ink. Test results by a third-party laboratory verifying all components used to produce this ink are phthalate-free and lead-free are available upon request.</p>\r\n</div>\r\n</div>', 1200.00, 'products/November2020/7fqvhaD2UnfVIQ39qymG.jpg', NULL, '2020-11-09 12:55:56', '2020-11-09 12:55:56', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, ''),
-(43, 'chill product', '<p>nill</p>', 4100.00, 'products\\November2020\\JpDzJZNzgv52n2S96O5S.jpg', NULL, '2020-11-12 00:15:18', '2020-11-12 00:15:18', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, ''),
-(44, 'lil wyne', '<p>ok</p>', 7800.00, 'products\\November2020\\bIcV2paqYQoMaDjnp9HL.jpg', 1, '2020-11-12 00:59:00', '2020-11-12 01:08:56', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, ''),
-(45, 'checking fb post', '<p>wicked</p>', 45000.00, 'products\\November2020\\CGHFINXNCWoBV3BPo3zL.jpeg', NULL, '2020-11-12 03:26:37', '2020-11-12 03:26:37', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '');
+INSERT INTO `products` (`id`, `name`, `description`, `price`, `cover_img`, `shop_id`, `created_at`, `updated_at`, `featured`, `top_product`, `cash_back_percent`, `reward_point`, `min_qty`, `wholesale_id`, `product_video`, `refurbish_product`, `product_pdf`, `stock`, `buying_price`, `product_attributes`) VALUES
+(36, 'product DESC', '<p>ChromaTech WR is Chromaline\'s latest water-resistant pure photopolymer emulsion. Dual cure technology built into a ready-to-use formula.&nbsp;&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<p>ChromaTech WR is designed for textile printing offering superior durability to water based and discharge inks as well as the press cleaning solvents used when printing plastisol inks.</p>\r\n<p>&nbsp;</p>\r\n<p>Due to the high solid content, ChromaTech WR is most often applied with a 1x1 coating. Just two simple coatings reduces your coating time and consumes less product per screen (more screens per gallon). ChromaTech WR offers extremely fast exposure which in large shops translates to substantial time savings.</p>\r\n<p>&nbsp;</p>\r\n<p>Color: Blue</p>\r\n<p>Solids: 46%</p>\r\n<p>Viscosity: High</p>\r\n<p>Fast Exposure</p>\r\n<p>Excellent mesh bridging</p>\r\n<p>Sharp image quality</p>\r\n<p>Resistance to plastisol, water and discharge inks</p>\r\n<p>Does NOT require stencil hardener chemistry</p>\r\n<p>View User Guide</p>\r\n<p>View SDS</p>\r\n<p>What our Customers Say:</p>\r\n<p>&nbsp;</p>\r\n<p>\"1+1 coating is all I need\"</p>\r\n<p>\"I consolidated from 2 different emulsions to just this one for both of my plastisol and discharge ink setups\"</p>\r\n<p>\"I\'m now in single digit exposure times on my LED system\"</p>\r\n<p>Bottom line - Perfect emulsion if your shop uses mostly plastisol, but also prints water/discharge inks.</p>\r\n<p>&nbsp;</p>\r\n<p>SHIPPING NOTE: This product is not freeze/thaw stable and will not ship during freezing temperatures.</p>\r\n<p>&nbsp;</p>\r\n<p>pro-tip-chromaline.png</p>\r\n<p>&nbsp;</p>\r\n<p>Doing a long run job with water/discharge ink?&nbsp; Simply add a 3gr bottle of diazo sensitizer to a gallon of ChromaTech WR and it will boost resistance for thousands of prints.</p>\r\n<p>&nbsp;</p>\r\n<p>p95-warning-28x22.pngWARNING: This product can expose you to chemicals including benzophenone, which is known in the State of California to cause cancer. For more information go to</p>', 4500.00, 'products/November2020/GtWKTzT4QG5l3fgIqbbR.jpg', NULL, '2020-11-09 11:24:00', '2020-11-09 13:02:51', 1, 0, NULL, NULL, NULL, NULL, NULL, 0, '', 20, 0.00, NULL),
+(37, 'product DESC', '<p>ChromaTech WR is Chromaline\'s latest water-resistant pure photopolymer emulsion. Dual cure technology built into a ready-to-use formula.&nbsp;&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<p>ChromaTech WR is designed for textile printing offering superior durability to water based and discharge inks as well as the press cleaning solvents used when printing plastisol inks.</p>\r\n<p>&nbsp;</p>\r\n<p>Due to the high solid content, ChromaTech WR is most often applied with a 1x1 coating. Just two simple coatings reduces your coating time and consumes less product per screen (more screens per gallon). ChromaTech WR offers extremely fast exposure which in large shops translates to substantial time savings.</p>\r\n<p>&nbsp;</p>\r\n<p>Color: Blue</p>\r\n<p>Solids: 46%</p>\r\n<p>Viscosity: High</p>\r\n<p>Fast Exposure</p>\r\n<p>Excellent mesh bridging</p>\r\n<p>Sharp image quality</p>\r\n<p>Resistance to plastisol, water and discharge inks</p>\r\n<p>Does NOT require stencil hardener chemistry</p>\r\n<p>View User Guide</p>\r\n<p>View SDS</p>\r\n<p>What our Customers Say:</p>\r\n<p>&nbsp;</p>\r\n<p>\"1+1 coating is all I need\"</p>\r\n<p>\"I consolidated from 2 different emulsions to just this one for both of my plastisol and discharge ink setups\"</p>\r\n<p>\"I\'m now in single digit exposure times on my LED system\"</p>\r\n<p>Bottom line - Perfect emulsion if your shop uses mostly plastisol, but also prints water/discharge inks.</p>\r\n<p>&nbsp;</p>\r\n<p>SHIPPING NOTE: This product is not freeze/thaw stable and will not ship during freezing temperatures.</p>\r\n<p>&nbsp;</p>\r\n<p>pro-tip-chromaline.png</p>\r\n<p>&nbsp;</p>\r\n<p>Doing a long run job with water/discharge ink?&nbsp; Simply add a 3gr bottle of diazo sensitizer to a gallon of ChromaTech WR and it will boost resistance for thousands of prints.</p>\r\n<p>&nbsp;</p>\r\n<p>p95-warning-28x22.pngWARNING: This product can expose you to chemicals including benzophenone, which is known in the State of California to cause cancer. For more information go to</p>', 4500.00, 'products/November2020/F3tn9pS6u4vnfkn9z9Yi.jpg', NULL, '2020-11-09 11:25:00', '2020-11-09 13:04:44', 1, 0, NULL, NULL, NULL, NULL, NULL, 0, '', 20, 0.00, NULL),
+(38, 'ChromaTech WR', '<p style=\"box-sizing: border-box; margin: 0px 0px 1.5rem; padding: 0px; color: #333333; font-family: Karla, Arial, Helvetica, sans-serif;\"><span style=\"box-sizing: border-box;\"><span style=\"box-sizing: border-box; color: #0000ff;\"><span style=\"box-sizing: border-box; font-weight: bold; line-height: inherit;\">ChromaTech WR</span></span>&nbsp;is Chromaline\'s latest water-resistant pure photopolymer emulsion. Dual cure technology built into a ready-to-use formula.&nbsp;&nbsp;</span></p>\r\n<p style=\"box-sizing: border-box; margin: 0px 0px 1.5rem; padding: 0px; color: #333333; font-family: Karla, Arial, Helvetica, sans-serif;\"><span style=\"box-sizing: border-box;\"><span style=\"box-sizing: border-box; color: #0000ff;\"><span style=\"box-sizing: border-box; font-weight: bold; line-height: inherit;\">ChromaTech WR</span></span>&nbsp;is designed for textile printing offering superior durability to water based and discharge inks as well as the press cleaning solvents used when printing plastisol inks.</span></p>\r\n<p style=\"box-sizing: border-box; margin: 0px 0px 1.5rem; padding: 0px; color: #333333; font-family: Karla, Arial, Helvetica, sans-serif;\"><span style=\"box-sizing: border-box;\">Due to the high solid content,&nbsp;<span style=\"box-sizing: border-box; color: #0000ff;\"><span style=\"box-sizing: border-box; font-weight: bold; line-height: inherit;\">ChromaTech WR</span></span>&nbsp;is most often applied with a 1x1 coating. Just two simple coatings reduces your coating time and consumes less product per screen (more screens per gallon). ChromaTech WR offers extremely fast exposure which in large shops translates to substantial time savings.</span></p>\r\n<ul style=\"box-sizing: border-box; margin: 0px 0px 1.5rem 1.15rem; padding: 0px; list-style-position: outside; color: #333333; font-family: Karla, Arial, Helvetica, sans-serif;\">\r\n<li style=\"box-sizing: border-box; margin: 0px; padding: 0px;\"><span style=\"box-sizing: border-box;\">Color:&nbsp;<span style=\"box-sizing: border-box; color: #0000ff;\"><span style=\"box-sizing: border-box; font-weight: bold; line-height: inherit;\">Blue</span></span></span></li>\r\n<li style=\"box-sizing: border-box; margin: 0px; padding: 0px;\"><span style=\"box-sizing: border-box;\">Solids: 46%</span></li>\r\n<li style=\"box-sizing: border-box; margin: 0px; padding: 0px;\"><span style=\"box-sizing: border-box;\">Viscosity: High</span></li>\r\n<li style=\"box-sizing: border-box; margin: 0px; padding: 0px;\"><span style=\"box-sizing: border-box;\">Fast Exposure</span></li>\r\n<li style=\"box-sizing: border-box; margin: 0px; padding: 0px;\"><span style=\"box-sizing: border-box;\">Excellent mesh bridging</span></li>\r\n<li style=\"box-sizing: border-box; margin: 0px; padding: 0px;\"><span style=\"box-sizing: border-box;\">Sharp image quality</span></li>\r\n<li style=\"box-sizing: border-box; margin: 0px; padding: 0px;\"><span style=\"box-sizing: border-box;\">Resistance to plastisol, water and&nbsp;</span><span style=\"box-sizing: border-box;\">discharge inks</span></li>\r\n<li style=\"box-sizing: border-box; margin: 0px; padding: 0px;\"><span style=\"box-sizing: border-box;\">Does NOT require stencil hardener chemistry</span></li>\r\n<li style=\"box-sizing: border-box; margin: 0px; padding: 0px;\">View&nbsp;<span style=\"box-sizing: border-box; font-weight: bold; line-height: inherit;\"><a style=\"box-sizing: border-box; background-color: transparent; color: #007ac2; line-height: inherit; text-decoration-line: none; transition: color 0.15s ease 0s;\" href=\"https://www.ikonics.com/userguides/\" target=\"_blank\" rel=\"noopener\">User Guide</a></span></li>\r\n<li style=\"box-sizing: border-box; margin: 0px; padding: 0px;\">View&nbsp;<span style=\"box-sizing: border-box; font-weight: bold; line-height: inherit;\"><a style=\"box-sizing: border-box; background-color: transparent; color: #007ac2; line-height: inherit; text-decoration-line: none; transition: color 0.15s ease 0s;\" href=\"https://www.ikonics.com/sds/\" target=\"_blank\" rel=\"noopener\">SDS</a></span></li>\r\n</ul>\r\n<p style=\"box-sizing: border-box; margin: 0px 0px 1.5rem; padding: 0px; color: #333333; font-family: Karla, Arial, Helvetica, sans-serif;\"><span style=\"box-sizing: border-box; font-weight: bold; line-height: inherit;\">What our Customers Say:</span></p>\r\n<ul style=\"box-sizing: border-box; margin: 0px 0px 1.5rem 1.15rem; padding: 0px; list-style-position: outside; color: #333333; font-family: Karla, Arial, Helvetica, sans-serif;\">\r\n<li style=\"box-sizing: border-box; margin: 0px; padding: 0px;\"><span style=\"box-sizing: border-box;\">\"1+1 coating is all I need\"</span></li>\r\n<li style=\"box-sizing: border-box; margin: 0px; padding: 0px;\"><span style=\"box-sizing: border-box;\">\"I consolidated from 2 different emulsions to just this one for both of my plastisol and discharge ink setups\"</span></li>\r\n<li style=\"box-sizing: border-box; margin: 0px; padding: 0px;\"><span style=\"box-sizing: border-box;\">\"I\'m now in single digit exposure times on my LED system\"</span></li>\r\n</ul>\r\n<p style=\"box-sizing: border-box; margin: 0px 0px 1.5rem; padding: 0px; color: #333333; font-family: Karla, Arial, Helvetica, sans-serif;\"><span style=\"box-sizing: border-box; background-color: #ffff00;\"><span style=\"box-sizing: border-box; font-weight: bold; line-height: inherit;\">Bottom line - Perfect emulsion if your shop uses mostly plastisol, but also prints water/discharge inks.</span></span></p>\r\n<p style=\"box-sizing: border-box; margin: 0px 0px 1.5rem; padding: 0px; color: #333333; font-family: Karla, Arial, Helvetica, sans-serif;\"><span style=\"box-sizing: border-box;\"><span style=\"box-sizing: border-box; font-weight: bold; line-height: inherit;\"><span style=\"box-sizing: border-box; line-height: inherit;\"><span style=\"box-sizing: border-box; color: #ff00ff;\">SHIPPING NOTE:&nbsp;</span>This product is not freeze/thaw stable and will not ship during freezing temperatures.</span></span></span></p>\r\n<hr style=\"box-sizing: content-box; height: 0px; border-style: solid; border-color: #e5e5e5; border-image: initial; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; clear: both; margin: 2rem 0px 1.92857rem; color: #333333; font-family: Karla, Arial, Helvetica, sans-serif;\" />\r\n<p style=\"box-sizing: border-box; margin: 0px 0px 1.5rem; padding: 0px; color: #333333; font-family: Karla, Arial, Helvetica, sans-serif;\"><img class=\"__mce_add_custom__\" style=\"box-sizing: border-box; border: 0px; display: inline-block; height: auto; max-width: 100%; vertical-align: middle; float: left; margin: 5px 20px 5px 0px;\" title=\"pro-tip-chromaline.png\" src=\"https://cdn8.bigcommerce.com/s-kk74s4rcmv/product_images/uploaded_images/pro-tip-chromaline.png\" alt=\"pro-tip-chromaline.png\" width=\"135\" height=\"36\" /></p>\r\n<p style=\"box-sizing: border-box; margin: 0px 0px 1.5rem; padding: 0px; color: #333333; font-family: Karla, Arial, Helvetica, sans-serif;\">Doing a long run job with water/discharge ink?&nbsp; Simply add a&nbsp;<a style=\"box-sizing: border-box; background-color: transparent; color: #007ac2; line-height: inherit; text-decoration-line: none; transition: color 0.15s ease 0s;\" href=\"https://shop.chromaline.com/magna-cure-diazo-sensitizer-bottle/?attributes=eyIxODAiOjI2N30\">3gr bottle of diazo sensitizer</a>&nbsp;to a gallon of ChromaTech WR and it will boost resistance for thousands of prints.</p>\r\n<hr style=\"box-sizing: content-box; height: 0px; border-style: solid; border-color: #e5e5e5; border-image: initial; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; clear: both; margin: 2rem 0px 1.92857rem; color: #333333; font-family: Karla, Arial, Helvetica, sans-serif;\" />\r\n<p style=\"box-sizing: border-box; margin: 0px 0px 1.5rem; padding: 0px; color: #333333; font-family: Karla, Arial, Helvetica, sans-serif;\"><img class=\"__mce_add_custom__\" style=\"box-sizing: border-box; border: 0px; display: inline-block; height: auto; max-width: 100%; vertical-align: middle;\" title=\"p95-warning-28x22.png\" src=\"https://cdn8.bigcommerce.com/s-kk74s4rcmv/product_images/uploaded_images/p95-warning-28x22.png\" alt=\"p95-warning-28x22.png\" width=\"28\" height=\"22\" /><span style=\"box-sizing: border-box; font-weight: bold; line-height: inherit;\">WARNING:</span>&nbsp;This product can expose you to chemicals including benzophenone, which is known in the State of California to cause cancer. For more information go to</p>', 5999.00, 'products/November2020/3IRUq3VY8WMxIgxMFpCw.png', NULL, '2020-11-09 11:44:43', '2020-11-09 11:44:43', 0, 0, NULL, NULL, NULL, NULL, '<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/66MnDKX11Gc\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>', 0, '', 20, 0.00, NULL),
+(39, 'EP BLUE', '<p><strong>EP BLUE</strong></p>\r\n<p><a href=\"https://www.inknovators.com/images/galeri/test-009-EP-Blue.pdf\">SDS&nbsp;</a></p>\r\n<p><a href=\"https://www.inknovators.com/images/galeri/tds-009-EP-Blue.pdf\">TDS&nbsp;</a></p>\r\n<p><a href=\"https://www.inknovators.com/images/galeri/test-009-EP-Blue.pdf\">TEST REPORTS</a></p>', 1400.00, 'products/November2020/JDgB3G7Xy162i1Yb7SYq.png', NULL, '2020-11-09 12:33:00', '2020-11-09 13:03:33', 1, 0, NULL, NULL, NULL, NULL, NULL, 0, '', 20, 0.00, NULL),
+(40, 'Foil Adhesive', '<p class=\"MsoNormal\" style=\"line-height: normal; mso-outline-level: 2; background: white; margin: 15.0pt 0in 7.5pt 0in;\"><span style=\"font-size: 22.5pt; font-family: \'Comic Sans MS\'; mso-fareast-font-family: \'Times New Roman\'; mso-bidi-font-family: \'Times New Roman\'; color: #302b27;\">E9211 Union Foil Adhesive</span></p>\r\n<p class=\"MsoNormal\" style=\"line-height: normal; mso-outline-level: 4; background: white; margin: 7.5pt 0in 7.5pt 0in;\"><span style=\"font-size: 13.5pt; font-family: \'Comic Sans MS\'; mso-fareast-font-family: \'Times New Roman\'; mso-bidi-font-family: Arial; color: #72b9ff;\">Features:</span></p>\r\n<ul type=\"disc\">\r\n<li class=\"MsoNormal\" style=\"color: #302b27; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; line-height: normal; mso-list: l0 level1 lfo1; tab-stops: list .5in; background: white;\"><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\';\">Ideal for Woven Fabrics</span></li>\r\n<li class=\"MsoNormal\" style=\"color: #302b27; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; line-height: normal; mso-list: l0 level1 lfo1; tab-stops: list .5in; background: white;\"><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\';\">Non-Phthalate</span></li>\r\n</ul>\r\n<p class=\"MsoNormal\" style=\"line-height: normal; mso-outline-level: 4; background: white; margin: 7.5pt 0in 7.5pt 0in;\"><span style=\"font-size: 13.5pt; font-family: \'Comic Sans MS\'; mso-fareast-font-family: \'Times New Roman\'; mso-bidi-font-family: \'Times New Roman\'; color: #72b9ff;\">Description:</span></p>\r\n<p class=\"MsoNormal\" style=\"margin-bottom: .0001pt; line-height: normal; background: white;\"><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\'; color: #302b27;\">UFOIL-E9211 Foil Adhesive can be directy printed and cured,or, applied to the garment by the transfer method. UFOIL-E9211 is a NonPhthalate formulation which complies with regulations regarding printing onto children\'s wear. This product is also processed with a smoother consistency with less clogging in the mesh.</span></p>\r\n<p class=\"MsoNormal\">&nbsp;</p>\r\n<h2 style=\"background: white; margin: 15.0pt 0in 7.5pt 0in;\"><span style=\"font-size: 22.5pt; font-family: \'Comic Sans MS\'; color: #302b27; font-weight: normal;\">SPECIFICATIONS:</span></h2>\r\n<p style=\"background: white; margin: 0in 0in 7.5pt 0in;\"><strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; color: #302b27;\">TRANSFER METHOD:</span></strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; color: #302b27;\">&nbsp;Print the design on the noncolor side of the foil sheet and semicure or gel the transfer print at 240&deg; F.</span></p>\r\n<p style=\"background: white; margin: 0in 0in 7.5pt 0in;\"><strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; color: #302b27;\">DIRECT PRINT METHOD:</span></strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; color: #302b27;\">Print the design using E9211 Foil Adhesive directly on the garment and cure the entire ink film at 300&deg;F (149&deg;C).</span></p>\r\n<p style=\"background: white; margin: 0in 0in 7.5pt 0in;\"><strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; color: #302b27;\">MESH:</span></strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; color: #302b27;\">83/inch to 110/inch (33T cm to 44T cm) monofilament polyester.</span></p>\r\n<p style=\"background: white; margin: 0in 0in 7.5pt 0in;\"><strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; color: #302b27;\">FOIL APPLICATION:</span></strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; color: #302b27;\">Apply the plastisol heat transfer or direct print to the garment. If you have directly printed the E9211 Foil Adhesive directly on the garment, cut the foil sheet to the desired shape and place it color side up over the area where you want the foil effect. If foil is not placed over the entire design, cover the exposed plastisol ink areas with release paper to shield them from the hot platen surface. The transfer press temperature should be set at 375&deg; F (163&deg; to 177&deg; C) with medium to high pressure for 68 seconds over a direct print. If using the transfer method of applying the E9211 Foil Adhesive directly to the foil sheet, transfer the design to the garment for 12 seconds at a temperature of 325&deg; to 350&deg; F (163&deg; to 177&deg; C.)using medium to high pressure. Allow the fabric and foil to cool completely before peeling.</span></p>\r\n<p style=\"background: white; margin: 0in 0in 7.5pt 0in;\"><strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; color: #302b27;\">WASHING INSTRUCTIONS:</span></strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; color: #302b27;\">Prints decorated with foil are not as durable as unfoiled prints. Some dulling of the foil over time is to be expected with laundering and normal wear. To minimize this during laundering the garment should be hand washed inside out, using cool or lukewarm water and dried by either hanging or laying flat. Do not dryclean.</span></p>\r\n<p style=\"background: white; margin: 0in 0in 7.5pt 0in;\"><strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; color: #302b27;\">SCREEN COATING, FILM, BLOCKOUT:</span></strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; color: #302b27;\">&nbsp;Use water soluble hand-cut, photo screens and blockouts with this ink or use other suitable products.</span></p>\r\n<p style=\"background: white; margin: 0in 0in 7.5pt 0in;\"><strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; color: #302b27;\">WASHUP:</span></strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; color: #302b27;\">&nbsp;T-125 mineral spirits, or biodegradable washes SYS-2500, SYS-2550 or SYS-2510 screen wash gel.</span></p>\r\n<p class=\"MsoNormal\"><strong><span style=\"font-size: 10.5pt; line-height: 115%; font-family: \'Arial\',sans-serif; color: red; background: white;\">ALWAYS TEST PRINT BEFORE PRODUCTION!</span></strong></p>', 0.00, 'products/November2020/Z4aSzDvv7VBTC8eZApMP.jpg', NULL, '2020-11-09 12:44:18', '2020-11-09 12:44:18', 0, 0, NULL, NULL, NULL, NULL, NULL, 0, '', 20, 0.00, NULL),
+(41, 'Poil Puff Adhesive', '<p class=\"MsoNormal\" style=\"line-height: normal; mso-outline-level: 2; background: white; margin: 15.0pt 0in 7.5pt 0in;\"><span style=\"font-size: 22.5pt; font-family: \'Comic Sans MS\'; mso-fareast-font-family: \'Times New Roman\'; mso-bidi-font-family: \'Times New Roman\'; color: #302b27;\">841 Foil &amp; Puff Adhesive</span></p>\r\n<p class=\"MsoNormal\" style=\"line-height: normal; mso-outline-level: 4; background: white; margin: 7.5pt 0in 7.5pt 0in;\"><span style=\"font-size: 13.5pt; font-family: \'Comic Sans MS\'; mso-fareast-font-family: \'Times New Roman\'; mso-bidi-font-family: Arial; color: #72b9ff;\">Features:</span></p>\r\n<ul type=\"disc\">\r\n<li class=\"MsoNormal\" style=\"color: #302b27; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; line-height: normal; mso-list: l0 level1 lfo1; tab-stops: list .5in; background: white;\"><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\';\">For direct printing on Foil or Puff Transfers</span></li>\r\n<li class=\"MsoNormal\" style=\"color: #302b27; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; line-height: normal; mso-list: l0 level1 lfo1; tab-stops: list .5in; background: white;\"><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\';\">Phthalate Free</span></li>\r\n</ul>\r\n<p class=\"MsoNormal\" style=\"line-height: normal; mso-outline-level: 4; background: white; margin: 7.5pt 0in 7.5pt 0in;\"><span style=\"font-size: 13.5pt; font-family: \'Comic Sans MS\'; mso-fareast-font-family: \'Times New Roman\'; mso-bidi-font-family: \'Times New Roman\'; color: #72b9ff;\">Description:</span></p>\r\n<p class=\"MsoNormal\" style=\"margin-bottom: .0001pt; line-height: normal; background: white;\"><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\'; color: #302b27;\">841 Printable Adhesive is designed for producing puff heat transfers. 841 Printable Adhesive will eliminate the need for powders. 841 Adhesive has a very soft hand feel and good elongation. see the \"Read More\" for specific instructions.</span></p>\r\n<p class=\"MsoNormal\">&nbsp;</p>\r\n<p class=\"MsoNormal\" style=\"line-height: normal; mso-outline-level: 2; background: white; margin: 15.0pt 0in 7.5pt 0in;\"><span style=\"font-size: 22.5pt; font-family: \'Comic Sans MS\'; mso-fareast-font-family: \'Times New Roman\'; mso-bidi-font-family: \'Times New Roman\'; color: #302b27;\">SPECIFICATIONS:</span></p>\r\n<p class=\"MsoNormal\" style=\"margin-bottom: 7.5pt; line-height: normal; background: white;\"><strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\'; color: #302b27;\">FOIL TRANSFERS:</span></strong></p>\r\n<ol start=\"1\" type=\"1\">\r\n<li class=\"MsoNormal\" style=\"color: #302b27; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; line-height: normal; mso-list: l1 level1 lfo2; tab-stops: list .5in; background: white;\"><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\';\">841 Printable Adhesive can be printed on the back of the foil to create a foil transfer. It can be gelled on the back of the foil and transferred later.</span></li>\r\n<li class=\"MsoNormal\" style=\"color: #302b27; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; line-height: normal; mso-list: l1 level1 lfo2; tab-stops: list .5in; background: white;\"><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\';\">Screen print 841 Printable Adhesive onto a cold peel transfer paper such as T-75. Gel onto the paper the same as any other heat transfer. Then apply the transfer to the fabric at 350&deg;F (177&deg;C) for 10 seconds - peel cold. Apply the foil over the transfer and heat seal for 10 to 15 seconds. Allow to cool completely and peel foil.</span></li>\r\n<li class=\"MsoNormal\" style=\"color: #302b27; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; line-height: normal; mso-list: l1 level1 lfo2; tab-stops: list .5in; background: white;\"><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\';\">Direct print with light pressure on surface of fabric. Keep ink on surface, do not drive it too far into the fabric. Cure print through a dryer. Using transfer machine apply foil for 10 to 15 seconds at 350&deg;F (177&deg;C). Let cool completely and peel foil.</span></li>\r\n</ol>\r\n<p class=\"MsoNormal\" style=\"margin-bottom: 7.5pt; line-height: normal; background: white;\"><strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\'; color: #302b27;\">PUFF TRANSFERS:</span></strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\'; color: #302b27;\">Puff Transfers: Print 841 Adhesive over the whole puff transfer image slightly overlapping the puff ink.<br /><br />Curing: Gel the 841 Adhesive at the same condition as the puff ink so as not to puff the ink on the paper. Puff Transfers always perform better when they are not puffed or beginning to puff on paper.</span></p>\r\n<p class=\"MsoNormal\" style=\"margin-bottom: 7.5pt; line-height: normal; background: white;\"><strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\'; color: #302b27;\">MESH:</span></strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\'; color: #302b27;\">80/inch to 125/inch (36T cm to 57T cm).</span></p>\r\n<p class=\"MsoNormal\" style=\"margin-bottom: 7.5pt; line-height: normal; background: white;\"><strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\'; color: #302b27;\">SCREEN COATING, FILM, BLOCKOUT:</span></strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\'; color: #302b27;\">&nbsp;Use water soluble hand-cut, photo screens and blockouts with this ink or use other suitable products.</span></p>\r\n<p class=\"MsoNormal\" style=\"margin-bottom: 7.5pt; line-height: normal; background: white;\"><strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\'; color: #302b27;\">WASHUP:</span></strong><span style=\"font-size: 10.5pt; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\'; color: #302b27;\">&nbsp;T-125 mineral spirits, or biodegradable washes SYS-2500, SYS-2550 or SYS-2510 screen wash gel.</span></p>\r\n<p class=\"MsoNormal\"><strong><span style=\"font-size: 10.5pt; line-height: 115%; font-family: \'Arial\',sans-serif; mso-fareast-font-family: \'Times New Roman\'; color: red; background: white;\">ALWAYS TEST PRINT BEFORE PRODUCTION!</span></strong></p>', 25000.00, 'products/November2020/YaHbYIJXNgU3Gz2X8Lfh.jpg', NULL, '2020-11-09 12:47:00', '2020-11-12 01:20:38', 0, 0, 40, NULL, NULL, NULL, NULL, 0, '', 20, 0.00, NULL),
+(42, 'Plastisol', '<h2 style=\"margin: 0px; padding: 0px 0px 10px; border: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-weight: normal; font-stretch: inherit; font-size: 20px; line-height: 28px; font-family: Oswald, arial, serif; position: relative; color: #f01d1d;\">500PF Series Wet-On-Wet Plastisol Inks</h2>\r\n<div class=\"clear\" style=\"clear: both; overflow: hidden; visibility: hidden; width: 0px; height: 0px; color: #000000; font-family: \'Droid Sans\', arial, serif; font-size: 12px;\">&nbsp;</div>\r\n<div class=\"box three product first\" style=\"display: inline; float: left; border: 0px; width: 180px; color: #000000; font-family: \'Droid Sans\', arial, serif; font-size: 12px; margin: 0px 10px 10px 0px !important;\">&nbsp;</div>\r\n<div class=\"box two-three product last\" style=\"display: inline; float: left; border: 0px; width: 420px; color: #000000; font-family: \'Droid Sans\', arial, serif; font-size: 12px; margin: 0px 0px !important 10px 10px;\">\r\n<div class=\"clear\" style=\"clear: both; overflow: hidden; visibility: hidden; width: 0px; height: 0px;\">&nbsp;</div>\r\n<div class=\"space v_10\" style=\"clear: both; padding: 5px 0px;\">&nbsp;</div>\r\n</div>\r\n<div class=\"clear\" style=\"clear: both; overflow: hidden; visibility: hidden; width: 0px; height: 0px; color: #000000; font-family: \'Droid Sans\', arial, serif; font-size: 12px;\">&nbsp;</div>\r\n<div class=\"space v_10\" style=\"clear: both; padding: 5px 0px; color: #000000; font-family: \'Droid Sans\', arial, serif; font-size: 12px;\">&nbsp;</div>\r\n<div class=\"box product_detail full\" style=\"margin: 0px 0px 10px; border: 0px; width: 640px; color: #000000; font-family: \'Droid Sans\', arial, serif; font-size: 12px; float: none !important;\">Excalibur&rsquo;s 500PF Series is the printer&rsquo;s choice for high-production, wet-on-wet direct printing on 100% cotton light colors or on top of a flashed white underbase. 500PF is available in a wide range of colors all formulated to minimize build-up on the backs of screens. One of Excalibur&rsquo;s most versatile inks 500PF can be used for producing cold-peel transfers as well as being the ink series most widely used with Excalibur&rsquo;s additives suede or puff additive to transform 500PF Series colors into special effects inks. The 500PF Series is available in quantities from one quart to 50 gallon drums.\r\n<div class=\"clear\" style=\"clear: both; overflow: hidden; visibility: hidden; width: 0px; height: 0px;\">&nbsp;</div>\r\n<div class=\"space v_10\" style=\"clear: both; padding: 5px 0px;\">&nbsp;</div>\r\n<div class=\"box\" style=\"margin: 0px 10px 10px; display: inline; float: left; border: 0px;\">\r\n<p style=\"margin: 0px; padding: 0px 0px 20px; border: 0px; font: inherit;\"><strong><span style=\"margin: 0px; padding: 0px; border: 0px; font: inherit; color: #ff0000;\">FEATURES AND BENEFITS</span></strong></p>\r\n<ul style=\"margin: 0px 0px 20px 17px; padding: 0px; border: 0px; font: inherit; list-style-position: initial; list-style-image: initial;\">\r\n<li style=\"margin: 0px; padding: 0px; border: 0px; font: inherit;\">Creamy, easy-printing consistency produces sharp, opaque prints on both manual and automatic presses whether you are printing directly on top of a white or light colored 100% cotton garment or on top of a flashed white underbase.</li>\r\n<li style=\"margin: 0px; padding: 0px; border: 0px; font: inherit;\">Completely phthalate-free and lead-free formulation complies with all standards of Consumer Product Safety Improvement Act (CPSIA) banning phthalates and heavy metals in textile-printing inks.</li>\r\n</ul>\r\n<p style=\"margin: 0px; padding: 0px 0px 20px; border: 0px; font: inherit;\"><strong><span style=\"margin: 0px; padding: 0px; border: 0px; font: inherit; color: #ff0000;\">TECHNICAL INFORMATION</span></strong></p>\r\n<p style=\"margin: 0px; padding: 0px 0px 20px; border: 0px; font: inherit;\"><strong>Gel Temperature:&nbsp;</strong>Ink will surface gel at 240&deg; F (116&deg; C).</p>\r\n<p style=\"margin: 0px; padding: 0px 0px 20px; border: 0px; font: inherit;\"><strong>Curing</strong><strong>:</strong>&nbsp;Prints will fully cure when the entire ink film reaches 320&deg;F (160&deg;C) for at least 15 seconds.</p>\r\n<p style=\"margin: 0px; padding: 0px 0px 20px; border: 0px; font: inherit;\"><strong>Heat Transfers:</strong>&nbsp;500PF can be used in printing cold peel transfers.</p>\r\n<p style=\"margin: 0px; padding: 0px 0px 20px; border: 0px; font: inherit;\"><strong>Mesh:</strong>&nbsp;For direct printing a 110-305/inch (43T-122Tcm) may be used.</p>\r\n<p style=\"margin: 0px; padding: 0px 0px 20px; border: 0px; font: inherit;\"><strong>Stencil:</strong>&nbsp;Any stencil compatible with plastisol inks may be used.</p>\r\n<p style=\"margin: 0px; padding: 0px 0px 20px; border: 0px; font: inherit;\"><strong>Modification:</strong>&nbsp;Because plastisol inks are thixotropic and can body up during storage always stir ink thoroughly prior to print or adding reducers. If necessary 501PF Curable Reducer may be added increase printability of ink and to help clean from the screen. CAUTION: Adding too much 501PF Curable Reducer will reduce opacity and bleed-resistance.</p>\r\n<p style=\"margin: 0px; padding: 0px 0px 20px; border: 0px; font: inherit;\"><strong>Squeegee</strong>: 70 durometer or 90/70/90 triple durometer blades are recommended.</p>\r\n<p style=\"margin: 0px; padding: 0px 0px 20px; border: 0px; font: inherit;\"><strong>Clean-up:</strong>&nbsp;Use Enviro Series 2000 Green or Enviro Series TR Blend.</p>\r\n<p style=\"margin: 0px; padding: 0px 0px 20px; border: 0px; font: inherit;\"><strong><span style=\"margin: 0px; padding: 0px; border: 0px; font: inherit; color: #ff0000;\">COLOURS</span></strong></p>\r\n<p style=\"margin: 0px; padding: 0px 0px 20px; border: 0px; font: inherit;\">Lemon Yellow, True Yellow, Light Royal, Maroon, Navy Blue, Old Gold, Light Gold, Gold, Purple, Violet, Fuschia, Reflex Blue, Royal Blue, Rhodamine Red, Rubine Red, Scarlet Red, Silver Grey, True Blue, Super Royal, Bright Blue, Light Blue, Warm Fled, Fluorescent Blue, Fluorescent Green, Fluorescent Magenta, Fluorescent Orange, Fluorescent Pink, Fluorescent Red, Fluorescent Violet, Fluorescent Yellow.</p>\r\n<p style=\"margin: 0px; padding: 0px 0px 20px; border: 0px; font: inherit;\"><strong><span style=\"margin: 0px; padding: 0px; border: 0px; font: inherit; color: #ff0000;\">CAUTION</span></strong></p>\r\n<p style=\"margin: 0px; padding: 0px 0px 20px; border: 0px; font: inherit;\">Always test finished prints for curing, adhesion and desired look prior to beginning full production runs. Lancer Group International cannot guarantee the results or back claims that this mixed ink will test phthalate-free if any additive other than an additive manufactured by Lancer Group International is used to modify this ink. Test results by a third-party laboratory verifying all components used to produce this ink are phthalate-free and lead-free are available upon request.</p>\r\n</div>\r\n</div>', 1200.00, 'products/November2020/7fqvhaD2UnfVIQ39qymG.jpg', NULL, '2020-11-09 12:55:56', '2020-11-09 12:55:56', 0, 0, NULL, NULL, NULL, NULL, NULL, 0, '', 20, 0.00, NULL),
+(43, 'chill product', '<p>nill</p>', 4100.00, 'products\\November2020\\JpDzJZNzgv52n2S96O5S.jpg', NULL, '2020-11-12 00:15:18', '2020-11-12 00:15:18', 0, 0, NULL, NULL, NULL, NULL, NULL, 0, '', 20, 0.00, NULL),
+(44, 'lil wyne', '<p>ok</p>', 7800.00, 'products\\November2020\\bIcV2paqYQoMaDjnp9HL.jpg', 1, '2020-11-12 00:59:00', '2020-11-12 01:08:56', 0, 0, NULL, NULL, NULL, NULL, NULL, 0, '', 20, 0.00, NULL),
+(45, 'checking fb post', '<p>wicked</p>', 45000.00, 'products\\November2020\\CGHFINXNCWoBV3BPo3zL.jpeg', NULL, '2020-11-12 03:26:37', '2020-11-12 03:26:37', 0, 0, NULL, NULL, NULL, NULL, NULL, 0, '', 20, 0.00, NULL);
 
 -- --------------------------------------------------------
 
@@ -1370,12 +1474,12 @@ INSERT INTO `products` (`id`, `name`, `description`, `price`, `cover_img`, `shop
 --
 
 CREATE TABLE `product_attributes` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `product_id` bigint(20) UNSIGNED NOT NULL,
-  `size` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `product_id` bigint UNSIGNED NOT NULL,
+  `size` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `price` double(8,2) NOT NULL,
-  `SKU` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` tinyint(4) NOT NULL,
+  `SKU` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1396,9 +1500,9 @@ INSERT INTO `product_attributes` (`id`, `product_id`, `size`, `price`, `SKU`, `s
 --
 
 CREATE TABLE `product_categories` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `product_id` bigint(20) UNSIGNED NOT NULL,
-  `category_id` int(10) UNSIGNED NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `product_id` bigint UNSIGNED NOT NULL,
+  `category_id` int UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1435,11 +1539,11 @@ INSERT INTO `product_categories` (`id`, `product_id`, `category_id`, `created_at
 --
 
 CREATE TABLE `reviews` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
-  `product_id` bigint(20) UNSIGNED NOT NULL,
-  `star` int(11) NOT NULL,
-  `comment` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `product_id` bigint UNSIGNED NOT NULL,
+  `star` int NOT NULL,
+  `comment` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1451,9 +1555,9 @@ CREATE TABLE `reviews` (
 --
 
 CREATE TABLE `reward_points` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
-  `point` int(11) NOT NULL DEFAULT 0,
+  `id` bigint UNSIGNED NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `point` int NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1480,9 +1584,9 @@ INSERT INTO `reward_points` (`id`, `user_id`, `point`, `created_at`, `updated_at
 --
 
 CREATE TABLE `roles` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `display_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `display_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1504,14 +1608,14 @@ INSERT INTO `roles` (`id`, `name`, `display_name`, `created_at`, `updated_at`) V
 --
 
 CREATE TABLE `settings` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `display_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `details` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `order` int(11) NOT NULL DEFAULT 1,
-  `group` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `id` int UNSIGNED NOT NULL,
+  `key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `display_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `value` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `details` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `order` int NOT NULL DEFAULT '1',
+  `group` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -1537,11 +1641,11 @@ INSERT INTO `settings` (`id`, `key`, `display_name`, `value`, `details`, `type`,
 --
 
 CREATE TABLE `shops` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
-  `is_active` tinyint(1) NOT NULL DEFAULT 0,
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT '0',
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `rating` double(8,2) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -1564,9 +1668,9 @@ INSERT INTO `shops` (`id`, `name`, `user_id`, `is_active`, `description`, `ratin
 --
 
 CREATE TABLE `site_reviews` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
-  `comment` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `comment` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1586,15 +1690,15 @@ INSERT INTO `site_reviews` (`id`, `user_id`, `comment`, `created_at`, `updated_a
 --
 
 CREATE TABLE `sub_orders` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `order_id` bigint(20) UNSIGNED NOT NULL,
-  `seller_id` bigint(20) UNSIGNED NOT NULL,
-  `status` enum('pending','processing','completed','decline') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
+  `id` bigint UNSIGNED NOT NULL,
+  `order_id` bigint UNSIGNED NOT NULL,
+  `seller_id` bigint UNSIGNED NOT NULL,
+  `status` enum('pending','processing','completed','decline') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
   `grand_total` double(8,2) NOT NULL,
-  `item_count` int(11) NOT NULL,
+  `item_count` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `seller_type` bigint(20) UNSIGNED DEFAULT NULL
+  `seller_type` bigint UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1604,12 +1708,12 @@ CREATE TABLE `sub_orders` (
 --
 
 CREATE TABLE `sub_order_items` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `sub_order_id` bigint(20) UNSIGNED NOT NULL,
-  `product_id` bigint(20) UNSIGNED NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `sub_order_id` bigint UNSIGNED NOT NULL,
+  `product_id` bigint UNSIGNED NOT NULL,
   `price` double(8,2) NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `size` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `quantity` int NOT NULL,
+  `size` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1619,12 +1723,12 @@ CREATE TABLE `sub_order_items` (
 --
 
 CREATE TABLE `transactions` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `sub_order_id` bigint(20) UNSIGNED NOT NULL,
-  `transaction_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `sub_order_id` bigint UNSIGNED NOT NULL,
+  `transaction_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `amount_paid` double(8,2) NOT NULL,
   `commission` double(8,2) NOT NULL,
-  `status` enum('pending','processing','completed') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
+  `status` enum('pending','processing','completed') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1636,12 +1740,12 @@ CREATE TABLE `transactions` (
 --
 
 CREATE TABLE `translations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `table_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `column_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `foreign_key` int(10) UNSIGNED NOT NULL,
-  `locale` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` int UNSIGNED NOT NULL,
+  `table_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `column_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `foreign_key` int UNSIGNED NOT NULL,
+  `locale` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `value` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1653,18 +1757,18 @@ CREATE TABLE `translations` (
 --
 
 CREATE TABLE `users` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `role_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `avatar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT 'users/default.png',
+  `id` bigint UNSIGNED NOT NULL,
+  `role_id` bigint UNSIGNED DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'users/default.png',
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `settings` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `settings` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `phone` int(11) NOT NULL
+  `phone` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -1690,8 +1794,8 @@ INSERT INTO `users` (`id`, `role_id`, `name`, `email`, `avatar`, `email_verified
 --
 
 CREATE TABLE `user_roles` (
-  `user_id` bigint(20) UNSIGNED NOT NULL,
-  `role_id` bigint(20) UNSIGNED NOT NULL
+  `user_id` bigint UNSIGNED NOT NULL,
+  `role_id` bigint UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1701,11 +1805,11 @@ CREATE TABLE `user_roles` (
 --
 
 CREATE TABLE `videos` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `category_id` bigint(20) UNSIGNED NOT NULL,
-  `video` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `category_id` bigint UNSIGNED NOT NULL,
+  `video` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1727,10 +1831,10 @@ INSERT INTO `videos` (`id`, `category_id`, `video`, `name`, `description`, `crea
 --
 
 CREATE TABLE `video_categories` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `parent` bigint(20) UNSIGNED DEFAULT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `parent` bigint UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1750,10 +1854,10 @@ INSERT INTO `video_categories` (`id`, `name`, `description`, `parent`, `created_
 --
 
 CREATE TABLE `wallets` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
-  `amount` double(8,2) NOT NULL DEFAULT 0.00,
-  `amount_spend` double(8,2) NOT NULL DEFAULT 0.00,
+  `id` bigint UNSIGNED NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `amount` double(8,2) NOT NULL DEFAULT '0.00',
+  `amount_spend` double(8,2) NOT NULL DEFAULT '0.00',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1780,11 +1884,11 @@ INSERT INTO `wallets` (`id`, `user_id`, `amount`, `amount_spend`, `created_at`, 
 --
 
 CREATE TABLE `wholesales` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
-  `is_active` tinyint(1) NOT NULL DEFAULT 0,
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT '0',
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1803,9 +1907,9 @@ INSERT INTO `wholesales` (`id`, `name`, `user_id`, `is_active`, `description`, `
 --
 
 CREATE TABLE `wishlists` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
-  `product_id` bigint(20) UNSIGNED NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `product_id` bigint UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1862,6 +1966,12 @@ ALTER TABLE `ebook_requests`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `expenses`
+--
+ALTER TABLE `expenses`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -1871,6 +1981,12 @@ ALTER TABLE `failed_jobs`
 -- Indexes for table `faqs`
 --
 ALTER TABLE `faqs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `finance_requests`
+--
+ALTER TABLE `finance_requests`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1918,6 +2034,13 @@ ALTER TABLE `messages`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `notifications`
+--
+ALTER TABLE `notifications`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `notifications_notifiable_type_notifiable_id_index` (`notifiable_type`,`notifiable_id`);
 
 --
 -- Indexes for table `orders`
@@ -2130,247 +2253,259 @@ ALTER TABLE `wishlists`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `contacts`
 --
 ALTER TABLE `contacts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `coupons`
 --
 ALTER TABLE `coupons`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `custom_pages`
 --
 ALTER TABLE `custom_pages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `data_rows`
 --
 ALTER TABLE `data_rows`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=243;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=261;
 
 --
 -- AUTO_INCREMENT for table `data_types`
 --
 ALTER TABLE `data_types`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `ebook_requests`
 --
 ALTER TABLE `ebook_requests`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `expenses`
+--
+ALTER TABLE `expenses`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `faqs`
 --
 ALTER TABLE `faqs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `finance_requests`
+--
+ALTER TABLE `finance_requests`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `gift_cards`
 --
 ALTER TABLE `gift_cards`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `gift_card_purchases`
 --
 ALTER TABLE `gift_card_purchases`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `home_videos`
 --
 ALTER TABLE `home_videos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `menus`
 --
 ALTER TABLE `menus`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `menu_items`
 --
 ALTER TABLE `menu_items`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `pages`
 --
 ALTER TABLE `pages`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=172;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=182;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `post_categories`
 --
 ALTER TABLE `post_categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `product_attributes`
 --
 ALTER TABLE `product_attributes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `product_categories`
 --
 ALTER TABLE `product_categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `reward_points`
 --
 ALTER TABLE `reward_points`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `settings`
 --
 ALTER TABLE `settings`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `shops`
 --
 ALTER TABLE `shops`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `site_reviews`
 --
 ALTER TABLE `site_reviews`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `sub_orders`
 --
 ALTER TABLE `sub_orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `sub_order_items`
 --
 ALTER TABLE `sub_order_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `translations`
 --
 ALTER TABLE `translations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `videos`
 --
 ALTER TABLE `videos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `video_categories`
 --
 ALTER TABLE `video_categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `wallets`
 --
 ALTER TABLE `wallets`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `wholesales`
 --
 ALTER TABLE `wholesales`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `wishlists`
 --
 ALTER TABLE `wishlists`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
