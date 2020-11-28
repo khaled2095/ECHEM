@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use App\Notifications\NewMessage;
 
 class MessageController extends Controller
 {
@@ -61,7 +62,7 @@ class MessageController extends Controller
                 }
             }
         }
-       
+
         if (\Request::ajax()) {
             return response()->json($users, 200);
         }
@@ -109,7 +110,7 @@ class MessageController extends Controller
             'from_user' => auth()->user()->id,
             'to_user' => $request->user_id,
         ]);
-
+        auth()->user()->notify(new NewMessage());
         broadcast(new MessageSend($messages));
         return response()->json($messages, 201);
         // return response()->json($messages,201);
