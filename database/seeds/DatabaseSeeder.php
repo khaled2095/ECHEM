@@ -32,5 +32,37 @@ class DatabaseSeeder extends Seeder
 
         $this->call(UserRolesTableSeeder::class);
 
+        $this->call(ContactsTableSeeder::class);
+        $this->call(CouponsTableSeeder::class);
+        $this->call(CustomPagesTableSeeder::class);
+        $this->call(EbookRequestsTableSeeder::class);
+        $this->call(FailedJobsTableSeeder::class);
+        $this->call(FaqsTableSeeder::class);
+        $this->call(GiftCardsTableSeeder::class);
+        $this->call(GiftCardPurchasesTableSeeder::class);
+        $this->call(HomeVideosTableSeeder::class);
+        $this->call(MessagesTableSeeder::class);
+        $this->call(MigrationsTableSeeder::class);
+        $this->call(NotificationsTableSeeder::class);
+        $this->call(OrdersTableSeeder::class);
+        $this->call(OrderItemsTableSeeder::class);
+        $this->call(PasswordResetsTableSeeder::class);
+        $this->call(PostCategoriesTableSeeder::class);
+        $this->call(ProductsTableSeeder::class);
+        $this->call(ProductAttributesTableSeeder::class);
+        $this->call(ProductCategoriesTableSeeder::class);
+        $this->call(ReviewsTableSeeder::class);
+        $this->call(RewardPointsTableSeeder::class);
+        $this->call(ShopsTableSeeder::class);
+        $this->call(SiteReviewsTableSeeder::class);
+        $this->call(SubOrdersTableSeeder::class);
+        $this->call(SubOrderItemsTableSeeder::class);
+        $this->call(TransactionsTableSeeder::class);
+        $this->call(TranslationsTableSeeder::class);
+        $this->call(VideosTableSeeder::class);
+        $this->call(VideoCategoriesTableSeeder::class);
+        $this->call(WalletsTableSeeder::class);
+        $this->call(WishlistsTableSeeder::class);
+        $this->call(WholesalesTableSeeder::class);
     }
 }

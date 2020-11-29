@@ -10,6 +10,7 @@ use App\Shop;
 use App\Wholesale;
 use Illuminate\Support\ServiceProvider;
 use TCG\Voyager\Facades\Voyager;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,5 +34,6 @@ class AppServiceProvider extends ServiceProvider
         Shop::observe(ShopObserver::class);
         Wholesale::observe(WholesaleObserver::class);
         Product::observe(ProductObserver::class);
+        Schema::defaultStringLength(191);
     }
 }

@@ -1047,7 +1047,7 @@ h1 {
 .rating span:hover label,
 .rating span.checked label,
 .rating span.checked ~ span label {
-  background: url(/images/star-filled.svg?8eeb901bd215fe4426a83ca97bf61df9);
+  background: url(/images/star-filled.svg?cac514142327acbdd71321c4e0da5c20);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -1504,9 +1504,5 @@ The navbar toggle appears at this breakpoint */
   content: " ";
   clear: both;
   height: 0;
-}
-
-.table-responsive {
-    max-height:300px;
 }
 

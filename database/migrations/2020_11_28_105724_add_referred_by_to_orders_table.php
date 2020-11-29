@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateColumnsInMessa extends Migration
+class AddReferredByToOrdersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateColumnsInMessa extends Migration
      */
     public function up()
     {
-        Schema::table('messages', function (Blueprint $table) {
-            $table->unsignedBigInteger('from_user');
-            $table->unsignedBigInteger('to_user');
-        });
+      Schema::table('order_items', function(Blueprint $table){
+
+              $table->integer('referred_by')->nullable();
+      });
     }
 
     /**
@@ -26,8 +26,9 @@ class CreateColumnsInMessa extends Migration
      */
     public function down()
     {
-        Schema::table('messages', function (Blueprint $table) {
-          //
-        });
+      Schema::table('order_items', function(Blueprint $table){
+
+          $table->dropColumn('referred_by');
+      });
     }
 }
