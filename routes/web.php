@@ -17,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/home');
 
+Route::get('/cron', function () {
+    return view('cron');
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -47,7 +51,7 @@ Route::get('/product/{prodId}', 'ProductSinglePage@index')->name('prod.single');
 
 
 Route::group(['prefix' => 'admin'], function () {
-
+    Route::get('expenses/publish/{id}','ExpenseController@index')->name('expenses.print');
     Voyager::routes();
 
     Route::get('/order/pay/{suborder}', 'SubOrderController@pay')->name('order.pay');
@@ -111,7 +115,7 @@ Route::get('/site-reviews/store', 'SiteReviewController@store')->name('site.revi
 Route::get('/faq', 'FaqController@index')->name('faq');
 Route::get('/faq/search', 'FaqController@search')->name('faq.search');
 Route::get('/shop/products', 'ShopPage@index')->name('shop.prod');
-
+// Route::view('/how-to-tutorials', 'how-to')->name('how');
 Route::view('/video/{id}', 'video')->name('video');
 Route::view('/ebook', 'ebook')->name('ebook');
 Route::get('/ebook/request', 'EbookRequestController@index')->name('ebook.r');
@@ -132,3 +136,6 @@ Route::post('/ini-msg/{msg}/{to}', 'MessageController@init_message')->name('init
 
 Route::get('/posts/{id}', 'Project365Controller@post_by_cat',)->name('post.by.cat');
 Route::get('/product/attr/{id}', 'ProductController@by_attr')->name('prod.attr');
+Route::get('/apply-for-financing', 'FinanceRequestController@index')->name('f.req');
+Route::post('/make-finance-request', 'FinanceRequestController@store')->name('f.p.req');
+

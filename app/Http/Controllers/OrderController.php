@@ -165,7 +165,7 @@ class OrderController extends Controller
             //return redirect()->route('some route');
 
             //send mail
-            //Mail::to($order->user->email)->send(new OrderPaid($order));
+            
             $order->payment_method = 'cash_on_delivery';
             $order->save();
             $msg = 'Your order has been placed. \n Your order tracking code ' . $order->order_number . ' Total price ' . $order->grand_total . ' BDT. Please pay to +800 or to ..';
@@ -180,6 +180,7 @@ class OrderController extends Controller
                 $this->manage_stock($prod, $items->quentity);
             }
 
+            Mail::to($order->user->email)->send(new OrderPaid($order));
             $order->generateSubOrders();
             \Cart::session(auth()->id())->clear();
             return redirect()->route('home')->withMessage('Order has been placed');
@@ -220,6 +221,8 @@ class OrderController extends Controller
                                 $prod = DB::table('products')->where('id', $items->associatedModel->id)->first();
                                 $this->manage_stock($prod, $items->quentity);
                             }
+                            
+                            Mail::to($order->user->email)->send(new OrderPaid($order));
                             $order->generateSubOrders();
 
                             \Cart::session(auth()->id())->clear();
@@ -271,6 +274,8 @@ class OrderController extends Controller
                     $prod = DB::table('products')->where('id', $items->associatedModel->id)->first();
                     $this->manage_stock($prod, $items->quentity);
                 }
+                
+                Mail::to($order->user->email)->send(new OrderPaid($order));
                 $order->generateSubOrders();
 
                 \Cart::session(auth()->id())->clear();
@@ -306,6 +311,7 @@ class OrderController extends Controller
                     $this->manage_stock($prod, $items->quentity);
                 }
 
+                Mail::to($order->user->email)->send(new OrderPaid($order));
                 $order->generateSubOrders();
                 \Cart::session(auth()->id())->clear();
                 return redirect()->route('home')->withMessage('Order has been placed');
@@ -313,6 +319,7 @@ class OrderController extends Controller
                 return redirect()->route('home')->withMessage('Not enough in wallet');
             }
         }
+        
         if (request('payment_method') == 'bkash') {
             $order->payment_method = 'bkash';
             $order->save();
@@ -328,6 +335,8 @@ class OrderController extends Controller
                 $prod = DB::table('products')->where('id', $items->associatedModel->id)->first();
                 $this->manage_stock($prod, $items->quentity);
             }
+            
+            Mail::to($order->user->email)->send(new OrderPaid($order));
             $order->generateSubOrders();
 
             \Cart::session(auth()->id())->clear();

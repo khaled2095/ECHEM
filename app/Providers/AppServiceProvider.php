@@ -35,5 +35,6 @@ class AppServiceProvider extends ServiceProvider
         Wholesale::observe(WholesaleObserver::class);
         Product::observe(ProductObserver::class);
         Schema::defaultStringLength(191);
+        Voyager::addAction(\App\Actions\PrintAction::class);
     }
 }

@@ -28,7 +28,7 @@ class HomeController extends Controller
     public function index()
     {
         $product = Product::latest()->take(12)->get()->toArray();
-        $top = Product::where('featured', 1)->get()->toArray();
+        $top = Product::where('top_product', 1)->get()->toArray();
         $categories = Category::whereNull('parent_id')->get();
         $posts = DB::table('posts')->orderBy('created_at', 'asc')->get()->toArray();
 

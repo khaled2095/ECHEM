@@ -33,13 +33,22 @@
                 </div>
             @endif
             <br>
-            {!! $product->product_video !!}
+            @if (!empty($product->product_video))
+                {!! $product->product_video !!}
+            @endif
         </div>
         <div class="prod-info">
             <h2>{{ $product->name }}</h2>
             <h4 id='prod-price'>Starting @ BDT
-                @if ($attr->count() > 0)
-                    {{ $attr[0]->price }}
+                @php
+                $attr = array();
+                if(!empty($product->product_attributes)){
+                    array_push($attr, json_decode($product->product_attributes));
+                }
+                
+                @endphp
+                @if (!empty($attr[0]))
+                    {{ $attr[0][0]->price }}
                 @else
                     {{ $product->price }}
                 @endif
@@ -60,7 +69,11 @@
                 @endforeach
             </div>
 
+            @if ($product->cash_back_percent < 0)
+            <h5>Cash Back 0 %</h5>
+            @else
             <h5>Cash Back {{ $product->cash_back_percent }} %</h5>
+            @endif
             <h5>Reward Point {{ $product->reward_point }}</h5>
             @if ($star == 0)
                 <div class="pl-3 my-3 row align-items-center">
@@ -140,11 +153,13 @@
             <div class="attr">
                 <form action="{{ route('cart.add', $product->id) }}">
                     <div class="form-group">
-                        @if ($attr->count() > 0)
+                        @if (!empty($attr[0]))
                             <select name="price" id="attr-select" class="form-control" onchange="val(this.value)"
-                                value="{{ $attr[0]->price }}, {{ $attr[0]->size }}">
+                                value="{{ $attr[0][0]->price }}, {{ $attr[0][0]->size }}">
                                 @foreach ($attr as $item)
-                                    <option value="{{ $item->price }}, {{ $item->size }}">{{ $item->size }}</option>
+                                    @foreach ($item as $i) 
+                                        <option value="{{ $i->price }}, {{ $i->size }}">{{ $i->size }}</option>
+                                    @endforeach
                                 @endforeach
                             </select>
 

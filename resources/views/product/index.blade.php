@@ -124,6 +124,25 @@
                     @endforeach
                 </div>
             </div>
+            <div class="dropdown my-2 w-100">
+                <button class="btn btn-primary dropdown-toggle w-100" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Search By Color
+                </button>
+                <div class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
+                    @foreach ($products as $item)
+                        @php
+                        $it = DB::table('product_attributes')->where('product_id', $item->id)->get();
+                        @endphp
+                        @if ($it->count() > 0)
+                            @foreach ($it as $attr)
+                                <a href="{{ route('prod.attr', ['id' => $attr->id]) }}" class="dropdown-item"
+                                    style="text-decoration: none;">{{ $attr->color }}</a>
+                            @endforeach
+                        @endif
+                    @endforeach
+                </div>
+            </div>
         </div>
         <div class="products-info px-3">
             <div class="cat-info">
