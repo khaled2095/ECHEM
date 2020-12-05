@@ -37,7 +37,7 @@ Route::get('/cart/checkout', 'CartController@checkout')->name('cart.checkout');
 
 Route::get('/cart/apply-coupon', 'CartController@applyCoupon')->name('cart.coupon')->middleware('auth');
 
-Route::resource('orders', 'OrderController')->middleware('auth');
+Route::resource('orders', 'OrderController')->middleware('auth','CheckReferral');
 
 Route::resource('shops', 'ShopController')->middleware('auth');
 
@@ -138,4 +138,3 @@ Route::get('/posts/{id}', 'Project365Controller@post_by_cat',)->name('post.by.ca
 Route::get('/product/attr/{id}', 'ProductController@by_attr')->name('prod.attr');
 Route::get('/apply-for-financing', 'FinanceRequestController@index')->name('f.req');
 Route::post('/make-finance-request', 'FinanceRequestController@store')->name('f.p.req');
-

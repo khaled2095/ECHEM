@@ -22,7 +22,7 @@
 
     @endphp
     <div class="product-single-page container my-3">
-        
+
         <div class="media-content">
             @if ($product->cover_img)
                 <div width='100%'>
@@ -45,7 +45,7 @@
                 if(!empty($product->product_attributes)){
                     array_push($attr, json_decode($product->product_attributes));
                 }
-                
+
                 @endphp
                 @if (!empty($attr[0]))
                     {{ $attr[0][0]->price }}
@@ -157,7 +157,7 @@
                             <select name="price" id="attr-select" class="form-control" onchange="val(this.value)"
                                 value="{{ $attr[0][0]->price }}, {{ $attr[0][0]->size }}">
                                 @foreach ($attr as $item)
-                                    @foreach ($item as $i) 
+                                    @foreach ($item as $i)
                                         <option value="{{ $i->price }}, {{ $i->size }}">{{ $i->size }}</option>
                                     @endforeach
                                 @endforeach
@@ -308,7 +308,13 @@
             </div>
         </div>
     </div>
+    @auth
+    @if (Auth::user()->is_affiliate=="1")
+    <input type="text" readonly="readonly"value="{{'127.0.0.1:8000/product/'.$product->id . '/?ref=' . Auth::user()->id }}">
+    @else
 
+    @endif
+    @endauth
     <div class="my-5 container">
         @php
         $reviews2 = DB::table('reviews')->where('product_id', $product->id)->get();

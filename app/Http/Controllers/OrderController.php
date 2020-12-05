@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Wallet;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Cookie;
 
 class OrderController extends Controller
 {
@@ -32,7 +33,7 @@ class OrderController extends Controller
     {
         //
     }
-    
+
     public function manage_stock($product, $qty){
         DB::table('products')->where('id', $product->id)->decrement('stock', intval($qty));
     }
@@ -161,11 +162,12 @@ class OrderController extends Controller
 
         //payment option
         if (request('payment_method') == 'cash_on_delivery') {
+          $referred_by = Cookie::get('referral');
             //redirect to bkash
             //return redirect()->route('some route');
 
             //send mail
-            
+
             $order->payment_method = 'cash_on_delivery';
             $order->save();
             $msg = 'Your order has been placed. \n Your order tracking code ' . $order->order_number . ' Total price ' . $order->grand_total . ' BDT. Please pay to +800 or to ..';
@@ -175,14 +177,14 @@ class OrderController extends Controller
             $cartItems = \Cart::session(auth()->id())->getContent();
 
             foreach ($cartItems as $items) {
-                $order->items()->attach($items->id, ['price' => $items->price, 'quantity' => $items->quantity, 'size'=>$items->attributes->size]);
+                $order->items()->attach($items->id, ['price' => $items->price, 'quantity' => $items->quantity, 'size'=>$items->attributes->size,'referred_by'=>$referred_by]);
                 $prod = DB::table('products')->where('id', $items->associatedModel->id)->first();
                 $this->manage_stock($prod, $items->quentity);
             }
 
-            Mail::to($order->user->email)->send(new OrderPaid($order));
-            $order->generateSubOrders();
-            \Cart::session(auth()->id())->clear();
+            // Mail::to($order->user->email)->send(new OrderPaid($order));
+            // $order->generateSubOrders();
+            // \Cart::session(auth()->id())->clear();
             return redirect()->route('home')->withMessage('Order has been placed');
         }
 
@@ -217,11 +219,11 @@ class OrderController extends Controller
 
                             $cartItems = \Cart::session(auth()->id())->getContent();
                             foreach ($cartItems as $items) {
-                                $order->items()->attach($items->id, ['price' => $items->price, 'quantity' => $items->quantity, 'size'=>$items->attributes->size]);
+                                $order->items()->attach($items->id, ['price' => $items->price, 'quantity' => $items->quantity, 'size'=>$items->attributes->size,'referred_by'=>Cookie::get('referral')]);
                                 $prod = DB::table('products')->where('id', $items->associatedModel->id)->first();
                                 $this->manage_stock($prod, $items->quentity);
                             }
-                            
+
                             Mail::to($order->user->email)->send(new OrderPaid($order));
                             $order->generateSubOrders();
 
@@ -270,11 +272,11 @@ class OrderController extends Controller
                 $cartItems = \Cart::session(auth()->id())->getContent();
 
                 foreach ($cartItems as $items) {
-                    $order->items()->attach($items->id, ['price' => $items->price, 'quantity' => $items->quantity, 'size'=>$items->attributes->size]);
+                    $order->items()->attach($items->id, ['price' => $items->price, 'quantity' => $items->quantity, 'size'=>$items->attributes->size,'referred_by'=>Cookie::get('referral')]);
                     $prod = DB::table('products')->where('id', $items->associatedModel->id)->first();
                     $this->manage_stock($prod, $items->quentity);
                 }
-                
+
                 Mail::to($order->user->email)->send(new OrderPaid($order));
                 $order->generateSubOrders();
 
@@ -306,7 +308,7 @@ class OrderController extends Controller
                 $cartItems = \Cart::session(auth()->id())->getContent();
 
                 foreach ($cartItems as $items) {
-                    $order->items()->attach($items->id, ['price' => $items->price, 'quantity' => $items->quantity, 'size'=>$items->attributes->size]);
+                    $order->items()->attach($items->id, ['price' => $items->price, 'quantity' => $items->quantity, 'size'=>$items->attributes->size,'referred_by'=>Cookie::get('referral')]);
                     $prod = DB::table('products')->where('id', $items->associatedModel->id)->first();
                     $this->manage_stock($prod, $items->quentity);
                 }
@@ -319,7 +321,7 @@ class OrderController extends Controller
                 return redirect()->route('home')->withMessage('Not enough in wallet');
             }
         }
-        
+
         if (request('payment_method') == 'bkash') {
             $order->payment_method = 'bkash';
             $order->save();
@@ -331,11 +333,11 @@ class OrderController extends Controller
             $cartItems = \Cart::session(auth()->id())->getContent();
 
             foreach ($cartItems as $items) {
-                $order->items()->attach($items->id, ['price' => $items->price, 'quantity' => $items->quantity, 'size'=>$items->attributes->size]);
+                $order->items()->attach($items->id, ['price' => $items->price, 'quantity' => $items->quantity, 'size'=>$items->attributes->size,'referred_by'=>Cookie::get('referral')]);
                 $prod = DB::table('products')->where('id', $items->associatedModel->id)->first();
                 $this->manage_stock($prod, $items->quentity);
             }
-            
+
             Mail::to($order->user->email)->send(new OrderPaid($order));
             $order->generateSubOrders();
 
