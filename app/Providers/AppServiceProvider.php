@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\ExpenseManagement;
+use App\Observers\ExpenseManagementObserver;
 use App\Observers\ShopObserver;
 use App\Observers\WholesaleObserver;
 use App\Observers\ProductObserver;
@@ -34,6 +36,7 @@ class AppServiceProvider extends ServiceProvider
         Shop::observe(ShopObserver::class);
         Wholesale::observe(WholesaleObserver::class);
         Product::observe(ProductObserver::class);
+        ExpenseManagement::observe(ExpenseManagementObserver::class);
         Schema::defaultStringLength(191);
         Voyager::addAction(\App\Actions\PrintAction::class);
     }

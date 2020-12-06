@@ -177,14 +177,14 @@ class OrderController extends Controller
             $cartItems = \Cart::session(auth()->id())->getContent();
 
             foreach ($cartItems as $items) {
-                $order->items()->attach($items->id, ['price' => $items->price, 'quantity' => $items->quantity, 'size'=>$items->attributes->size,'referred_by'=>$referred_by]);
+                $order->items()->attach($items->id, ['price' => $items->price, 'quantity' => $items->quantity, 'size'=>$items->attributes->size,'referred_by'=>$referred_by, 'product_commission' => $items->associatedModel->product_commission]);
                 $prod = DB::table('products')->where('id', $items->associatedModel->id)->first();
                 $this->manage_stock($prod, $items->quentity);
             }
 
-            // Mail::to($order->user->email)->send(new OrderPaid($order));
-            // $order->generateSubOrders();
-            // \Cart::session(auth()->id())->clear();
+            Mail::to($order->user->email)->send(new OrderPaid($order));
+            $order->generateSubOrders();
+            \Cart::session(auth()->id())->clear();
             return redirect()->route('home')->withMessage('Order has been placed');
         }
 
@@ -333,7 +333,7 @@ class OrderController extends Controller
             $cartItems = \Cart::session(auth()->id())->getContent();
 
             foreach ($cartItems as $items) {
-                $order->items()->attach($items->id, ['price' => $items->price, 'quantity' => $items->quantity, 'size'=>$items->attributes->size,'referred_by'=>Cookie::get('referral')]);
+                $order->items()->attach($items->id, ['price' => $items->price, 'quantity' => $items->quantity, 'size'=>$items->attributes->size,'referred_by'=>Cookie::get('referral'), 'product_commission' => $items->associatedModel->product_commission]);
                 $prod = DB::table('products')->where('id', $items->associatedModel->id)->first();
                 $this->manage_stock($prod, $items->quentity);
             }

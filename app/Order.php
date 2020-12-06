@@ -9,7 +9,7 @@ class Order extends Model
 {
     public function items()
     {
-        return $this->belongsToMany(Product::class, 'order_items', 'order_id', 'product_id')->withPivot('quantity', 'price', 'size');
+        return $this->belongsToMany(Product::class, 'order_items', 'order_id', 'product_id')->withPivot('quantity', 'price', 'size', 'product_commission');
     }
 
     public function user()
@@ -32,7 +32,7 @@ class Order extends Model
             'sender_id' => 103,
             'apiKey' => 'ZWNoZW1iZDplY2hlbWJkMjAyMA==',
             'mobileNo' => $number,
-            'message' => $msg	
+            'message' => $msg
         );
 
         $curl = curl_init($url);
@@ -40,7 +40,7 @@ class Order extends Model
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);     
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
         $output = curl_exec($curl);
         curl_close($curl);
 
@@ -61,7 +61,7 @@ class Order extends Model
                     'seller_id' => $shop->user_id,
                     'grand_total' => $products->sum('pivot.price'),
                     'item_count' => $products->count(),
-                    
+
                 ]);
                 $msg = 'Order has been placed to you shop please check dashboard';
                 $user = DB::table('users')->where('id', $shop->user_id)->get()[0];
@@ -72,7 +72,7 @@ class Order extends Model
                     if($order[0]->size != 'None'){
                         $size = $order[0]->size;
                     }
-                    $suborder->items()->attach($product->id, ['price' => $product->pivot->price, 'quantity' => $product->pivot->quantity, 'size' => $size]);
+                    $suborder->items()->attach($product->id, ['price' => $product->pivot->price, 'quantity' => $product->pivot->quantity, 'size' => $size, 'product_commission' => $product->pivot->product_commission]);
                 }
             }
 
@@ -98,7 +98,7 @@ class Order extends Model
                     'seller_id' => $shop->user_id,
                     'grand_total' => $products->sum('pivot.price'),
                     'item_count' => $products->count(),
-                    
+
                 ]);
                 $msg = 'Order has been placed to you shop please check dashboard';
                 $user = DB::table('users')->where('id', $shop->user_id)->get()[0];
@@ -109,7 +109,7 @@ class Order extends Model
                     if($order[0]->size != 'None'){
                         $size = $order[0]->size;
                     }
-                    $suborder->items()->attach($product->id, ['price' => $product->pivot->price, 'quantity' => $product->pivot->quantity, 'size' => $size]);
+                    $suborder->items()->attach($product->id, ['price' => $product->pivot->price, 'quantity' => $product->pivot->quantity, 'size' => $size, 'product_commission' => $product->pivot->product_commission]);
                 }
             }
 

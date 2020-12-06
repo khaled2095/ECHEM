@@ -13,11 +13,7 @@ class WholesalePolicy
 
     public function before($user, $ability)
     {
-        if ($user->hasRole('admin'))
-        {
-            return true;
-        }
-        else if ($user->hasRole('super-admin'))
+        if ($user->hasRole(['admin', 'admin-s']))
         {
             return true;
         }

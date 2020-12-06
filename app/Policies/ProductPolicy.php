@@ -13,17 +13,9 @@ class ProductPolicy
 
     public function before($user, $ability)
     {
-        if ($user->hasRole('admin'))
+        if ($user->hasRole(['admin', 'admin-s']))
         {
             return true;
-        }
-        else if ($user->hasRole('super-admin'))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
         }
     }
 

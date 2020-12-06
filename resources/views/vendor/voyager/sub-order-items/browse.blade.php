@@ -285,8 +285,8 @@
                                         @endif
                                         @endforeach
 
-                                        {{-- @if($data->status == 'completed')
-                                            <a  href=" {{route('order.pay', $data)}} "
+                                        {{-- @if(DB::table('sub_orders')->where('id', $data->sub_order_id)->where('status','!=', 'completed')->count() == 'completed')
+                                            <a  href=" {{route('order.pay', $data->sub_order_id)}} "
                                                 class="btn btn-sm btn-primary pull-right">
                                                 <i class="{{ $action->getIcon() }}"></i> <span class="hidden-xs hidden-sm">Pay</span>
                                             </a>

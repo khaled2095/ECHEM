@@ -21,9 +21,10 @@
 
 @section('content')
 
+<h1>HELLOw</h1>
+
     <div class="page-content edit-add container-fluid">
         <div class="row">
-            {{-- <h1>hahaha</h1> --}}
             <div class="col-md-12">
 
                 <div class="panel panel-bordered">
@@ -57,17 +58,15 @@
                                 $dataTypeRows = $dataType->{($edit ? 'editRows' : 'addRows' )};
                             @endphp
 
-
-
                             @foreach($dataTypeRows as $row)
                                 <!-- GET THE DISPLAY OPTIONS -->
-
                                 @php
-
                                     $display_options = $row->details->display ?? NULL;
+
                                     if ($dataTypeContent->{$row->field.'_'.($edit ? 'edit' : 'add')}) {
                                         $dataTypeContent->{$row->field} = $dataTypeContent->{$row->field.'_'.($edit ? 'edit' : 'add')};
                                     }
+
                                 @endphp
                                 @if (isset($row->details->legend) && isset($row->details->legend->text))
                                     <legend class="text-{{ $row->details->legend->align ?? 'center' }}" style="background-color: {{ $row->details->legend->bgcolor ?? '#f0f0f0' }};padding: 5px;">{{ $row->details->legend->text }}</legend>
@@ -80,22 +79,7 @@
                                     @if (isset($row->details->view))
                                         @include($row->details->view, ['row' => $row, 'dataType' => $dataType, 'dataTypeContent' => $dataTypeContent, 'content' => $dataTypeContent->{$row->field}, 'action' => ($edit ? 'edit' : 'add'), 'view' => ($edit ? 'edit' : 'add'), 'options' => $row->details])
                                     @elseif ($row->type == 'relationship')
-
-                                        @if($row->display_name == 'shops' && auth()->user()->hasRole('seller'))
-                                            {{auth()->user()->shop->name ?? 'n/a'}}
-                                            <input type="hidden" name="shop_id" value="{{auth()->user()->shop->id}}">
-                                        @else
-                                            @include('voyager::formfields.relationship', ['options' => $row->details])
-                                        @endif
-
-                                        @if($row->display_name == 'wholesales' && auth()->user()->hasRole('wholesale-seller'))
-                                            {{auth()->user()->wholesale->name ?? 'n/a'}}
-                                            <input type="hidden" name="wholesale_id" value="{{auth()->user()->wholesale->id}}">
-                                        @else
-                                            @include('voyager::formfields.relationship', ['options' => $row->details])
-                                        @endif
-
-
+                                        @include('voyager::formfields.relationship', ['options' => $row->details])
                                     @else
                                         {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
                                     @endif
@@ -111,27 +95,11 @@
                                 </div>
                             @endforeach
 
-
-                            {{-- Product Attribute Fields --}}
-                            <div class="field_wrapper">
-                                <div>
-                                    <input id="size" type="text" name="size[]" value="" placeholder="Size"/>
-                                    <input id="color" type="text" name="color[]" value="" placeholder="Color"/>
-                                    <input id="price" type="number" name="pricexx[]" value="" placeholder="Price"/>
-                                    <input id="sku" type="text" name="sku[]" value="" placeholder="SKU"/>
-                                    <a href="javascript:void(0);" class="add_button btn btn-primary" title="Add field">Add</a>
-                                </div>
-
-                            </div>
-
-
                         </div><!-- panel-body -->
 
                         <div class="panel-footer">
                             @section('submit-buttons')
-
                                 <button type="submit" class="btn btn-primary save">{{ __('voyager::generic.save') }}</button>
-
                             @stop
                             @yield('submit-buttons')
                         </div>
@@ -179,7 +147,7 @@
     <script>
         var params = {};
         var $file;
-        
+
         function deleteHandler(tag, isMulti) {
           return function() {
             $file = $(this).siblings(tag);
@@ -247,36 +215,5 @@
             });
             $('[data-toggle="tooltip"]').tooltip();
         });
-
-
-        //add or remove product attribute
-        $(document).ready(function(){
-        var maxField = 5; //Input fields increment limitation
-        var addButton = $('.add_button'); //Add button selector
-        var wrapper = $('.field_wrapper'); //Input field wrapper
-        var fieldHTML = `<div><input type="text" name="size[]" style="width:165px" placeholder="Size"/><input type="text" name="color[]" style="width:165px" placeholder="Color"/><input type="number" name="pricexx[]" style="width:165px" placeholder="Price"/><input type="text" name="sku[]" style="width:165px" placeholder="SKU"/><a href="javascript:void(0);" class="remove_button btn btn-danger">Remove</a></div>`; //New input field html
-        var x = 1; //Initial field counter is 1
-
-        // <input type="text" name="price[]" style="width:165px" placeholder="Price"/><input type="text" name="sku[]" style="width:165px" placeholder="SKU"/>
-
-        //Once add button is clicked
-        $(addButton).click(function(){
-            //Check maximum number of input fields
-            if(x < maxField){
-                x++; //Increment field counter
-
-                $(wrapper).append(fieldHTML); //Add field html
-            }
-        });
-
-        //Once remove button is clicked
-        $(wrapper).on('click', '.remove_button', function(e){
-            e.preventDefault();
-            $(this).parent('div').remove(); //Remove field html
-            x--; //Decrement field counter
-        });
-    });
-
-
     </script>
 @stop

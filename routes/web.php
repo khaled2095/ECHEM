@@ -51,10 +51,14 @@ Route::get('/product/{prodId}', 'ProductSinglePage@index')->name('prod.single');
 
 
 Route::group(['prefix' => 'admin'], function () {
+
     Route::get('expenses/publish/{id}','ExpenseController@index')->name('expenses.print');
+
+    Route::get('/pay-commision/{id}', 'SubOrderController@pay2')->name('pay.com');
+
     Voyager::routes();
 
-    Route::get('/order/pay/{suborder}', 'SubOrderController@pay')->name('order.pay');
+    // Route::get('/order/pay/{suborder}', 'SubOrderController@pay')->name('order.pay');
 });
 
 
