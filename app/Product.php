@@ -31,18 +31,18 @@ class Product extends Model
                 array_push($attr, $val);
             }
 
-            $product->product_attributes = json_encode($product->product_attributes);
+            $product->product_attributes = json_encode($attr);
 
-            foreach($attr as $key => $i)
-            {
-                $x = new ProductAttribute();
-                $x->product_id = $product->id;
-                $x->size = $size[$key];
-                $x->price = $price[$key];
-                $x->SKU = $sk[$key];
-                $x->status = 1;
-                $x->save();
-            }
+            // foreach($attr as $key => $i)
+            // {
+            //     $x = new ProductAttribute();
+            //     $x->product_id = $product->id;
+            //     $x->size = $size[$key];
+            //     $x->price = $price[$key];
+            //     $x->SKU = $sk[$key];
+            //     $x->status = 1;
+            //     $x->save();
+            // }
             //$product->save();
 
         });
@@ -67,17 +67,17 @@ class Product extends Model
             }
 
             $product->product_attributes = json_encode($attr);
-            //$product->save();
-            foreach($attr as $key => $i)
-            {
-                $x = new ProductAttribute();
-                $x->product_id = $product->id;
-                $x->size = $size[$key];
-                $x->price = $price[$key];
-                $x->SKU = $sk[$key];
-                $x->status = 1;
-                $x->save();
-            }
+            // //$product->save();
+            // foreach($attr as $key => $i)
+            // {
+            //     $x = new ProductAttribute();
+            //     $x->product_id = $product->id;
+            //     $x->size = $size[$key];
+            //     $x->price = $price[$key];
+            //     $x->SKU = $sk[$key];
+            //     $x->status = 1;
+            //     $x->save();
+            // }
 
         });
     }

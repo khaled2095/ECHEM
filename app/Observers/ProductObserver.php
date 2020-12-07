@@ -5,7 +5,7 @@ use App\Product;
 use Illuminate\Routing\Route;
 use Toolkito\Larasap\SendTo;
 use Illuminate\Support\Facades\DB;
-
+use App\ProductAttribute;
 class ProductObserver
 {
     //
@@ -30,7 +30,17 @@ class ProductObserver
     
     
     public function created(Product $product){
-
+        $prod = json_decode($product->product_attributes);
+            
+            foreach($prod as $key => $i){
+                $x = new ProductAttribute();
+                $x->product_id = $product->id;
+                $x->size =$i->size;
+                $x->price = $i->price;
+                $x->SKU = $i->sku;
+                $x->status = 1;
+                $x->save();
+            }
         SendTo::Facebook(
             'link',
             [
@@ -42,6 +52,17 @@ class ProductObserver
     
     public function updating(Product $product)
     {
+        $prod = json_decode($product->product_attributes);
+            
+            foreach($prod as $key => $i){
+                $x = new ProductAttribute();
+                $x->product_id = $product->id;
+                $x->size =$i->size;
+                $x->price = $i->price;
+                $x->SKU = $i->sku;
+                $x->status = 1;
+                $x->save();
+            }
         if($product->isDirty('stock')){
             // email has changed
             if($product->stock < $product->min_qty){

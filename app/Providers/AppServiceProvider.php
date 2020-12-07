@@ -39,5 +39,6 @@ class AppServiceProvider extends ServiceProvider
         ExpenseManagement::observe(ExpenseManagementObserver::class);
         Schema::defaultStringLength(191);
         Voyager::addAction(\App\Actions\PrintAction::class);
+        Voyager::addAction(\App\Actions\PrintColl::class);
     }
 }

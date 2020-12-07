@@ -15,5 +15,9 @@ class ExpenseController extends Controller
         $pdf = PDF::loadView('memo', ['data' => $expense]);
         return $pdf->download('memo.pdf');
     }
-
+    public function index2(Request $request){
+        $expense = DB::table('expense_management')->where('id', request('id'))->first();
+        $pdf = PDF::loadView('memo2', ['data' => $expense]);
+        return $pdf->download('memo.pdf');
+    }
 }

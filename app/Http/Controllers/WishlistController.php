@@ -18,7 +18,9 @@ class WishlistController extends Controller
     public function index()
     {
         $wishlists = Wishlist::where('user_id', auth()->user()->id)->paginate(9);
-        
+        if(empty($wishlist)){
+            $prod = null;
+        }
         foreach ($wishlists as $item) {
             $prod = Product::where('product_id', $item->product_id);
         }

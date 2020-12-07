@@ -118,6 +118,25 @@ class MessageController extends Controller
         // return response()->json($messages,201);
 
     }
+    public function send_message2(Request $request)
+    {
+
+
+        if (!$request->ajax()) {
+            abort(404);
+        }
+        $admin = DB::table('users')->where('role_id', 1)->first();
+        $messages = Message::create([
+            'message' => $request->message,
+            'from_user' => auth()->user()->id,
+            'to_user' => $admin->id,
+        ]);
+
+        broadcast(new MessageSend($messages));
+        return response()->json($messages, 201);
+        // return response()->json($messages,201);
+
+    }
     public function init_message(Request $request)
     {
 

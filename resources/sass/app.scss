@@ -358,3 +358,28 @@ $gray: #92959E;
 	height: 0;
 }
 
+// #chat{
+//   width: 100%;
+//   height: 100vh;
+// }
+
+#chat-head{
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  
+  z-index: 80000;
+  width: 60px;
+  height: 60px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #94C2ED;
+}
+
+#chat-head a span{
+  background-color: #E38968;
+  color: white;
+  padding: 5px;
+}

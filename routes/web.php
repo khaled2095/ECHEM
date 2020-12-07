@@ -53,7 +53,7 @@ Route::get('/product/{prodId}', 'ProductSinglePage@index')->name('prod.single');
 Route::group(['prefix' => 'admin'], function () {
 
     Route::get('expenses/publish/{id}','ExpenseController@index')->name('expenses.print');
-
+    Route::get('expenses/publish/{id}','ExpenseController@index2')->name('expenses.print2');
     Route::get('/pay-commision/{id}', 'SubOrderController@pay2')->name('pay.com');
 
     Voyager::routes();
@@ -131,6 +131,8 @@ Route::resource('messages', 'MessageController')->only(['index','store']);
 Route::get('userlist', 'MessageController@user_list')->name('user.list');
 Route::get('usermessage/{id}', 'MessageController@user_message')->name('user.message');
 Route::post('senemessage', 'MessageController@send_message')->name('user.message.send');
+Route::post('senemessage-admin', 'MessageController@send_message2')->name('user.message.send');
+
 Route::post('/ini-msg/{msg}/{to}', 'MessageController@init_message')->name('init.msg');
 
 

@@ -29,6 +29,7 @@
         "larasocket-js": "^1.0.16",
         "moment": "^2.29.1",
         "vue-chat-scroll": "^1.4.0",
+        "vue-feather-icons": "^5.1.0",
         "vuex": "^3.5.1"
     }
 }

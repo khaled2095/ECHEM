@@ -64,20 +64,85 @@
 @section('content')
 
     <div class="prod-category-page">
-        <div class="side-bar-filter px-3">
+    <div class="side-bar-filter px-3">
+            <h4 class="my-2">FILTER</h4>
             @php
-            $categoryx = DB::table('categories')->where('parent_id', null)->get();
+            $categoryx = DB::table('categories')->where('name', 'Brands')->get();
             @endphp
-            @foreach ($categoryx as $c)
-                @php
-                $inr = DB::table('categories')->where('parent_id', $c->id)->get();
-                @endphp
-                <h4 class="mt-3">{{ $c->name }}</h4>
-                @foreach ($inr as $item)
-                    <a href="{{ route('products.index', ['category_id' => $item->id]) }}" class="my-1"
-                        style="text-decoration: none;">{{ $item->name }}</a>
-                @endforeach
-            @endforeach
+            <div class="dropdown my-2 w-100">
+                <button class="btn btn-primary dropdown-toggle w-100" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Search By Brand
+                </button>
+                <div class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
+                    @foreach ($categoryx as $c)
+                        @php
+                        $inr = DB::table('categories')->where('parent_id', $c->id)->get();
+                        @endphp
+                        @foreach ($inr as $item)
+                            <a href="{{ route('products.index', ['category_id' => $item->id]) }}" class="dropdown-item"
+                                style="text-decoration: none;">{{ $item->name }}</a>
+                        @endforeach
+                    @endforeach
+                </div>
+            </div>
+            <div class="dropdown my-2 w-100">
+                <button class="btn btn-primary dropdown-toggle w-100" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Search By Size
+                </button>
+                <div class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
+                    @foreach ($products as $item)
+                        @php
+                        $it = DB::table('product_attributes')->where('product_id', $item->id)->get();
+                        @endphp
+                        @if ($it->count() > 0)
+                            @foreach ($it as $attr)
+                                <a href="{{ route('prod.attr', ['id' => $attr->id]) }}" class="dropdown-item"
+                                    style="text-decoration: none;">{{ $attr->size }}</a>
+                            @endforeach
+                        @endif
+                    @endforeach
+                </div>
+            </div>
+            <div class="dropdown my-2 w-100">
+                <button class="btn btn-primary dropdown-toggle w-100" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Search By Price
+                </button>
+                <div class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
+                    @foreach ($products as $item)
+                        @php
+                        $it = DB::table('product_attributes')->where('product_id', $item->id)->get();
+                        @endphp
+                        @if ($it->count() > 0)
+                            @foreach ($it as $attr)
+                                <a href="{{ route('prod.attr', ['id' => $attr->id]) }}" class="dropdown-item"
+                                    style="text-decoration: none;">{{ $attr->price }}</a>
+                            @endforeach
+                        @endif
+                    @endforeach
+                </div>
+            </div>
+            <div class="dropdown my-2 w-100">
+                <button class="btn btn-primary dropdown-toggle w-100" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Search By Color
+                </button>
+                <div class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
+                    @foreach ($products as $item)
+                        @php
+                        $it = DB::table('product_attributes')->where('product_id', $item->id)->get();
+                        @endphp
+                        @if ($it->count() > 0)
+                            @foreach ($it as $attr)
+                                <a href="{{ route('prod.attr', ['id' => $attr->id]) }}" class="dropdown-item"
+                                    style="text-decoration: none;">{{ $attr->color }}</a>
+                            @endforeach
+                        @endif
+                    @endforeach
+                </div>
+            </div>
         </div>
         <div class="products-info px-3">
             
