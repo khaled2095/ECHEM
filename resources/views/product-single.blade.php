@@ -75,6 +75,27 @@
             <h5>Cash Back {{ $product->cash_back_percent }} %</h5>
             @endif
             <h5>Reward Point {{ $product->reward_point }}</h5>
+
+            @php
+                $shop = null;
+                $wholesale = null;
+                if(!empty($product->shop_id)){
+                    $shop = DB::table('shops')->where('id', $product->shop_id)->first();
+                }
+                if(!empty($product->sholesale_id)){
+                    $wholesale = DB::table('wholesales')->where('id', $product->shop_id)->first();
+                }
+            @endphp
+            @if(!empty($shop))
+                <p>From marchent{{$shop->name}}</p>
+            @endif
+            @if(!empty($wholesale))
+                <p>From marchent{{$wholesale->name}}</p>
+            @endif
+            @if(empty($wholesale) && empty($shop))
+                <p>From marchent @ECHEM</p>
+            @endif
+
             @if ($star == 0)
                 <div class="pl-3 my-3 row align-items-center">
                     <i data-feather="star"></i>
