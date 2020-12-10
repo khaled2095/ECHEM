@@ -4,6 +4,7 @@ namespace TCG\Voyager\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -16,7 +17,119 @@ class VoyagerController extends Controller
 {
     public function index()
     {
-        return Voyager::view('voyager::index');
+        $this_year_orders = DB::table('orders')->whereYear('created_at', '=', date('Y'))->get();
+
+        $this_month_orders = DB::table('orders')->whereMonth('created_at', '=', date('m'))->get();
+
+        $order_today = DB::table('orders')->whereDay('created_at', '=', date('d'))->get();
+
+        //vendors
+
+        $this_year_orders_seller = DB::table('sub_orders')->whereYear('created_at', '=', date('Y'))->where('seller_id', auth()->id())->get();
+
+        $this_month_orders_seller = DB::table('sub_orders')->whereMonth('created_at', '=', date('m'))->where('seller_id', auth()->id())->get();
+
+        $order_today_seller = DB::table('sub_orders')->whereDay('created_at', '=', date('d'))->where('seller_id', auth()->id())->get();
+
+        $total_item = 0;
+        $pending = 0;
+        $profit_m = 0;
+        $profit_y = 0;
+
+        $orders = DB::table('orders')->get();
+        foreach($orders as $ord){
+            if($ord->is_paid){
+                $total_item = $total_item + $ord->item_count;
+            }
+            if($ord->status === 'pending' || $ord->status === 'processing'){
+                $pending = $pending + 1;
+            }
+        }
+
+        //Vendor
+        $s_total_item = 0;
+        $s_pending = 0;
+        $s_profit_m = 0;
+        $s_profit_y = 0;
+
+        $s_orders = DB::table('sub_orders')->where('seller_id', auth()->id())->get();
+        foreach($s_orders as $ord){
+            if($ord->status !== 'pending' || $ord->status !== 'processing'){
+                $s_total_item = $s_total_item + $ord->item_count;
+            }
+            if($ord->status === 'pending' || $ord->status === 'processing'){
+                $s_pending = $s_pending + 1;
+            }
+        }
+        foreach($this_month_orders_seller as $ord){
+            if($ord->status !== 'pending' || $ord->status !== 'processing'){
+                $ord_item  = DB::table('order_items')->where('order_id', $ord->id)->get();
+                foreach($ord_item as $it){
+                    $prod = DB::table('products')->where('id', $it->product_id)->first();
+                    $s_profit_m = $s_profit_m + $prod->price - $prod->buying_price;
+                }
+            }
+        }
+        foreach($this_year_orders_seller as $ord){
+            if($ord->status !== 'pending' || $ord->status !== 'processing'){
+                $ord_item  = DB::table('order_items')->where('order_id', $ord->id)->get();
+                foreach($ord_item as $it){
+                    $prod = DB::table('products')->where('id', $it->product_id)->first();
+                    $s_profit_y = $s_profit_y + $prod->price - $prod->buying_price;
+                }
+            }
+        }
+
+
+        foreach($this_month_orders as $ord){
+            if($ord->is_paid){
+                $ord_item  = DB::table('order_items')->where('order_id', $ord->id)->get();
+                foreach($ord_item as $it){
+                    $prod = DB::table('products')->where('id', $it->product_id)->first();
+                    $profit_m = $profit_m + $prod->price - $prod->buying_price;
+                }
+            }
+        }
+        foreach($this_year_orders as $ord){
+            if($ord->is_paid){
+                $ord_item  = DB::table('order_items')->where('order_id', $ord->id)->get();
+                foreach($ord_item as $it){
+                    $prod = DB::table('products')->where('id', $it->product_id)->first();
+                    $profit_y = $profit_y + $prod->price - $prod->buying_price;
+                }
+            }
+        }
+        $exp_m = DB::table('expenses')->whereMonth('created_at', '=', date('m'))->sum('amount');
+        $exp_y = DB::table('expenses')->whereYear('created_at', '=', date('Y'))->sum('amount');
+        $rev_m = $profit_m - $exp_m;
+        $rev_y = $profit_y - $exp_y;
+
+        //return view('inventory.index', );
+
+        return Voyager::view('voyager::index', [
+            'order_by_month' => $this_month_orders,
+            'order_today' => $order_today,
+            'this_year_orders' =>$this_year_orders,
+
+            'seller_order_by_month' => $this_month_orders_seller,
+            'seller_order_today' => $order_today_seller,
+            'seller_this_year_orders' =>$this_year_orders_seller,
+
+            'pending' => $pending,
+            'item' => $total_item,
+            'month_profit' => $profit_m,
+            'year_profit' => $profit_y,
+
+            's_pending' => $s_pending,
+            's_item' => $s_total_item,
+            's_month_profit' => $s_profit_m,
+            's_year_profit' => $s_profit_y,
+
+            'exp_year' => $exp_y,
+            'exp_month' => $exp_m,
+            'rev_m' => $rev_m,
+            'rev_y' => $rev_y
+        ]);
     }
 
     public function logout()

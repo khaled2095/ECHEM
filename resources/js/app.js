@@ -65,4 +65,3 @@ const app = new Vue({
     //         this.newMessage = '';
     //     }
     // }
-

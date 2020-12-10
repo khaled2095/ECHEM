@@ -27,7 +27,7 @@ class CreateSubOrderItemsInTransaction extends Migration
     public function down()
     {
         Schema::table('transactions', function (Blueprint $table) {
-            //
+            $table->dropColumn('sub_order_item_id');
         });
     }
 }

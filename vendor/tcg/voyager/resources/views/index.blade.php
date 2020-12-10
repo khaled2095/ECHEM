@@ -2,11 +2,19 @@
 
 @section('content')
 
+<<<<<<< HEAD
     @php
         $user = DB::table('users')->where('id', auth()->id())->first();
 
     @endphp
     @if ($user->role_id === 5 || $user->role_id === 1)
+=======
+@php
+    $user = DB::table('users')->where('id', auth()->id())->first();
+
+    @endphp
+    @if ($user->role_id === 5)
+>>>>>>> 7feb2da15c35bb266252dae93e8df400d7ad4631
     <div class="" style="width: 90%; margin: 20px auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
         <div class="card">
             @php
@@ -107,7 +115,11 @@
 
     </div>
     @endif
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 7feb2da15c35bb266252dae93e8df400d7ad4631
     @if ($user->role_id === 3 || $user->role_id === 4)
     <div class="" style="width: 90%; margin: 20px auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
         <div class="card">
@@ -137,7 +149,11 @@
             <h3 style="text-align: center">Total Sell Pending</h3>
             <h2 style="text-align: center">BDT {{$p_sell}} /-</h2>
         </div>
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> 7feb2da15c35bb266252dae93e8df400d7ad4631
 
         <div class='card'>
             <h3 style="text-align: center">Profit This Month</h3>
@@ -147,7 +163,11 @@
             <h3 style="text-align: center">Profit This Year</h3>
             <h2 style="text-align: center">{{$s_year_profit}} BDT</h2>
         </div>
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> 7feb2da15c35bb266252dae93e8df400d7ad4631
         <div class='card'>
             <h3 style="text-align: center">Total Item Sold</h3>
             <h2 style="text-align: center">{{$s_item}}</h2>
@@ -159,6 +179,10 @@
 
     </div>
     @endif
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7feb2da15c35bb266252dae93e8df400d7ad4631
     <div class="page-content">
         @include('voyager::alerts')
         @include('voyager::dimmers')

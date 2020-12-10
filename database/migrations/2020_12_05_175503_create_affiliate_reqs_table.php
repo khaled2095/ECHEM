@@ -15,7 +15,8 @@ class CreateAffiliateReqsTable extends Migration
     {
         Schema::create('affiliate_reqs', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -5,6 +5,7 @@ namespace App\Notifications;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
 
 class NewMessage extends Notification
@@ -29,7 +30,7 @@ class NewMessage extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database','broadcast'];
     }
 
     /**
@@ -44,6 +45,19 @@ class NewMessage extends Notification
           'NewMessage'=>'test'
         ];
     }
+    /**
+     * Get the mail representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return \Illuminate\Notifications\Messages\MailMessage
+     */
+    public function toBroadcast($notifiable)
+    {
+        return new BroadcastMessage ([
+          'NewMessage'=>'test'
+        ]);
+    }
+
 
     /**
      * Get the array representation of the notification.
