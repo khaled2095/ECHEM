@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use App\Notifications\NewMessage;
 
 class MessageController extends Controller
 {
@@ -57,14 +58,14 @@ class MessageController extends Controller
                 //         }
                 //     }
                 // }
-                
+
                 if(!in_array($users, (array) $user, true)){
                     array_push($users, $user);
-                    
+
                 }
             }
         }
-       
+
         if (\Request::ajax()) {
             return response()->json($users, 200);
         }
@@ -113,6 +114,8 @@ class MessageController extends Controller
             'to_user' => $request->user_id,
         ]);
 
+        $user = User::find($request->user_id);
+        $user->notify(new NewMessage());
         broadcast(new MessageSend($messages));
         return response()->json($messages, 201);
         // return response()->json($messages,201);
@@ -131,7 +134,7 @@ class MessageController extends Controller
             'from_user' => auth()->user()->id,
             'to_user' => $admin->id,
         ]);
-
+        auth()->user()->notify(new NewMessage());
         broadcast(new MessageSend($messages));
         return response()->json($messages, 201);
         // return response()->json($messages,201);

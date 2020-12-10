@@ -45,6 +45,10 @@ class User extends \TCG\Voyager\Models\User
     {
         return $this->hasMany(Message::class, 'from_user');
     }
+    public function affiliate()
+    {
+        return $this->hasOne(Affiliate_req::class, 'user_id');
+    }
 
 
     /**
@@ -53,7 +57,7 @@ class User extends \TCG\Voyager\Models\User
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'phone'
+        'name', 'email', 'password', 'phone','is_affiliate'
     ];
 
     /**

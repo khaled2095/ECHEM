@@ -125,7 +125,11 @@ Route::view('/ebook', 'ebook')->name('ebook');
 Route::get('/ebook/request', 'EbookRequestController@index')->name('ebook.r');
 
 //Route::get('/home', 'HomeController@index')->name('home');
-Route::view('/chat', 'chat')->middleware('auth')->name('chat');
+// Route::view('/chat', 'chat')->middleware('auth')->name('chat');
+Route::get('/chat', function () {
+    auth()->user()->unreadNotifications->markAsRead();
+    return view('chat');
+})->middleware('auth')->name('chat');
 Route::resource('messages', 'MessageController')->only(['index','store']);
 
 Route::get('userlist', 'MessageController@user_list')->name('user.list');
@@ -134,6 +138,8 @@ Route::post('senemessage', 'MessageController@send_message')->name('user.message
 Route::post('senemessage-admin', 'MessageController@send_message2')->name('user.message.send');
 
 Route::post('/ini-msg/{msg}/{to}', 'MessageController@init_message')->name('init.msg');
+Route::get('/affiliate-register','Affiliates@index');
+Route::post('/affiliate-apply','Affiliates@store');
 
 
 // Route::get('/webs', function () {
