@@ -72,7 +72,7 @@
                              </div>
 
                          </li>
-                         
+
 
                          <li class="nav-item">
                              <a href="{{ route('cart.index') }}" class="nav-link active">
@@ -157,7 +157,7 @@
                                      @foreach ($cat as $item)
                                          <a href="{{ route('post.by.cat', ['id' => $item->id]) }}" class="cat-sub">{{$item->name}}</a>
                                      @endforeach
-                                     
+
                                  </div>
                                  <div>
                                      <a href="#" class="cat-head">Videos</a>
@@ -170,7 +170,7 @@
                                                  class="cat-sub">{{ $item->name }}</a>
                                          @endforeach
                                      @endif
-                                    
+
                                  </div>
                                  <div>
                                      <a href="{{ route('ebook') }}" class="cat-head"></a>
@@ -209,7 +209,7 @@
                                      @endphp
                                      <a href="{{route('custom.pages', ['id' => $page->id])}}" class="cat-sub active" >Financing</a>
                                      <a href="{{route('custom.pages', ['id' => $page2->id])}}" class="cat-sub active" >SCREEN RE-MESHING</a>
-                                     
+
                                  </div>
                                  <div>
                                      <p class="my-2"><i data-feather='phone' class="mx-2"></i> 02 8413289,
@@ -260,7 +260,14 @@
 
                  <li class="nav-item active"><a href="{{ route('project365') }}" class="nav-link">Project <span
                              class="badge badge-primary">365</span></a></li>
-
+                @auth
+                @if(auth()->user()->is_affiliate == 0)
+                <li class="nav-item active"><a href="/affiliate-register" class="nav-link">Become Affiliate</a></li>
+                @endif
+                @endauth
+                @guest
+                <li class="nav-item active"><a href="/affiliate-register" class="nav-link">Become Affiliate</a></li>
+                @endguest
              </ul>
          </div>
      </div>
