@@ -1,6 +1,164 @@
 @extends('voyager::master')
 
 @section('content')
+
+    @php
+        $user = DB::table('users')->where('id', auth()->id())->first();
+
+    @endphp
+    @if ($user->role_id === 5 || $user->role_id === 1)
+    <div class="" style="width: 90%; margin: 20px auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+        <div class="card">
+            @php
+                $orders = DB::table('orders')->get();
+                $sell = 0;
+                $p_sell = 0;
+                foreach ($orders as $o) {
+                    # code...
+                    if($o->is_paid){
+                        $sell = $sell + $o->grand_total;
+                    }
+                    else {
+                        # code...
+                        $p_sell = $p_sell + $o->grand_total;
+                    }
+                }
+            @endphp
+            <h3 style="text-align: center">Total Orders</h3>
+            <h2 style="text-align: center">{{$orders->count()}}</h2>
+        </div>
+        <div class="card">
+            <h3 style="text-align: center">Total Sell</h3>
+            <h2 style="text-align: center">BDT {{$sell}} /-</h2>
+        </div>
+        <div class="card">
+            <h3 style="text-align: center">Total Sell Pending</h3>
+            <h2 style="text-align: center">BDT {{$p_sell}} /-</h2>
+        </div>
+        <div class="card">
+            @php
+                $itm = DB::table('order_items')->get();
+            @endphp
+            <h3 style="text-align: center">Total Item ordered</h3>
+            <h2 style="text-align: center">{{$itm->count()}}</h2>
+        </div>
+        <div class="card">
+            @php
+                $seller = DB::table('shops')->get();
+            @endphp
+            <h3 style="text-align: center">Total Shops</h3>
+            <h2 style="text-align: center">{{$seller->count()}}</h2>
+        </div>
+        <div class="card">
+            @php
+                $seller = DB::table('wholesales')->get();
+            @endphp
+            <h3 style="text-align: center">Total Wholesale Shop</h3>
+            <h2 style="text-align: center">{{$seller->count()}}</h2>
+        </div>
+        <div class="card">
+            @php
+                $seller = DB::table('sub_orders')->get();
+            @endphp
+            <h3 style="text-align: center">Total Order By Shops</h3>
+            <h2 style="text-align: center">{{$seller->count()}}</h2>
+        </div>
+
+        <div class="card">
+            @php
+                $prod = DB::table('products')->get();
+            @endphp
+            <h3 style="text-align: center">Total Products</h3>
+            <h2 style="text-align: center">{{$prod->count()}}</h2>
+        </div>
+
+        <div class='card'>
+            <h3 style="text-align: center">Profit This Month</h3>
+            <h2 style="text-align: center">{{$month_profit}} BDT</h2>
+        </div>
+        <div class='card'>
+            <h3 style="text-align: center">Profit This Year</h3>
+            <h2 style="text-align: center">{{$year_profit}} BDT</h2>
+        </div>
+        <div class='card'>
+            <h3 style="text-align: center">Expense This Month</h3>
+            <h2 style="text-align: center">{{$exp_month}} BDT</h2>
+        </div>
+        <div class='card'>
+            <h3 style="text-align: center">Revenue This Month</h3>
+            <h2 style="text-align: center">{{$rev_m}} BDT</h2>
+        </div>
+        <div class='card'>
+            <h3 style="text-align: center">Expense This Year</h3>
+            <h2 style="text-align: center">{{$exp_year}} BDT</h2>
+        </div>
+        <div class='card'>
+            <h3 style="text-align: center">Revenue This Year</h3>
+            <h2 style="text-align: center">{{$rev_y}} BDT</h2>
+        </div>
+        <div class='card'>
+            <h3 style="text-align: center">Total Item Sold</h3>
+            <h2 style="text-align: center">{{$item}}</h2>
+        </div>
+        <div class='card'>
+            <h3 style="text-align: center">Pending Orders</h3>
+            <h2 style="text-align: center">{{$pending}}</h2>
+        </div>
+
+    </div>
+    @endif
+    
+    @if ($user->role_id === 3 || $user->role_id === 4)
+    <div class="" style="width: 90%; margin: 20px auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+        <div class="card">
+            @php
+                $orders = DB::table('sub_orders')->where('seller_id', auth()->id())->get();
+                $sell = 0;
+                $p_sell = 0;
+                foreach ($orders as $o) {
+                    # code...
+                    if($o->status !== 'pending' || $o->status !== 'processing'){
+                        $sell = $sell + $o->grand_total;
+                    }
+                    else {
+                        # code...
+                        $p_sell = $p_sell + $o->grand_total;
+                    }
+                }
+            @endphp
+            <h3 style="text-align: center">Total Orders</h3>
+            <h2 style="text-align: center">{{$orders->count()}}</h2>
+        </div>
+        <div class="card">
+            <h3 style="text-align: center">Total Sell</h3>
+            <h2 style="text-align: center">BDT {{$sell}} /-</h2>
+        </div>
+        <div class="card">
+            <h3 style="text-align: center">Total Sell Pending</h3>
+            <h2 style="text-align: center">BDT {{$p_sell}} /-</h2>
+        </div>
+        
+
+        <div class='card'>
+            <h3 style="text-align: center">Profit This Month</h3>
+            <h2 style="text-align: center">{{$s_month_profit}} BDT</h2>
+        </div>
+        <div class='card'>
+            <h3 style="text-align: center">Profit This Year</h3>
+            <h2 style="text-align: center">{{$s_year_profit}} BDT</h2>
+        </div>
+        
+        <div class='card'>
+            <h3 style="text-align: center">Total Item Sold</h3>
+            <h2 style="text-align: center">{{$s_item}}</h2>
+        </div>
+        <div class='card'>
+            <h3 style="text-align: center">Pending Orders</h3>
+            <h2 style="text-align: center">{{$s_pending}}</h2>
+        </div>
+
+    </div>
+    @endif
     <div class="page-content">
         @include('voyager::alerts')
         @include('voyager::dimmers')
