@@ -48,6 +48,20 @@
                 <p class="h4 text-success my-2">{{ $count }}</p>
             </div>
         </div>
+        {{--Affiliate--}}
+        <h2 class="my-5">Affiliated Sales</h2>
+        <table class="table border">
+          <tr>
+            <th>Product</th>
+            <th>Commision</th>
+          </tr>
+          @foreach( $affiliate as $affi)
+          <tr>
+            <td>{{ $affi->product }}</td>
+            <td>{{ $affi->affiliated_commision }} BDT</td>
+          </tr>
+          @endforeach
+        </table>
         {{-- GIFT CARD AREA --}}
         <h2 class="my-5">Purchased Gift Cards</h2>
         <div class="gift-cards my-5">

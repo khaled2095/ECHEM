@@ -182,7 +182,7 @@ class OrderController extends Controller
                 $this->manage_stock($prod, $items->quentity);
             }
 
-            Mail::to($order->user->email)->send(new OrderPaid($order));
+            // Mail::to($order->user->email)->send(new OrderPaid($order));
             $order->generateSubOrders();
             \Cart::session(auth()->id())->clear();
             return redirect()->route('home')->withMessage('Order has been placed');

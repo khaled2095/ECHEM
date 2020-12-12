@@ -349,10 +349,15 @@ class VoyagerBaseController extends Controller
                 ->get();
             foreach ($pay as $pa) {
               if(!empty($pa->referred_by)){
-                $com = (($pa->price*$pa->quantity)/100)*20;
+                $product = DB::table('products')
+                ->where('id',$pa->product_id)
+                ->first();
+                $product_name = $product->name;
+                $com = (($pa->price*$pa->quantity)/100)*$product->affiliate_comission;
                 $ref = DB::table('wallets')
                     ->where('user_id', $pa->referred_by)
                     ->first();
+
 
                $add = $ref->amount + $com;
               $up = DB::table('wallets')
@@ -361,6 +366,8 @@ class VoyagerBaseController extends Controller
              $que = new Affiliated_Sale();
              $que->order_item_id = $pa->id;
              $que->referred_by = $pa->referred_by;
+             $que->product = $product_name;
+             $que->affiliated_commision = $com;
              $que->save();
 
 

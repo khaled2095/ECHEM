@@ -20,7 +20,7 @@ class CheckReferral
 // Check that there is not already a cookie set and that we have 'ref' in the url
 if (! $request->hasCookie('referral') && $request->query('ref') ) {
 // Add a cookie to the response that lasts 5 years (in minutes)
-$response->cookie( 'referral', encrypt( $request->query('ref') ), 525600 );
+$response->cookie( 'referral', $request->query('ref') , 525600 );
 }
 
 return $response;

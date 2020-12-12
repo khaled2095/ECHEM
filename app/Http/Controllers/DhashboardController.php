@@ -6,6 +6,7 @@ use App\GiftCardPurchase;
 use App\Order;
 use App\RewardPoint;
 use App\Wallet;
+use App\Affiliated_Sale;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -18,6 +19,7 @@ class DhashboardController extends Controller
         $orders = Order::where('user_id', auth()->id())->get();
         $reward = RewardPoint::where('user_id', auth()->id())->get();
         $gift_card = GiftCardPurchase::where('user_id', auth()->id())->get();
+        $affiliate = Affiliated_Sale::where('referred_by', auth()->id())->get();
         $order_items = array();
         foreach ($orders as $order) {
             # code...
@@ -31,12 +33,13 @@ class DhashboardController extends Controller
             }
         }
         return view('dashboard', [
-            'wallet' => $wallet, 
-            'orders' => $orders, 
+            'wallet' => $wallet,
+            'orders' => $orders,
             'reward' => $reward,
             'cards' => $gift_card,
             'products' => $products,
             'items' => $order_items,
+            'affiliate' => $affiliate,
         ]);
     }
 }
