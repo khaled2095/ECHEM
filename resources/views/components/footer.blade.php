@@ -37,6 +37,9 @@
         <a href="{{ route('faq') }}">FAQ</a>
         <a href="{{ route('contact') }}">Contact</a>
         <a href="{{ route('project365') }}">Project <span class="badge badge-primary">365</span></a>
+        @guest
+            <li class="nav-item active"><a href="/affiliate-register" class="nav-link">Become Affiliate</a></li>
+        @endguest
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>

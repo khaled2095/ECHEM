@@ -150,3 +150,5 @@ Route::get('/posts/{id}', 'Project365Controller@post_by_cat',)->name('post.by.ca
 Route::get('/product/attr/{id}', 'ProductController@by_attr')->name('prod.attr');
 Route::get('/apply-for-financing', 'FinanceRequestController@index')->name('f.req');
 Route::post('/make-finance-request', 'FinanceRequestController@store')->name('f.p.req');
+Route::view('/edit-profile', 'auth.edit-profile')->middleware('auth')->name('edit-profile');
+Route::post('/update-profile', 'UpdateProfile@index')->middleware('auth')->name('update-profile');
