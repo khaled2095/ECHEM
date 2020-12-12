@@ -11,7 +11,7 @@
             <p class="text-light">Join thousands already earning rewards, saving money, and growing their screen printing business
             <span class="h3"> <a class="h2 text-success" href="{{route('register')}}">Join Here</a></span>
             </p>
-            <a href="https://www.echem.com.bd/apps/_Echem_12584216.apk"><img src="https://echem.com.bd/images/google-play-badge.png" width='100'/></a>
+            <a href="http://echem.com.bd/apps/_Echem_12584216.apk"><img src="https://echem.com.bd/images/google-play-badge.png" width='100'/></a>
         </div>
         <div>
             <p class="section-head">Contact</p>

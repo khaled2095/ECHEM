@@ -36,7 +36,13 @@
                             placeholder="Phone" name='phone' value="{{$user->phone}}">
                     </div>
                 </div>
-                
+                <div class="form-group" id="auth-group">
+                    <label for="password" class="my-2">Password</label>
+                    <div>
+                        <input placeholder="Password" id="phone" type="text"
+                        class="form-control" name='password'>
+                    </div>
+                </div>
                 <div class="ml-1">
                     <div class="ml-1" id='auth-extra'>
                         <button type="submit" class="btn btn-primary w-100">
