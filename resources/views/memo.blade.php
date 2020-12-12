@@ -55,8 +55,8 @@
         </table>
         <br/>
         <br/>
-        <p>Staff Signeture</p>
-        <p>Authority Signeture</p>
+        <p>Staff Signature</p>
+        <p>Authority Signature</p>
     </div>
 </body>
 
