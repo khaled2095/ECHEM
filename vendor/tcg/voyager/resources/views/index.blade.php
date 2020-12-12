@@ -2,11 +2,11 @@
 
 @section('content')
 
-@php
-    $user = DB::table('users')->where('id', auth()->id())->first();
+    @php
+        $user = DB::table('users')->where('id', auth()->id())->first();
 
     @endphp
-    @if ($user->role_id === 5)
+    @if ($user->role_id === 5 || $user->role_id === 1)
     <div class="" style="width: 90%; margin: 20px auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
         <div class="card">
             @php
@@ -159,7 +159,6 @@
 
     </div>
     @endif
-
     <div class="page-content">
         @include('voyager::alerts')
         @include('voyager::dimmers')

@@ -36,7 +36,9 @@
                                  <a class="dropdown-item" href="{{ route('dash') }}">
                                      Dashboard
                                  </a>
-
+                                 <a class="dropdown-item" href="{{ route('edit-profile') }}">
+                                    Edit Profile
+                                </a>
                                  @if (!auth()
                                     ->user()
                                     ->hasRole('seller') &&

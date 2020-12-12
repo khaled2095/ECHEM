@@ -64,7 +64,10 @@
         </table>
         <br/>
         <br/>
-        <p>Staff Signeture</p>
+        <p>Staff Signature</p>
+        <br/>
+        <br/>
+        <p>Authority Signature</p>
     </div>
 </body>
 

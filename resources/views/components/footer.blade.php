@@ -11,7 +11,7 @@
             <p class="text-light">Join thousands already earning rewards, saving money, and growing their screen printing business
             <span class="h3"> <a class="h2 text-success" href="{{route('register')}}">Join Here</a></span>
             </p>
-            <a href="https://www.echem.com.bd/apps/_Echem_12584216.apk"><img src="https://echem.com.bd/images/google-play-badge.png" width='100'/></a>
+            <a href="http://echem.com.bd/apps/_Echem_12584216.apk"><img src="https://echem.com.bd/images/google-play-badge.png" width='100'/></a>
         </div>
         <div>
             <p class="section-head">Contact</p>
@@ -37,6 +37,9 @@
         <a href="{{ route('faq') }}">FAQ</a>
         <a href="{{ route('contact') }}">Contact</a>
         <a href="{{ route('project365') }}">Project <span class="badge badge-primary">365</span></a>
+        @guest
+            <li class="nav-item active"><a href="/affiliate-register" class="nav-link">Become Affiliate</a></li>
+        @endguest
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>

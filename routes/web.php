@@ -52,7 +52,7 @@ Route::get('/product/{prodId}', 'ProductSinglePage@index')->name('prod.single');
 
 Route::group(['prefix' => 'admin'], function () {
 
-    Route::get('expenses/publish/{id}','ExpenseController@index')->name('expenses.print');
+    Route::get('expenses/print/{id}','ExpenseController@index')->name('expenses.print');
     Route::get('expenses/publish/{id}','ExpenseController@index2')->name('expenses.print2');
     Route::get('/pay-commision/{id}', 'SubOrderController@pay2')->name('pay.com');
 
@@ -150,3 +150,5 @@ Route::get('/posts/{id}', 'Project365Controller@post_by_cat',)->name('post.by.ca
 Route::get('/product/attr/{id}', 'ProductController@by_attr')->name('prod.attr');
 Route::get('/apply-for-financing', 'FinanceRequestController@index')->name('f.req');
 Route::post('/make-finance-request', 'FinanceRequestController@store')->name('f.p.req');
+Route::view('/edit-profile', 'auth.edit-profile')->middleware('auth')->name('edit-profile');
+Route::post('/update-profile', 'UpdateProfile@index')->middleware('auth')->name('update-profile');
