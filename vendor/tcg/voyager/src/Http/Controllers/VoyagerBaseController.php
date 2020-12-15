@@ -15,7 +15,9 @@ use TCG\Voyager\Events\BreadDataUpdated;
 use TCG\Voyager\Events\BreadImagesDeleted;
 use TCG\Voyager\Facades\Voyager;
 use TCG\Voyager\Http\Controllers\Traits\BreadRelationshipParser;
-use App\Affiliated_sale;
+use App\Affiliated_Sale;
+use App\Product;
+use App\Related_Product;
 
 class VoyagerBaseController extends Controller
 {
@@ -37,7 +39,6 @@ class VoyagerBaseController extends Controller
     {
         // GET THE SLUG, ex. 'posts', 'pages', etc.
         $slug = $this->getSlug($request);
-
         // GET THE DataType based on the slug
         $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
 
@@ -198,7 +199,6 @@ class VoyagerBaseController extends Controller
     public function show(Request $request, $id)
     {
         $slug = $this->getSlug($request);
-
         $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
 
         $isSoftDeleted = false;
@@ -417,7 +417,6 @@ class VoyagerBaseController extends Controller
     public function create(Request $request)
     {
         $slug = $this->getSlug($request);
-
         $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
 
         // Check permission
@@ -445,8 +444,8 @@ class VoyagerBaseController extends Controller
         if (view()->exists("voyager::$slug.edit-add")) {
             $view = "voyager::$slug.edit-add";
         }
-
-        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable'));
+                  $p = Product::get();
+        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable','p'));
     }
 
     /**
@@ -470,7 +469,15 @@ class VoyagerBaseController extends Controller
         $data = $this->insertUpdateData($request, $slug, $dataType->addRows, new $dataType->model_name());
 
         event(new BreadDataAdded($dataType, $data));
-
+        if($slug = 'products'){
+          $re = $request->related;
+          foreach( $re as $key => $r){
+            $f = new Related_Product;
+            $f->product_id = $data->id;
+            $f->related = $request->related[$key];
+            $f->save();
+          }
+        }
         if (!$request->has('_tagging')) {
             if (auth()->user()->can('browse', $data)) {
                 $redirect = redirect()->route("voyager.{$dataType->slug}.index");

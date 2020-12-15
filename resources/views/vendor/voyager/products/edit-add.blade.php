@@ -20,7 +20,6 @@
 @stop
 
 @section('content')
-
     <div class="page-content edit-add container-fluid">
         <div class="row">
             {{-- <h1>hahaha</h1> --}}
@@ -123,8 +122,18 @@
                                 </div>
 
                             </div>
-
-
+                            <div class="field_wrapper">
+                              <div id="field">
+                                <div class="form-group">
+                                 <label for="exampleFormControlSelect1">Select Related Product</label>
+                                 <select multiple class="form-control" name="related[]" id="exampleFormControlSelect1">
+                                   @foreach($p as $o)
+                                    <option value="{{$o->id}}" >{{$o->name}}</option>
+                                   @endforeach
+                                 </select>
+                                </div>
+                              </div>
+                            </div>
                         </div><!-- panel-body -->
 
                         <div class="panel-footer">
@@ -179,7 +188,7 @@
     <script>
         var params = {};
         var $file;
-        
+
         function deleteHandler(tag, isMulti) {
           return function() {
             $file = $(this).siblings(tag);

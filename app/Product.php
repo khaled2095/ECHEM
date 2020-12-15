@@ -19,6 +19,8 @@ class Product extends Model
             $price = request('pricexx');
             $sk = request('sku');
             $attr = array();
+
+
             //dd(json_encode(array($size, $price, $color, $sk)));
             foreach ($size as $key => $value) {
                 # code...
@@ -32,6 +34,8 @@ class Product extends Model
             }
 
             $product->product_attributes = json_encode($attr);
+
+
 
             // foreach($attr as $key => $i)
             // {
@@ -96,6 +100,10 @@ class Product extends Model
     public function reviews()
     {
         return $this->hasMany(Reviews::class, 'product_id');
+    }
+    public function related()
+    {
+        return $this->hasMany(Related_Product::class, 'product_id');
     }
 
     public function productAtt()
