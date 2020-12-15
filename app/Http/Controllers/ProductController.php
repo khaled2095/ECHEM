@@ -20,7 +20,7 @@ class ProductController extends Controller
     {
         $categoryId = request('category_id');
         $categoryName = null;
-
+        
         if($categoryId)
         {
             $category = Category::find($categoryId);
@@ -54,11 +54,19 @@ class ProductController extends Controller
         $attrId = request('id');
         $categoryName = null;
         $attr = ProductAttribute::where('id', $request->id)->first();
-
+        $all_attr = ProductAttribute::where('size', $attr->size)->orWhere('price', $attr->price)->get();
         if($attr)
         {
             $category = null;
-            $products = Product::where('id', $attr->product_id)->get();
+            $products = array();
+            
+            foreach($all_attr as $at){
+                $data = Product::where('id', $at->product_id)->first();
+                if(!empty($data)){
+                    
+                    array_push($products,  $data);
+                }
+            }
         }
         else
         {

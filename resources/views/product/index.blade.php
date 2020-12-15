@@ -92,17 +92,18 @@
                     Search By Size
                 </button>
                 <div class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
-                    @foreach ($products as $item)
-                        @php
-                        $it = DB::table('product_attributes')->where('product_id', $item->id)->get();
-                        @endphp
+                     
+                    @php
+                        $it = DB::table('product_attributes')->groupBy('size')->get();
+                        
+                    @endphp
+                        
                         @if ($it->count() > 0)
                             @foreach ($it as $attr)
                                 <a href="{{ route('prod.attr', ['id' => $attr->id]) }}" class="dropdown-item"
-                                    style="text-decoration: none;">{{ $attr->size }}</a>
+                                    style="text-decoration: none;">{{ $attr->size}}</a>
                             @endforeach
                         @endif
-                    @endforeach
                 </div>
             </div>
             <div class="dropdown my-2 w-100">
@@ -111,17 +112,17 @@
                     Search By Price
                 </button>
                 <div class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
-                    @foreach ($products as $item)
-                        @php
-                        $it = DB::table('product_attributes')->where('product_id', $item->id)->get();
-                        @endphp
+                    @php
+                        $it = DB::table('product_attributes')->groupBy('price')->get();
+                        
+                    @endphp
+                        
                         @if ($it->count() > 0)
                             @foreach ($it as $attr)
                                 <a href="{{ route('prod.attr', ['id' => $attr->id]) }}" class="dropdown-item"
-                                    style="text-decoration: none;">{{ $attr->price }}</a>
+                                    style="text-decoration: none;">{{ $attr->price}}</a>
                             @endforeach
                         @endif
-                    @endforeach
                 </div>
             </div>
             <div class="dropdown my-2 w-100">
@@ -130,17 +131,17 @@
                     Search By Color
                 </button>
                 <div class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
-                    @foreach ($products as $item)
-                        @php
-                        $it = DB::table('product_attributes')->where('product_id', $item->id)->get();
-                        @endphp
+                    @php
+                        $it = DB::table('product_attributes')->groupBy('color')->get();
+                        
+                    @endphp
+                        
                         @if ($it->count() > 0)
                             @foreach ($it as $attr)
                                 <a href="{{ route('prod.attr', ['id' => $attr->id]) }}" class="dropdown-item"
-                                    style="text-decoration: none;">{{ $attr->color }}</a>
+                                    style="text-decoration: none;">{{ $attr->color}}</a>
                             @endforeach
                         @endif
-                    @endforeach
                 </div>
             </div>
         </div>
