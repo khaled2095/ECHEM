@@ -1,7 +1,46 @@
-@extends('layouts.app')
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-@section('content')
-    @php
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:image" content="{{ asset('storage/' . $product->cover_img) }}">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+        integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+        crossorigin="anonymous" />
+
+    <!-- Styles -->
+    {{-- <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}"> --}}
+
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+    @livewireStyles
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @yield('extra_css')
+
+</head>
+
+<body>
+
+
+
+
+    <div id="app">
+        <x-nav-bar />
+
+
+@php
     $reviews = DB::table('reviews')->where('product_id', $product->id)->get();
     $attr = DB::table('product_attributes')->where('product_id', $product->id)->get();
 
@@ -329,9 +368,35 @@
             </div>
         </div>
     </div>
+    @php
+        $pr = DB::table('related__products')->where('product_id', $product->id)->get();
+        
+    @endphp
+    @if(!empty($pr))
+    <div class='container'>
+        <h2 class='text-center'>Related Products</h2>
+        <div id="carouselExampleSlidesOnly" class="carousel slide my-5" data-ride="carousel">
+            <div class="carousel-inner">
+
+                @foreach ($pr as $key => $item)
+                    <div class="carousel-item w-100  {{ $key == 0 ? 'active' : '' }}" style="height: 530px;">
+                        <div class="products">
+                            @php
+                            $product = DB::table('products')->where('id', $item->related)->first();
+                            @endphp
+                                @include('product.single_product')
+                            
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+        </div>
+    </div>
+    @endif
     @auth
     @if (Auth::user()->is_affiliate=="1")
-    <input type="text" readonly="readonly"value="{{'127.0.0.1:8000/product/'.$product->id . '/?ref=' . Auth::user()->id }}">
+    <input type="text" readonly="readonly"value="{{'https://echem.com.bd/product/'.$product->id . '/?ref=' . Auth::user()->id }}">
     @else
 
     @endif
@@ -357,4 +422,40 @@
             @endif
         @endforeach
     </div>
-@endsection
+
+
+        @if (session()->has('message'))
+
+            <div class="alert alert-success" role="alert">
+                {{ session('message') }}
+            </div>
+
+        @endif
+
+        @if (session()->has('error'))
+
+            <div class="alert alert-danger" role="alert">
+                {{ session('error') }}
+            </div>
+
+        @endif
+
+        <main>
+            @yield('content')
+        </main>
+        <x-chat/>
+    </div>
+
+    @if(auth()->check())
+    <script>
+        var authuser = @JSON(auth()->user())
+    </script>
+    @endif
+
+
+    @livewireScripts
+    <x-footer />
+
+</body>
+
+</html>
