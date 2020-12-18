@@ -371,6 +371,13 @@
     @php
         $pr = DB::table('related__products')->where('product_id', $product->id)->get();
         
+        $prd = array();
+        foreach($pr as $p){
+            $pro = DB::table('products')->where('id', $p->related)->first();
+            array_push($prd, $pro);
+        }
+        $arr = array_chunk($prd, 3);
+        
     @endphp
     @if(!empty($pr))
     <div class='container'>
@@ -378,14 +385,12 @@
         <div id="carouselExampleSlidesOnly" class="carousel slide my-5" data-ride="carousel">
             <div class="carousel-inner">
 
-                @foreach ($pr as $key => $item)
+                @foreach ($arr as $key => $item)
                     <div class="carousel-item w-100  {{ $key == 0 ? 'active' : '' }}" style="height: 530px;">
                         <div class="products">
-                            @php
-                            $product = DB::table('products')->where('id', $item->related)->first();
-                            @endphp
+                            @foreach($item as $product)
                                 @include('product.single_product')
-                            
+                            @endforeach
                         </div>
                     </div>
                 @endforeach
