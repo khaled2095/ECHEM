@@ -36,7 +36,7 @@ Here is your receipt.
 
 Total : {{$order->grand_total}}
 
-@component('mail::button', ['url' => ''])
+@component('mail::button', ['url' => route('invoice.show', $order->id)])
 Button Text
 @endcomponent
 

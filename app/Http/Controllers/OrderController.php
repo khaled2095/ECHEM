@@ -8,6 +8,7 @@ use App\Order;
 use App\RewardPoint;
 use Illuminate\Http\Request;
 use App\Wallet;
+use PDF;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cookie;
@@ -353,6 +354,35 @@ class OrderController extends Controller
 
         //return redirect()->route('home')->withMessage('Order has been placed');
     }
+
+
+
+    public function viewOrderInvoice($order_id)
+    {
+        $orderDetails = Order::where('id',$order_id)->first();
+
+        //$this->order = $order;
+
+        //$oi = Order::where('id',$order_id)->get();
+
+        $order_Items = DB::table('order_items')->join('products', 'order_items.product_id', '=', 'products.id')->where('order_id',$order_id)->get();
+
+        return view('order_invoice')->with(compact('orderDetails', 'order_Items'));
+    }
+
+    public function donwloadInv()
+    {
+        $orderDetails = Order::where('id', request('id'))->first();
+
+        $order_Items = DB::table('order_items')->join('products', 'order_items.product_id', '=', 'products.id')->where('order_id',request('id'))->get();
+
+        $pdf = PDF::loadView('order_invoice',  ['orderDetails' => $orderDetails, 'order_Items' => $order_Items]);
+
+        return $pdf->download('order_invoice.pdf');
+    }
+
+
+
 
     /**
      * Display the specified resource.
