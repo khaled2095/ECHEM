@@ -5,18 +5,26 @@ namespace App\Http\Controllers;
 use App\Coupon;
 use App\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
     public function add(Product $product)
     {
         // dd($product);
+        $whole = DB::table('wholesales')->where('id', $product->wholesale_id)->first();
+        $qty = 1;
         $price =  0;
         $size = "None";
+        // dd($whole);
         if (!empty(request('price'))){
             $data = explode(',', request('price'));
             $price = (float)$data[0];
             $size = $data[1];
+        }
+        if(!empty($whole)){
+            $price  = $product->price;
+            $qty = 5;
         }
         else{
             $price = $product->price;
@@ -26,7 +34,7 @@ class CartController extends Controller
             'id' => $product->id,
             'name' => $product->name,
             'price' => $price,
-            'quantity' => 1,
+            'quantity' => $qty,
             'attributes' => array(
                 'size' => $size
             ),
