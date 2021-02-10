@@ -3,6 +3,31 @@ window.Vue = require('vue');
 import Vuex from 'vuex'
 import storeVuex from './store/index'
 import filter from './filter'
+import firebase from 'firebase'
+
+// Required for side-effects
+require("firebase/firestore");
+
+
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBEBVPPLSzybaWFuDZlbssHYuU54_Dumac",
+  authDomain: "echem-c4b0e.firebaseapp.com",
+  projectId: "echem-c4b0e",
+  storageBucket: "echem-c4b0e.appspot.com",
+  messagingSenderId: "1075983918458",
+  appId: "1:1075983918458:web:46d0686d68eaa87f3062c3",
+  measurementId: "G-1M8LS8R40Y"
+};
+
+firebase.initializeApp(firebaseConfig);
+var db = firebase.firestore();
+
+window.db = db;
+
+db.settings({
+  timestampsInSnapshots: true
+});
 
 Vue.use(Vuex)
 

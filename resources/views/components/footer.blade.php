@@ -20,7 +20,7 @@
         <div>
             <div class="section-head">Follow Us</div>
             <div class="social">
-                <a href="#"><i data-feather='facebook'></i></a>
+                <a href="https://www.facebook.com/echem.com.bd/"><i data-feather='facebook'></i></a>
                 <a href="#"><i data-feather='twitter'></i></a>
                 <a href="#"><i data-feather='instagram'></i></a>
                 <a href="#"><i data-feather='youtube'></i></a>

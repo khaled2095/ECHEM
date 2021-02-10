@@ -42,7 +42,7 @@ class ProductObserver
                 $x->save();
             }
         SendTo::Facebook(
-            'link',
+            'photo',
             [
                 // 'link' => 'http://' . request()->getHttpHost() . '/product' . '/' . $product->id,
                 'message' => 'New product on our shop ' . $product->name . ' get @ ' . $product->price .'BDT' . ' http://' . request()->getHttpHost() . '/product' . '/' . $product->id,

@@ -95,7 +95,7 @@
                          </li>
                          <li class="nav-item active">
                              <a href="{{ route('chat') }}" class="nav-link">
-                                 <i data-feather="message-square"></i>
+                                 CHAT
                              </a>
                          </li>
                      @endguest

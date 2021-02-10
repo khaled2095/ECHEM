@@ -107,7 +107,7 @@
 
     </div>
     @endif
-
+    
     @if ($user->role_id === 3 || $user->role_id === 4)
     <div class="" style="width: 90%; margin: 20px auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
         <div class="card">
@@ -137,7 +137,7 @@
             <h3 style="text-align: center">Total Sell Pending</h3>
             <h2 style="text-align: center">BDT {{$p_sell}} /-</h2>
         </div>
-
+        
 
         <div class='card'>
             <h3 style="text-align: center">Profit This Month</h3>
@@ -147,7 +147,7 @@
             <h3 style="text-align: center">Profit This Year</h3>
             <h2 style="text-align: center">{{$s_year_profit}} BDT</h2>
         </div>
-
+        
         <div class='card'>
             <h3 style="text-align: center">Total Item Sold</h3>
             <h2 style="text-align: center">{{$s_item}}</h2>

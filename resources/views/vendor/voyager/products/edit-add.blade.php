@@ -122,8 +122,6 @@
                                 </div>
 
                             </div>
-                            <div class="field_wrapper">
-                              <div id="field">
                                 <div class="form-group">
                                  <label for="exampleFormControlSelect1">Select Related Product</label>
                                  <select multiple class="form-control" name="related[]" id="exampleFormControlSelect1">
@@ -132,8 +130,6 @@
                                    @endforeach
                                  </select>
                                 </div>
-                              </div>
-                            </div>
                         </div><!-- panel-body -->
 
                         <div class="panel-footer">

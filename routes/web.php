@@ -153,5 +153,6 @@ Route::post('/make-finance-request', 'FinanceRequestController@store')->name('f.
 Route::view('/edit-profile', 'auth.edit-profile')->middleware('auth')->name('edit-profile');
 Route::post('/update-profile', 'UpdateProfile@index')->middleware('auth')->name('update-profile');
 
+
 Route::get('/view-pdf-invoice/{id}','OrderController@viewOrderInvoice')->name('invoice.show');
 Route::get('/download-invoice/{id}','OrderController@donwloadInv')->name('invoice.download');

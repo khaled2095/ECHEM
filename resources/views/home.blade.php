@@ -28,7 +28,7 @@
             </div>
 
         </div>
-        <h1 class="text-center mt-5">Featured Products</h1>
+        <h1 class="text-center mt-5">Top Products</h1>
         <div id="line" class="my-1">
             <div></div>
         </div>

@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use PDF;
 use App\Mail\OrderPaid;
 use App\GiftCardPurchase;
 use App\Order;
 use App\RewardPoint;
 use Illuminate\Http\Request;
 use App\Wallet;
-use PDF;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cookie;
@@ -183,7 +183,7 @@ class OrderController extends Controller
                 $this->manage_stock($prod, $items->quentity);
             }
 
-            // Mail::to($order->user->email)->send(new OrderPaid($order));
+            Mail::to($order->user->email)->send(new OrderPaid($order));
             $order->generateSubOrders();
             \Cart::session(auth()->id())->clear();
             return redirect()->route('home')->withMessage('Order has been placed');
@@ -354,9 +354,9 @@ class OrderController extends Controller
 
         //return redirect()->route('home')->withMessage('Order has been placed');
     }
-
-
-
+    
+    
+    
     public function viewOrderInvoice($order_id)
     {
         $orderDetails = Order::where('id',$order_id)->first();
@@ -380,9 +380,8 @@ class OrderController extends Controller
 
         return $pdf->download('order_invoice.pdf');
     }
-
-
-
+    
+    
 
     /**
      * Display the specified resource.

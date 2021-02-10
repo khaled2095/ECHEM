@@ -4,6 +4,7 @@
       <div class="people-list" id="people-list">
         <ul class="list">
           <li
+            @click="MakeActive(user.id)"
             @click.prevent="selectUser(user.id)"
             class="clearfix"
             v-for="user in userList"
@@ -34,16 +35,15 @@
         <!-- end chat-header -->
 
         <div class="chat-history" v-chat-scroll>
-          <ul>
-            <li class="clearfix" v-for="message in userMessage.messages" :key="message.id">
-              <div class="message-data align-right">
-                <span class="message-data-time">{{message.created_at | timeformat}}</span> &nbsp; &nbsp;
-                <span class="message-data-name">{{message.user.name}}</span>
-                <i class="fa fa-circle me"></i>
-              </div>
-              <div
-                :class="`message  float-right ${message.user.id == userMessage.user.id ? 'other-message' : 'my-message'}`"
-              >{{message.message}}</div>
+          <ul v-if = "active_field">
+            <li class="clearfix" v-for="message in messages" :key="message.id">
+              <div v-if="message.receiver == user && message.sender == sender || message.receiver == sender && message.sender == user">
+                <div class="message-data align-right">
+                  <!--<span class="message-data-time">{{message.createdAt}}</span> &nbsp; &nbsp;-->
+                  <i class="fa fa-circle me"></i>
+                </div>
+                <div :class="`message  float-right ${message.receiver == user ? 'other-message' : 'my-message'}`">{{message.message}}</div>
+                </div>
             </li>
           </ul>
         </div>
@@ -69,7 +69,7 @@
       <!-- end chat -->
     </div>
     <!-- end container -->
-    
+
   </div>
 </template>
 
@@ -84,7 +84,11 @@ export default {
 
   data() {
     return {
-      message: ""
+      message: "",
+      messages:[],
+      active_field:null,
+      user: `${authuser.id}`,
+      sender:null
     };
   },
 
@@ -97,25 +101,58 @@ export default {
     }
   },
 
-  created() {},
+  created() {
+    // this.fetchMessages();
+  },
 
   methods: {
     selectUser(userId) {
       this.$store.dispatch("userMessage", userId);
     },
+    MakeActive: function(field){
+      this.active_field = field
+      this.fetchMessages1(field);
+      this.fetchMessages2(field);
+      this.sender = field;
+    },
     sendMessage(e) {
-      e.preventDefault();
-      if (this.message != "") {
-        axios
-          .post("/senemessage", {
-            message: this.message,
-            user_id: this.userMessage.user.id
-          })
-          .then(response => {
-            this.selectUser(this.userMessage.user.id);
-          });
+      db.collection("message").add({
+          receiver: this.userMessage.user.id,
+          message: this.message,
+          sender: parseInt(`${authuser.id}`),
+          createdAt: new Date()
+        })
         this.message = "";
-      }
+      // e.preventDefault();
+      // if (this.message != "") {
+      //   axios
+      //     .post("/senemessage", {
+      //       message: this.message,
+      //       user_id: this.userMessage.user.id
+      //     })
+      //     .then(response => {
+      //       this.selectUser(this.userMessage.user.id);
+      //     });
+      //   this.message = "";
+      // }
+    },
+    fetchMessages1(field){
+      db.collection('message').orderBy('createdAt').where('sender', 'in', [field, parseInt(`${authuser.id}`)] ).onSnapshot((querySnapshot)=>{
+        let allMessages=[];
+        querySnapshot.forEach(doc=>{
+          allMessages.push(doc.data())
+        })
+        this.messages=allMessages;
+      })
+    },
+    fetchMessages2(field){
+      db.collection('message').orderBy('createdAt').where('receiver', 'in', [field, parseInt(`${authuser.id}`)] ).onSnapshot((querySnapshot)=>{
+        let allMessages=[];
+        querySnapshot.forEach(doc=>{
+          allMessages.push(doc.data())
+        })
+        this.messages=allMessages;
+      })
     }
   }
 };

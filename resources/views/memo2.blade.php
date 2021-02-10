@@ -30,7 +30,7 @@
 </head>
 
 <body>
-    <div class='container'>
+    <div class=''>
         <h1 style="text-align: center">Echem</h1>
         <h4 style="text-align: center">Mobile number -  02 8413289, +880-1880-006-355, 01880006362</h4>
         <br/>

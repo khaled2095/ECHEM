@@ -13,6 +13,8 @@ use App\Wholesale;
 use Illuminate\Support\ServiceProvider;
 use TCG\Voyager\Facades\Voyager;
 use Illuminate\Support\Facades\Schema;
+use TCG\Voyager\Models\Post;
+use App\Observers\PostObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -36,6 +38,7 @@ class AppServiceProvider extends ServiceProvider
         Shop::observe(ShopObserver::class);
         Wholesale::observe(WholesaleObserver::class);
         Product::observe(ProductObserver::class);
+        Post::observe(PostObserver::class);
         ExpenseManagement::observe(ExpenseManagementObserver::class);
         Schema::defaultStringLength(191);
         Voyager::addAction(\App\Actions\PrintAction::class);

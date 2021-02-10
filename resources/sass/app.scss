@@ -19,7 +19,9 @@ body {
 a {
     text-decoration: none;
 }
-
+@media (max-width: 430px){
+    grid-template-columns: 1fr;
+}
 ul,
 li {
     list-style-type: none;

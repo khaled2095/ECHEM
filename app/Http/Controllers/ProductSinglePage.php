@@ -11,6 +11,9 @@ class ProductSinglePage extends Controller
     public function index(){
         $prodid = request('prodId');
         $product = Product::find($prodid);
-        return view('product-single', ['product' => $product]);
+        $searches = array('[', ']','"');
+        $cover_img = str_replace($searches,'',$product->cover_img);
+        $img = explode(",",$cover_img);
+        return view('product-single', compact('product','img'));
     }
 }

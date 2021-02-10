@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
@@ -26,7 +27,7 @@
 
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
+    
 </head>
 
 <body>
@@ -56,6 +57,8 @@
         <br/>
         <br/>
         <p>Staff Signature</p>
+        <br/>
+        <br/>
         <p>Authority Signature</p>
     </div>
 </body>

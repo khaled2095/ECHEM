@@ -20,12 +20,12 @@ class ProductController extends Controller
     {
         $categoryId = request('category_id');
         $categoryName = null;
-
+        
         if($categoryId)
         {
             $category = Category::find($categoryId);
             $categoryName = $category->name;
-
+            
             //$products = $category->products;
             $products = $category->allProducts();
 
@@ -34,7 +34,7 @@ class ProductController extends Controller
         {
             $products = Product::take(1000)->get();
         }
-
+        
         $categories = Category::whereNull('parent_id')->get();
         $cat = DB::table('categories')->where('id', request('category_id'))->get();
         return view('product.index', compact('products', 'categoryName', 'categories', 'cat', 'category'));
@@ -59,11 +59,11 @@ class ProductController extends Controller
         {
             $category = null;
             $products = array();
-
+            
             foreach($all_attr as $at){
                 $data = Product::where('id', $at->product_id)->first();
                 if(!empty($data)){
-
+                    
                     array_push($products,  $data);
                 }
             }
@@ -72,7 +72,7 @@ class ProductController extends Controller
         {
             $products = Product::take(1000)->get();
         }
-
+        
         $categories = Category::whereNull('parent_id')->get();
         $cat = DB::table('categories')->where('id', request('category_id'))->get();
         return view('product.index', compact('products', 'categoryName', 'categories', 'cat', 'category'));

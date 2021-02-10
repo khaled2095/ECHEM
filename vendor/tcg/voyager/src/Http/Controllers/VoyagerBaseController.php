@@ -301,8 +301,8 @@ class VoyagerBaseController extends Controller
         if (view()->exists("voyager::$slug.edit-add")) {
             $view = "voyager::$slug.edit-add";
         }
-
-        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable'));
+         $p = Product::get();
+        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable','p'));
     }
 
     // POST BR(E)AD
@@ -333,6 +333,28 @@ class VoyagerBaseController extends Controller
         $this->insertUpdateData($request, $slug, $dataType->editRows, $data);
 
         event(new BreadDataUpdated($dataType, $data));
+        if($slug === 'products'){
+          $re = $request->related;
+          $check = DB::table('related__products')
+                 ->where('product_id', $data->id)
+                 ->get();
+                 
+         if(!empty($check)){
+             foreach( $re as $key => $r){
+            $f = new Related_Product;
+            $f->product_id = $data->id;
+            $f->related = $request->related[$key];
+            $f->save();
+          }
+         }else{
+             foreach( $re as $key => $r){
+            $f = DB::table('related__products')
+                ->where('product_id', $data->id)
+                ->update(['related' => $request->related[$key]
+                                                             ]);
+          } 
+         }
+        }
 
         if (auth()->user()->can('browse', app($dataType->model_name))) {
             $redirect = redirect()->route("voyager.{$dataType->slug}.index");
@@ -469,9 +491,9 @@ class VoyagerBaseController extends Controller
         $data = $this->insertUpdateData($request, $slug, $dataType->addRows, new $dataType->model_name());
 
         event(new BreadDataAdded($dataType, $data));
-        if($slug = 'products'){
+        if($slug === 'products'){
           $re = $request->related;
-          foreach( $re as $key => $r){
+          foreach($re as $key => $r){
             $f = new Related_Product;
             $f->product_id = $data->id;
             $f->related = $request->related[$key];

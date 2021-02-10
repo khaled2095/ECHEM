@@ -171,6 +171,7 @@ class ProductController extends VoyagerBaseController
         if (view()->exists("voyager::$slug.browse")) {
             $view = "voyager::$slug.browse";
         }
+
         return Voyager::view($view, compact(
             'actions',
             'dataType',
@@ -185,7 +186,7 @@ class ProductController extends VoyagerBaseController
             'defaultSearchKey',
             'usesSoftDeletes',
             'showSoftDeleted',
-            'showCheckboxColumn',
+            'showCheckboxColumn'
         ));
     }
 

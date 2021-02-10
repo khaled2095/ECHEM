@@ -62,11 +62,25 @@
     @endphp
     <div class="product-single-page container my-3">
 
-        <div class="media-content">
+              <div class="media-content">
             @if ($product->cover_img)
-                <div width='100%'>
-                    <img src="{{ asset('storage/' . $product->cover_img) }}" alt="">
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+              <div class="carousel-inner">
+              @foreach($img as $key => $im)
+                <div class="carousel-item {{$key == 0 ? 'active' : '' }}">
+                  <img class="d-block w-100" src="{{ asset('storage/' . $im) }}" alt="First slide" style="max-width: 500px; max-height: 400px">
                 </div>
+              @endforeach
+              </div>
+              <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
             @else
                 <div style="width: 100%; height: 500px; background: #000">
                 </div>
@@ -376,7 +390,7 @@
             $pro = DB::table('products')->where('id', $p->related)->first();
             array_push($prd, $pro);
         }
-        $arr = array_chunk($prd, 3);
+        $arr = array_chunk($prd, 4);
         
     @endphp
     @if(!empty($pr))
